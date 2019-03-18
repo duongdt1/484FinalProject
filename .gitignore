@@ -3,3 +3,5 @@
 484Proj/.vs/484Proj/v15/.suo
 *.lock
 .vs/484FinalProject/v15/.suo
+.vs/484FinalProject/v15/Server/sqlite3/storage.ide-shm
+.vs/484FinalProject/v15/Server/sqlite3/storage.ide-wal
