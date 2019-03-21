@@ -35,7 +35,7 @@
     </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Job Description</label>
-    <asp:TextBox ID="txtJobDescription" runat="server" class="form-control" Width="595px" Height="100px"></asp:TextBox>
+    <asp:TextBox ID="txtJobDescription" runat="server" class="form-control" Width="595px" Height="100px" TextMode="MultiLine"></asp:TextBox>
   </div>
   <fieldset class="form-group">
     <div class="row">

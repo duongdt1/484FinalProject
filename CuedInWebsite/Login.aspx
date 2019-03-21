@@ -24,7 +24,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <asp:TextBox runat="server" class="form-control" id="exampleInputPassword1" placeholder="Password" Width="313px"></asp:TextBox>
+    <asp:TextBox runat="server" class="form-control" id="exampleInputPassword1" placeholder="Password" Width="313px" TextMode="Password"></asp:TextBox>
   </div>
   <asp:HyperLink runat="server" class="btn btn-primary"  role="button" NavigateUrl="~/Jobs.aspx">Login</asp:HyperLink>
 	<a class="btn btn-secondary" href="createaccount.html" role="button">Create An Account</a>
