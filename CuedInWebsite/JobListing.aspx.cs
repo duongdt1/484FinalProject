@@ -4,12 +4,39 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Web.Configuration;
 
 public partial class JobListing : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        List<String> careerClusterList = new List<string>();
+        using (SqlConnection connection = connect())
+        {
+            connection.Open();
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            select.CommandText = "SELECT * FROM CareerCluster";
+            SqlDataReader cursor = select.ExecuteReader();
+            while(cursor.Read())
+            {
+                 careerClusterList.Add(cursor[0].ToString());
+            }
+            connection.Close();
+        }
+        if(!IsPostBack)
+        {
+            for (int i = 0; careerClusterList.Count > i; i++)
+                lstCareerCluster.Items.Add(careerClusterList[i]);
+        }
+    }
 
+    public SqlConnection connect()
+    {
+        SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
+
+        return dbConnect;
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
