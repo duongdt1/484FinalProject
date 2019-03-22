@@ -5,6 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
     <style type="text/css">
 
 
@@ -94,6 +99,7 @@ h1, h2, h3, h4, h5, h6 {
         <asp:Panel ID="Panel7" runat="server">
             <asp:Label ID="Label7" runat="server" Text="Add a career cluster to target the students you're interested in"></asp:Label>
             <br />
+            <asp:ListBox ID="lstCareerCluster" CssClass="dropdown dropdown-menu" runat="server" SelectionMode="Multiple"></asp:ListBox>
             <br />
         </asp:Panel>
         <asp:Panel ID="Panel8" runat="server">
@@ -108,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
             <br />
             <asp:Label ID="Label11" runat="server" Text="What information do you need from each applicant?" Visible="False"></asp:Label>
             <br />
-            <asp:ListBox ID="lstStudentFields" runat="server" Visible="False"></asp:ListBox>
+            <asp:ListBox ID="lstStudentFields" CssClass="dropdown dropdown-menu" runat="server" SelectionMode="Multiple" Visible="False"></asp:ListBox>
             <br />
             <asp:Label ID="Label12" runat="server" Text="Enter the URL:" Visible="False"></asp:Label>
             <br />
@@ -118,5 +124,14 @@ h1, h2, h3, h4, h5, h6 {
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
         </p>
     </form>
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=lstCareerCluster]').multiselect
+            ({
+                includeSelectAllOption: true,
+                nonSelectedText: 'Select Clusters' // Here you can change with your desired text as per your requirement.
+            });
+        });
+    </script>
 </body>
 </html>
