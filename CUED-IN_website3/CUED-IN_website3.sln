@@ -21,6 +21,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CUED-IN_website3", "CUED-IN
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "59663"
+		SlnRelativePath = "CUED-IN_website3\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
