@@ -66,12 +66,13 @@ public partial class CreateBusiness : System.Web.UI.Page
             OrganizationUser newUser = (OrganizationUser)Session["organizationUser"];
 
             String test1 = newUser.getUserName();
-            createUser.CommandText = "INSERT INTO organizationuser VALUES(@username, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, (select max(organizationID) from organization))";
+            createUser.CommandText = "INSERT INTO organizationuser VALUES(@username, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode, (select max(organizationID) from organization))";
             createUser.Parameters.AddWithValue("@username", newUser.getUserName());
             createUser.Parameters.AddWithValue("@password", newUser.getPassword());
             createUser.Parameters.AddWithValue("@emailaddress", newUser.getEmail());
             createUser.Parameters.AddWithValue("@lastUpdated", newUser.getLastUpdated());
             createUser.Parameters.AddWithValue("@lastUpdatedBy", newUser.getLastUpdatedBy());
+            createUser.Parameters.AddWithValue("@passcode", 12345);
             connection2.Open();
             createUser.ExecuteNonQuery();
         }

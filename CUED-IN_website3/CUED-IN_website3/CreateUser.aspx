@@ -14,6 +14,12 @@
 	  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     <title>CUED-In</title>
+      <style type="text/css">
+          .auto-style1 {
+              width: 914px;
+              margin-bottom: 1rem;
+          }
+      </style>
   </head>
   <body>  
 	  <nav class="navbar navbar-expand-lg navbar-light">
@@ -38,11 +44,13 @@
 </nav>
 	  
 	  <form runat= "server">
-		  <div class="form-group">
+		  <div class="auto-style1">
     <label for="exampleInputBusOrgName1"></label>
               <asp:Label ID="lblUsername" runat="server" Text="Username"  Width="313px"></asp:Label>
               <br />
               <asp:TextBox ID="txtUserName" runat="server" Width="313px"></asp:TextBox>
+  &nbsp;&nbsp;&nbsp;<br />
+&nbsp;<asp:Label ID="txtDuplicate" runat="server" ForeColor="Red"></asp:Label>
   </div>
 
 
@@ -64,10 +72,11 @@
 		  <div class="form-group">
     <label for="exampleInputReenterPassword1">Re-enter Your Password</label>
     <asp:TextBox runat="server" class="form-control" id="txtReenter" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+              <br />
   </div>
 
           
-  <asp:Button ID="btnSubmit" runat="server" Text="Button" OnClick="btnSubmit_Click1" />
+  <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click1" />
               
 </form>
 

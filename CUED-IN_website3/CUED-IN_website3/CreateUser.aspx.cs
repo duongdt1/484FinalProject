@@ -16,30 +16,36 @@ public partial class CreateUser : System.Web.UI.Page
 
     protected void btnSubmit_Click1(object sender, EventArgs e)
     {
-        //using (SqlConnection connection = connect())
-        //{
+        using (SqlConnection sc = connect())
+        {
+            sc.Open();
+            System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
+            findPass.Connection = sc;
 
-            //OrganizationUser newUser = new OrganizationUser(txtUserName.Text, PasswordHash.HashPassword(txtPassword.Text), txtEmail.Text);
+            findPass.CommandText = "select username from organizationuser where username = @username";
+            findPass.Parameters.Add(new SqlParameter("@username", txtUserName.Text));
+
+            SqlDataReader reader = findPass.ExecuteReader(); //Create reader to find password
+
+            if (reader.HasRows) 
+            {
+
+                txtDuplicate.Text = "Username already exists";
+                
+            }
+            else
+            {
+                Session["organizationUser"] = new OrganizationUser(txtUserName.Text, PasswordHash.HashPassword(txtPassword.Text), txtEmail.Text);
+                Response.Redirect("~/CreateBusiness.aspx");
+
+            }
 
 
-            Session["organizationUser"] = new OrganizationUser(txtUserName.Text, PasswordHash.HashPassword(txtPassword.Text), txtEmail.Text);
-            Response.Redirect("~/CreateBusiness.aspx");
-
-            //SqlCommand insert = new SqlCommand();
-            //insert.Connection = connection;
-            //insert.CommandText = "INSERT INTO organizationuser VALUES(@username, @password, @emailaddress,@lastUpdated, @lastUpdatedBy)";
-            //insert.Parameters.AddWithValue("@username", txtUserName.Text);
-            //insert.Parameters.AddWithValue("@password", txtPassword.Text);
-            //insert.Parameters.AddWithValue("@emailaddress", txtEmail.Text);
-            //insert.Parameters.AddWithValue("@lastUpdated", DateTime.Today);
-            //insert.Parameters.AddWithValue("@lastUpdatedBy", "Peaches");
 
 
 
-            //connection.Open();
-            //insert.ExecuteNonQuery();
 
-        //}
+        }
 
     }
     public SqlConnection connect()

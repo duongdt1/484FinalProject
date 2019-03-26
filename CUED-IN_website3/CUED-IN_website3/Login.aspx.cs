@@ -17,10 +17,14 @@ public partial class Login : System.Web.UI.Page
     {
         using (SqlConnection sc = connect())
         {
-
             sc.Open();
             System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
             findPass.Connection = sc;
+
+            
+
+
+
 
             // Find password for username entered
             findPass.CommandText = "select password from organizationuser where username = @username";
@@ -40,7 +44,7 @@ public partial class Login : System.Web.UI.Page
                     }
                     else
                     {
-                        Environment.Exit(0);
+                        lblError.Text = "Your password is incorrect";
                     }
 
                 }

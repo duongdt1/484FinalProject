@@ -42,7 +42,8 @@
      <form runat ="server">
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
-    <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
+    <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Username" Width="313px"></asp:TextBox>
+    &nbsp;&nbsp;&nbsp;
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
@@ -59,6 +60,15 @@
         
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" PostBackUrl="~/CreateUser.aspx" Text="Create Account" />
+        
+       
+        
+        
+        
+        
+         <br />
+         <br />
+         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
         
        
         

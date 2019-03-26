@@ -75,7 +75,7 @@
  </div>
 
           
-  <asp:Button ID="btnSubmit" runat="server" Text="Button" OnClick="btnSubmit_Click1" />
+  <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click1" />
               
 </form>
 
