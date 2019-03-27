@@ -109,7 +109,7 @@ h1, h2, h3, h4, h5, h6 {
         <asp:Panel ID="Panel7" runat="server">
             <asp:Label ID="Label7" runat="server" Text="Add a career cluster to target the students you're interested in"></asp:Label>
             <br />
-            <asp:ListBox ID="lstCareerCluster" CssClass="dropdown dropdown-menu" runat="server" SelectionMode="Multiple"></asp:ListBox>
+            <asp:ListBox ID="lstCareerCluster" runat="server" SelectionMode="Multiple"></asp:ListBox>
             <br />
         </asp:Panel>
         <asp:Panel ID="Panel8" runat="server">
@@ -124,16 +124,7 @@ h1, h2, h3, h4, h5, h6 {
             <br />
             <asp:Label ID="Label11" runat="server" Text="What information do you need from each applicant?" Visible="False"></asp:Label>
             <br />
-            <asp:ListBox ID="lstStudentFields" CssClass="dropdown dropdown-menu" runat="server" SelectionMode="Multiple" Visible="False">
-                <asp:ListItem>Name</asp:ListItem>
-                <asp:ListItem>Age</asp:ListItem>
-                <asp:ListItem>Grade Level</asp:ListItem>
-                <asp:ListItem>Email Address</asp:ListItem>
-                <asp:ListItem>Resume</asp:ListItem>
-                <asp:ListItem>Transcript</asp:ListItem>
-                <asp:ListItem>Able to work in US</asp:ListItem>
-                <asp:ListItem>School</asp:ListItem>
-                <asp:ListItem>Counselor Email</asp:ListItem>
+            <asp:ListBox ID="lstStudentFields" runat="server" SelectionMode="Multiple" Visible="False">
             </asp:ListBox>
             <br />
             <asp:Label ID="Label12" runat="server" Text="Enter the URL:" Visible="False"></asp:Label>
