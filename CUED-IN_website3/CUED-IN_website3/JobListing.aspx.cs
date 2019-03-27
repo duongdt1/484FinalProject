@@ -9,13 +9,12 @@ using System.Web.Configuration;
 
 public partial class JobListing : System.Web.UI.Page
 {
-    DateTime currentDate = DateTime.Now;
     protected void Page_Load(object sender, EventArgs e)
     {
-        currentDate = DateTime.Now;
         List<String> careerClusterList = new List<string>();
-       
-        if(!IsPostBack)
+        List<String> studentAttributeList = new List<string>();
+
+        if (!IsPostBack)
         {
             //populate the career cluster dropdown from the database
             using (SqlConnection connection = connect())
@@ -31,8 +30,24 @@ public partial class JobListing : System.Web.UI.Page
                 }
                 connection.Close();
             }
-        for (int i = 0; careerClusterList.Count > i; i++)
-            lstCareerCluster.Items.Add(careerClusterList[i]);
+            for (int i = 0; careerClusterList.Count > i; i++)
+                lstCareerCluster.Items.Add(careerClusterList[i]);
+            //populate the student attribute dropdown from the database
+            using (SqlConnection connection = connect())
+            {
+                connection.Open();
+                SqlCommand select = new SqlCommand();
+                select.Connection = connection;
+                select.CommandText = "SELECT * FROM StudentAttributes";
+                SqlDataReader cursor = select.ExecuteReader();
+                while (cursor.Read())
+                {
+                    studentAttributeList.Add(cursor[0].ToString());
+                }
+                connection.Close();
+            }
+            for (int i = 0; studentAttributeList.Count > i; i++)
+                lstStudentFields.Items.Add(studentAttributeList[i]);
         }
     }
 
@@ -101,6 +116,7 @@ public partial class JobListing : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        int currentJobID = 0; //keeps track of the latest job added by the company
         string appType;
         if (RadioButtonList1.SelectedIndex == 0)
             appType = "Quick Apply";
@@ -108,11 +124,13 @@ public partial class JobListing : System.Web.UI.Page
             appType = txtURL.Text;
         using (SqlConnection connection = connect())
         {
+            
             connection.Open();
+            //insert into the job table
             SqlCommand insert = new SqlCommand();
             insert.CommandText = "INSERT INTO Job VALUES(@OrganizationID, @JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @ApplicationType, @LastUpdated, @LastUpdatedBy)";
             insert.Connection = connection;
-            insert.Parameters.AddWithValue("@OrganizationID", 0);//Set to 1 by default until login works
+            insert.Parameters.AddWithValue("@OrganizationID", 0);//Set to 0 by default until login works
             insert.Parameters.AddWithValue("@JobTitle", txtJobTitle.Text);
             if (chkUnpaid.Checked)
                 insert.Parameters.AddWithValue("@Pay", 0);
@@ -130,10 +148,98 @@ public partial class JobListing : System.Web.UI.Page
             else
                 insert.Parameters.AddWithValue("@Deadline", DBNull.Value);
             insert.Parameters.AddWithValue("@ApplicationType", appType);
-            insert.Parameters.AddWithValue("@LastUpdated", currentDate.Year + "-" + currentDate.Month + "-" + currentDate.Day);
+            insert.Parameters.AddWithValue("@LastUpdated", getDate());
             insert.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
             insert.ExecuteNonQuery();
+
+
+            //Read the max ID from the table
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            select.CommandText = "SELECT MAX(JobID) FROM Job WHERE OrganizationID = @OrgID";
+            select.Parameters.AddWithValue("@OrgID", 0); //need to change the 0 to whoever is signed in
+            SqlDataReader cursor = select.ExecuteReader();
+            while (cursor.Read())
+            {
+                currentJobID = Int32.Parse(cursor[0].ToString());
+            }
+
             connection.Close();
+
+
+            //insert into the job Cluster table
+            connection.Open();
+            SqlCommand insertCluster = new SqlCommand();
+            insertCluster.CommandText = "INSERT INTO JobCluster VALUES(@CareerCluster, @JobID, @LastUpdated, @LastUpdatedBy)";
+            insertCluster.Connection = connection;
+            for (int i = 0; i < lstCareerCluster.Items.Count; i++)
+            {
+                if (lstCareerCluster.Items[i].Selected)
+                {
+                    insertCluster.Parameters.Clear();
+                    insertCluster.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.Items[i].ToString());
+                    insertCluster.Parameters.AddWithValue("@JobID", currentJobID);
+                    insertCluster.Parameters.AddWithValue("@LastUpdated", getDate());
+                    insertCluster.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
+                    insertCluster.ExecuteNonQuery();
+                }
+            }
+            connection.Close();
+
+            //if the job is a quick apply job, insert into the QuickApplyJobAttributes table the selected attributes
+            if (RadioButtonList1.SelectedIndex == 0)
+            {
+                connection.Open();
+                SqlCommand insertSdntAttribute = new SqlCommand();
+                insertSdntAttribute.CommandText = "INSERT INTO QuickApplyJobAttributes VALUES(@StudentAttribute, @JobID, @LastUpdated, @LastUpdatedBy)";
+                insertSdntAttribute.Connection = connection;
+                for (int i = 0; i < lstStudentFields.Items.Count; i++)
+                {
+                    if (lstStudentFields.Items[i].Selected)
+                    {
+                        insertSdntAttribute.Parameters.Clear();
+                        insertSdntAttribute.Parameters.AddWithValue("@StudentAttribute", lstStudentFields.Items[i].ToString());
+                        insertSdntAttribute.Parameters.AddWithValue("@JobID", currentJobID);
+                        insertSdntAttribute.Parameters.AddWithValue("@LastUpdated", getDate());
+                        insertSdntAttribute.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
+                        insertSdntAttribute.ExecuteNonQuery();
+                    }
+                }
+                connection.Close();
+            }
         }
+        clearFields();
+    }
+    public string getDate()
+    {
+        //Returns the current date in sql format
+        string returnString = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+        return returnString;
+    }
+    public void clearFields()
+    {
+        //clears the fields after a successful submit
+        txtJobTitle.Text = "";
+        txtDescription.Text = "";
+        radJobType.ClearSelection();
+        chkAge.Checked = false;
+        txtMinimumAge.Text = "";
+        txtMinimumAge.Visible = false;
+        chkDeadline.Checked = false;
+        Label5.Visible = false;
+        cldrDueDate.Visible = false;
+        txtPay.Text = "";
+        ddlPayType.SelectedIndex = 0;
+        chkUnpaid.Checked = false;
+        txtPay.Enabled = true;
+        ddlPayType.Enabled = true;
+        lstCareerCluster.ClearSelection();
+        RadioButtonList1.ClearSelection();
+        lstStudentFields.ClearSelection();
+        txtURL.Text = "";
+        Label11.Visible = false;
+        lstStudentFields.Visible = false;
+        Label12.Visible = false;
+        txtURL.Visible = false;
     }
 }
