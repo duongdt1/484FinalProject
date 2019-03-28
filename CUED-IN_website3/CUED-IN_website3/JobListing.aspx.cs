@@ -128,7 +128,7 @@ public partial class JobListing : System.Web.UI.Page
             connection.Open();
             //insert into the job table
             SqlCommand insert = new SqlCommand();
-            insert.CommandText = "INSERT INTO Job VALUES(@OrganizationID, @JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @ApplicationType, @LastUpdated, @LastUpdatedBy)";
+            insert.CommandText = "INSERT INTO Job VALUES(@OrganizationID, @JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @ApplicationType, @LastUpdated, @LastUpdatedBy, @CareerCluster)";
             insert.Connection = connection;
             insert.Parameters.AddWithValue("@OrganizationID", 0);//Set to 0 by default until login works
             insert.Parameters.AddWithValue("@JobTitle", txtJobTitle.Text);
@@ -150,6 +150,7 @@ public partial class JobListing : System.Web.UI.Page
             insert.Parameters.AddWithValue("@ApplicationType", appType);
             insert.Parameters.AddWithValue("@LastUpdated", getDate());
             insert.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
+            insert.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.SelectedValue);
             insert.ExecuteNonQuery();
 
 
@@ -166,25 +167,6 @@ public partial class JobListing : System.Web.UI.Page
 
             connection.Close();
 
-
-            //insert into the job Cluster table
-            connection.Open();
-            SqlCommand insertCluster = new SqlCommand();
-            insertCluster.CommandText = "INSERT INTO JobCluster VALUES(@CareerCluster, @JobID, @LastUpdated, @LastUpdatedBy)";
-            insertCluster.Connection = connection;
-            for (int i = 0; i < lstCareerCluster.Items.Count; i++)
-            {
-                if (lstCareerCluster.Items[i].Selected)
-                {
-                    insertCluster.Parameters.Clear();
-                    insertCluster.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.Items[i].ToString());
-                    insertCluster.Parameters.AddWithValue("@JobID", currentJobID);
-                    insertCluster.Parameters.AddWithValue("@LastUpdated", getDate());
-                    insertCluster.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
-                    insertCluster.ExecuteNonQuery();
-                }
-            }
-            connection.Close();
 
             //if the job is a quick apply job, insert into the QuickApplyJobAttributes table the selected attributes
             if (RadioButtonList1.SelectedIndex == 0)
