@@ -109,7 +109,7 @@ h1, h2, h3, h4, h5, h6 {
         <asp:Panel ID="Panel7" runat="server">
             <asp:Label ID="Label7" runat="server" Text="Add a career cluster to target the students you're interested in"></asp:Label>
             <br />
-            <asp:ListBox ID="lstCareerCluster" runat="server" SelectionMode="Multiple"></asp:ListBox>
+            <asp:ListBox ID="lstCareerCluster" runat="server"></asp:ListBox>
             <br />
         </asp:Panel>
         <asp:Panel ID="Panel8" runat="server">
