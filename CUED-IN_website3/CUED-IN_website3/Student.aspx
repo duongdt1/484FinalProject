@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Student.aspx.cs" Inherits="Student" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Student.aspx.cs" Inherits="Student" %>
 
 <!DOCTYPE html>
 
@@ -27,6 +27,12 @@
         <h3>Student Sign-Up</h3>
         
         <div>
+            <asp:Label ID="lblCounselorEmail0" runat="server" Text="Select Your School"></asp:Label>
+            <br />
+            <asp:DropDownList ID="ddlSchool" runat="server">
+            </asp:DropDownList>
+            <br />
+            <br />
             <asp:Label ID="lblCounselorEmail" runat="server" Text="Counselor Email"></asp:Label>
             <asp:TextBox ID="txtCounselorEmail" runat="server" class="form-control"></asp:TextBox>
             <br />
@@ -43,24 +49,31 @@
             <asp:TextBox ID="txtAge" runat="server" class="form-control"></asp:TextBox>
             <br />
             <asp:Label ID="lblGrade" runat="server" Text="Grade"></asp:Label>
-            <asp:TextBox ID="txtGrade" runat="server" class="form-control"></asp:TextBox>
+            <br />
+            <asp:DropDownList ID="ddlGradeLevel" runat="server">
+                <asp:ListItem Value="5"></asp:ListItem>
+                <asp:ListItem Value="6"></asp:ListItem>
+                <asp:ListItem Value="7"></asp:ListItem>
+                <asp:ListItem Value="8"></asp:ListItem>
+                <asp:ListItem Value="9"></asp:ListItem>
+                <asp:ListItem Value="10"></asp:ListItem>
+                <asp:ListItem Value="11"></asp:ListItem>
+                <asp:ListItem Value="12"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
             <br />
             <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>
             <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
             <br />
-            <asp:Label ID="lblResumeUpload" runat="server" Text="Resume"></asp:Label>
-            <asp:TextBox ID="txtResumeBrowse" runat="server"></asp:TextBox>
-            <asp:Button ID="btnBrowseResume" runat="server" Text="Browse..." />
+            <asp:Label ID="lblResumeUpload" runat="server" Text="Resume     "></asp:Label>
+            <asp:FileUpload ID="fuResume" runat="server" />
             <br />
-            <asp:Button ID="btnResumeUpload" runat="server" Text="Upload" />
             <br />
             
             <br />
             <asp:Label ID="lblTranscript" runat="server" Text="Transcript"></asp:Label>
-            <asp:TextBox ID="txtTranscript" runat="server"></asp:TextBox>
-            <asp:Button ID="btnTranscriptBrowse" runat="server" Text="Browse..." />
+            <asp:FileUpload ID="fuTranscript" runat="server" />
             <br />
-            <asp:Button ID="btnUpload" runat="server" Text="Upload" />
             <br />
             
             <asp:Label ID="lblEligibility" runat="server" Text="Are you legally authorized to work in the United States?"></asp:Label>
@@ -109,7 +122,7 @@
             <br />
         </div>
         
-        <asp:Button ID="btnSubmit" runat="server" Text="Submit" />
+        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
     </form>
 </body>
 </html>
