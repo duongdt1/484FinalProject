@@ -21,18 +21,13 @@ public partial class Login : System.Web.UI.Page
             System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
             findPass.Connection = sc;
 
-            
-
-
-
-
             // Find password for username entered
             findPass.CommandText = "select password from organizationuser where username = @username";
             findPass.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
 
             SqlDataReader reader = findPass.ExecuteReader(); //Create reader to find password
 
-            if (reader.HasRows) // If the email exists, it will continue
+            if (reader.HasRows) // If the username exists, it will continue
             {
                 while (reader.Read()) // Read the record the has the matching password
                 {
@@ -40,7 +35,18 @@ public partial class Login : System.Web.UI.Page
 
                     if (PasswordHash.ValidatePassword(txtPassword.Text, storedHash)) // If the password is correct for the username
                     {
-                        Response.Redirect("~/Landing.aspx");
+
+
+                        Session["User"] = txtUsername.Text;
+                       // Session.Timeout = 20;
+
+                        HttpCookie userCookie = new HttpCookie("loginCookie");
+                        userCookie.Value = txtUsername.Text;
+                        Response.Cookies.Add(userCookie);
+                        userCookie.Expires = DateTime.Now.AddDays(30);
+
+
+                        Response.Redirect("~/Welcome.aspx");
                     }
                     else
                     {
@@ -48,6 +54,10 @@ public partial class Login : System.Web.UI.Page
                     }
 
                 }
+            }
+            else
+            {
+                lblError.Text = "Username does not exist";
             }
 
 
