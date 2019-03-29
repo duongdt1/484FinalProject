@@ -12,27 +12,27 @@ public partial class Welcome : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["User"] == null)
+        //if (Session["User"] == null)
+        //{
+        //    if (Request.Cookies["loginCookie"] != null)
+        //    {
+        //        Response.Redirect("Login.aspx");
+        //    }
+        //}
+
+        //else
+        //{
+        try
         {
-            if (Request.Cookies["loginCookie"] != null)
-            {
-                Response.Redirect("Login.aspx");
-            }
+
+
+            //  Label1.Text = "Hello " + Session["User"].ToString();
+            Label2.Text = "Taking the value from the cookie, your username is " + Request.Cookies["loginCookie"].Value;
         }
-
-        else
+        catch (Exception)
         {
-            try
-            {
-
-
-                Label1.Text = "Hello " + Session["User"].ToString();
-                Label2.Text = "Taking the value from the cookie, your username is " + Request.Cookies["loginCookie"].Value;
-            }
-            catch(Exception)
-            {
-                Label2.Text = "Taking the value from the cookie, your username is none because the cookie has expired";
-            }
+            Label2.Text = "Taking the value from the cookie, your username is none because the cookie has expired";
+            //}
 
         }
 
@@ -41,7 +41,7 @@ public partial class Welcome : System.Web.UI.Page
 
     protected void btnLogout_Click(object sender, EventArgs e)
     {
-        Session.Abandon();
+       // Session.Abandon();
         Response.Cookies["loginCookie"].Expires = DateTime.Now.AddDays(-31);
         Response.Redirect("Login.aspx");
     }
