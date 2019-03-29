@@ -24,7 +24,7 @@ public partial class JobListing : System.Web.UI.Page
                 select.Connection = connection;
                 select.CommandText = "SELECT * FROM CareerCluster";
                 SqlDataReader cursor = select.ExecuteReader();
-                while(cursor.Read())
+                while (cursor.Read())
                 {
                     careerClusterList.Add(cursor[0].ToString());
                 }
@@ -58,7 +58,7 @@ public partial class JobListing : System.Web.UI.Page
         return dbConnect;
     }
 
-    
+
 
     protected void chkUnpaid_CheckedChanged(object sender, EventArgs e)
     {
@@ -124,7 +124,7 @@ public partial class JobListing : System.Web.UI.Page
             appType = txtURL.Text;
         using (SqlConnection connection = connect())
         {
-            
+
             connection.Open();
             //insert into the job table
             SqlCommand insert = new SqlCommand();
