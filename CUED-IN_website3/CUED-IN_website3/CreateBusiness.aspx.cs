@@ -44,7 +44,7 @@ public partial class CreateBusiness : System.Web.UI.Page
             createUser.Connection = connection;
             createUser.CommandText = "insert into[dbo].[Organization] values(@OrganizationName, @OrgType, @Email, @Cluster, @Phone,@lastUpdated, @lastUpdatedBy)";
             createUser.Parameters.Add(new SqlParameter("@OrganizationName", txtOrgName.Text));
-            createUser.Parameters.Add(new SqlParameter("@OrgType", ddlOrgType.SelectedItem.Text));
+            createUser.Parameters.Add(new SqlParameter("@OrgType", radOrgType.SelectedItem.Text));
             createUser.Parameters.Add(new SqlParameter("@Email", txtEmail.Text));
             createUser.Parameters.Add(new SqlParameter("@Cluster", lstCareerCluster.SelectedItem.Text));
             createUser.Parameters.Add(new SqlParameter("@Phone", txtPhone.Text));
@@ -59,9 +59,6 @@ public partial class CreateBusiness : System.Web.UI.Page
 
             SqlCommand createUser = new SqlCommand();
             createUser.Connection = connection2;
-           
-           
-            
 
             OrganizationUser newUser = (OrganizationUser)Session["organizationUser"];
 

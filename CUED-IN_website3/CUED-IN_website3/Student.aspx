@@ -2,34 +2,40 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 
 <head runat="server">
-    <title></title>
     <!-- Required meta tags -->
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/custom.css"/>
-	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet"/>
-  
-    <style>
-        h1 {
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+	  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <title>CUED-IN</title>
 </head>
+
 <body>
+    <!--Nav starts here-->
+    <ul>
+        <li><a class="active" href="Index.aspx">Home</a></li>
+        <li><a class="active" href="Login.aspx">Login</a></li>
+    </ul>
+    <!--Nav ends here-->
+    
+    <!--Form starts here-->
     <form id="form1" runat="server">
         <h3>Student Sign-Up</h3>
         
         <div>
             <asp:Label ID="lblCounselorEmail0" runat="server" Text="Select Your School"></asp:Label>
             <br />
-            <asp:DropDownList ID="ddlSchool" runat="server">
+            <asp:DropDownList ID="ddlSchool" class="form-control" runat="server">
             </asp:DropDownList>
             <br />
             <br />
@@ -65,13 +71,13 @@
             <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>
             <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
             <br />
-            <asp:Label ID="lblResumeUpload" runat="server" Text="Resume     "></asp:Label>
+            <asp:Label ID="lblResumeUpload" runat="server" Text="Resume"></asp:Label>
+            <br />
             <asp:FileUpload ID="fuResume" runat="server" />
             <br />
             <br />
-            
-            <br />
             <asp:Label ID="lblTranscript" runat="server" Text="Transcript"></asp:Label>
+            <br />
             <asp:FileUpload ID="fuTranscript" runat="server" />
             <br />
             <br />
@@ -92,7 +98,7 @@
         
         <div>
             <asp:Label ID="lblOTP" runat="server" Text="Would you like to generate a one time password?"></asp:Label>
-            <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+            <asp:RadioButtonList ID="radOTP" runat="server">
             <asp:ListItem>Yes</asp:ListItem>
             <asp:ListItem>No</asp:ListItem>
             </asp:RadioButtonList>
@@ -107,9 +113,9 @@
             <br />
             <asp:Label ID="lblParentEmail" runat="server" Text="Parent Email"></asp:Label>
             <asp:TextBox ID="txtParentEmail" runat="server" class="form-control"></asp:TextBox>
-            <br />
-            <br />
         </div>
+        <br />
+        <br />
         
         <%--Shows when student selects No for OTP --%>
         <div>
@@ -124,5 +130,18 @@
         
         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
     </form>
+    <!--Form ends here-->
+
+    <br />
+	    <img src="logo.png" alt="Cued-In Logo" height="150" width="150" class="center">
+	<br />
+        <h3>Career Focused. Community Driven.</h3>
+	  
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

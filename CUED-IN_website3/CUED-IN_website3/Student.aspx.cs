@@ -165,4 +165,27 @@ public partial class Student : System.Web.UI.Page
         string returnString = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
         return returnString;
     }
+
+    //One-Time password option
+    protected void radOTP_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (radOTP.SelectedIndex == 0)
+        {
+            lblParentFirstName.Visible = true;
+            txtParentFirstName.Visible = true;
+            lblParentLastName.Visible = true;
+            txtParentLastName.Visible = true;
+            lblParentEmail.Visible = true;
+            txtParentEmail.Visible = true;
+        }
+        else
+        {
+            lblParentFirstName.Visible = false;
+            txtParentFirstName.Visible = false;
+            lblParentLastName.Visible = false;
+            txtParentLastName.Visible = false;
+            lblParentEmail.Visible = false;
+            txtParentEmail.Visible = false;
+        }
+    }
 }
