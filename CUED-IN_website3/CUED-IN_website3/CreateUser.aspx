@@ -48,7 +48,7 @@
     <label for="exampleInputBusOrgName1"></label>
               <asp:Label ID="lblUsername" runat="server" Text="Username"  Width="313px"></asp:Label>
               <br />
-              <asp:TextBox ID="txtUserName" runat="server" Width="313px"></asp:TextBox>
+              <asp:TextBox ID="txtUserName" runat="server" Width="313px" AutoCompleteType="Disabled"></asp:TextBox>
   &nbsp;&nbsp;&nbsp;<br />
 &nbsp;<asp:Label ID="txtDuplicate" runat="server" ForeColor="Red"></asp:Label>
   </div>
@@ -61,6 +61,26 @@
     <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
+
+          <div class="form-group">
+
+
+
+              <asp:Label ID="Label1" runat="server" Text="Organization"></asp:Label>
+              <br />
+              <asp:RadioButton ID="chooseExisting" runat="server" AutoPostBack="True" GroupName="Choose" OnCheckedChanged="chooseExisting_CheckedChanged" Text="Choose Existing Organization" />
+              <br />
+              <asp:RadioButton ID="ChooseNew" runat="server" AutoPostBack="True" GroupName="Choose" OnCheckedChanged="ChooseNew_CheckedChanged" Text="Create New Organization" />
+              <br />
+              <asp:DropDownList ID="ddlOrg" runat="server" DataSourceID="SqlDataSource1" DataTextField="OrganizationName" DataValueField="OrganizationID" Visible="False">
+              </asp:DropDownList>
+              <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:connection %>" SelectCommand="SELECT [OrganizationName], [OrganizationID] FROM [Organization]"></asp:SqlDataSource>
+
+
+
+              </div>
+
+
 
  
 
