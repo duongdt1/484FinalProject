@@ -6,24 +6,22 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.IO;
 
 public partial class Applications : System.Web.UI.Page
 {
     public static int appID;
-    static bool isResume = false; // boolean to trip when 
-    static bool isTranscript = false;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
         populateGrdApplication();
     }
     protected void grdApplicants_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
-        Files.resume = new Files();
-        Files.transcript = new Files();
         pnlGridView.Visible = false;
         pnlResults.Visible = true;
-
+        
         List<string> attributes = new List<string>();
 
         using (SqlConnection connection = connect())
@@ -40,7 +38,7 @@ public partial class Applications : System.Web.UI.Page
                 attributes.Add(cursor[0].ToString());
             }
             //populate the table
-            for (int i = 0; i < attributes.Count(); i++)
+            for(int i = 0; i < attributes.Count(); i++)
             {
                 TableCell t1 = new TableCell();
                 TableCell t2 = new TableCell();
@@ -51,51 +49,6 @@ public partial class Applications : System.Web.UI.Page
                 tr.Cells.Add(t1);
                 tr.Cells.Add(t2);
                 tblInfo.Rows.Add(tr);
-            }
-            if (isResume)
-            {
-                lblRelevantFiles.Text = "Relevant Files:";
-                lblResume.Visible = true;
-                btnDownloadResume.Visible = true;
-                btnViewResume.Visible = true;
-                lblResume.Text = "Resume: " + Files.resume.getFileName();
-            }
-            else
-            {
-                lblResume.Visible = false;
-                btnDownloadResume.Visible = false;
-                btnViewResume.Visible = false;
-            }
-            if (isTranscript)
-            {
-                lblRelevantFiles.Text = "Relevant Files:";
-                lblTranscript.Visible = true;
-                btnViewTranscript.Visible = true;
-                btnDownloadTranscript.Visible = true;
-                lblTranscript.Text = "Transcript: " + Files.transcript.getFileName();
-            }
-            else
-            {
-                lblTranscript.Visible = false;
-                btnViewTranscript.Visible = false;
-                btnDownloadTranscript.Visible = false;
-            }
-            if (!isResume && !isTranscript)
-            {
-                lblRelevantFiles.Text = "No Files Available at this time";
-            }
-            cursor.Close();
-            SqlCommand selectStatus = new SqlCommand();
-            select.Connection = connection;
-            select.CommandText = "SELECT Status From Application WHERE ApplicationID = @ApplicationID";
-            selectStatus.Parameters.AddWithValue("@ApplicationID", appID);
-            SqlDataReader cursor2 = select.ExecuteReader();
-            while (cursor2.Read())
-            {
-                if (cursor2[0].ToString() != "Pending")
-                    ddlStatus.SelectedValue = cursor2[0].ToString();
-                else
-                    ddlStatus.SelectedValue = "Reviewed";
             }
         }
     }
@@ -108,7 +61,8 @@ public partial class Applications : System.Web.UI.Page
         select.CommandText = "SELECT * FROM Student WHERE StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
         select.Parameters.Clear();
         select.Parameters.AddWithValue("@ApplicationID", applicationID);
-        
+        bool isResume = false; // boolean to trip when 
+        bool isTranscript = false;
         switch (attribute)
         {
             case "Age":
@@ -128,15 +82,20 @@ public partial class Applications : System.Web.UI.Page
                 break;
             case "Resume":
                 isResume = true;
+                fillGrdFiles(applicationID, "resume");
+                select.CommandText = "SELECT FileID, FileName, FileType, UploadType, Data FROM Files WHERE UploadType = 'Resume' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
                 break;
             case "Transcript":
                 isTranscript = true;
+                fillGrdFiles(applicationID, "transcript");
+                select.CommandText = "SELECT FileID, FileName, FileType, UploadType, Data FROM Files WHERE UploadType = 'Transcript' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
                 break;
             case "US Work Eligibility":
                 select.CommandText = "SELECT AbleToWork FROM Student WHERE StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
                 break;
         }
-        
+        if (!isResume && !isTranscript)
+        {
             using (SqlConnection connection = connect())
             {
                 select.Connection = connection;
@@ -148,15 +107,13 @@ public partial class Applications : System.Web.UI.Page
                 }
             }
             returnCell.Text = returnString;
-        
-        if (isResume)//create a resume object 
+        }
+        else if(isResume)//create a resume object 
         {
             using (SqlConnection connection = connect())
             {
                 select.Connection = connection;
                 connection.Open();
-                select.CommandText = "SELECT FileID, FileName, FileType, UploadType, Data FROM Files WHERE UploadType = 'Resume' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
-                
                 SqlDataReader cursor = select.ExecuteReader();
                 while (cursor.Read())
                 {
@@ -164,13 +121,12 @@ public partial class Applications : System.Web.UI.Page
                 }
             }
         }
-        if (isTranscript)//create a transcript object 
+        else if (isTranscript)//create a transcript object 
         {
             using (SqlConnection connection = connect())
             {
                 select.Connection = connection;
                 connection.Open();
-                select.CommandText = "SELECT FileID, FileName, FileType, UploadType, Data FROM Files WHERE UploadType = 'Transcript' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
                 SqlDataReader cursor = select.ExecuteReader();
                 while (cursor.Read())
                 {
@@ -180,12 +136,63 @@ public partial class Applications : System.Web.UI.Page
         }
         return returnCell;
     }
-    
+    public void fillGrdFiles(int applicationID, string fileType)//filetype can be either resume or transcript
+    {
+        using (SqlConnection connection = connect())
+        {
+            connection.Open();
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            if (fileType == "resume")
+                select.CommandText = "SELECT FileID, UploadType as 'File Type', FileName as 'File Name', FileType as 'Type' FROM Files WHERE UploadType = 'Resume' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
+            else
+                select.CommandText = "SELECT FileID, UploadType as 'File Type', FileName as 'File Name', FileType as 'Type' FROM Files WHERE UploadType = 'Transcript' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
+            select.Parameters.AddWithValue("@ApplicationID", applicationID);
+            SqlDataReader cursor = select.ExecuteReader();
+
+
+            grdFiles.DataSource = cursor;
+            grdFiles.DataBind();
+            
+        }
+    }
     public SqlConnection connect()
     {
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        Response.Clear();
+        Response.Buffer = true;
+        
+        Response.AddHeader("Content-Length", Files.resume.getData().Length.ToString());
+        Response.AddHeader("Content-Disposition", "inline; filename=" + Files.resume.getFileName());
+        Response.AddHeader("Expires","0");
+        Response.AddHeader("Pragma","cache");
+        Response.AddHeader("Cache - Control","private");
+        Response.AddHeader("Accept-Ranges", "bytes");
+        
+        Response.ContentType = Files.resume.getFileType();
+        Response.BinaryWrite(Files.resume.getData());
+        Response.Flush();
+        try { Response.End(); }
+        catch { }
+        
+    }
+    protected void btnDownload_Click(object sender, EventArgs e)
+    {
+        Response.Clear();
+        Response.Buffer = true;
+        Response.Charset = "";
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.ContentType = Files.resume.getFileType();
+        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.resume.getFileName());
+        Response.BinaryWrite(Files.resume.getData());
+        Response.Flush();
+        Response.End();
+
     }
     protected void btnReturn_Click(object sender, EventArgs e)
     {
@@ -237,67 +244,23 @@ public partial class Applications : System.Web.UI.Page
 
 
 
-    protected void btnViewResume_Click(object sender, EventArgs e)
+    protected void linkTest_Click(object sender, EventArgs e)
     {
         Response.Clear();
         Response.Buffer = true;
-
-        Response.AddHeader("Content-Length", Files.resume.getData().Length.ToString());
-        Response.AddHeader("Content-Disposition", "inline; filename=" + Files.resume.getFileName());
-        Response.AddHeader("Expires", "0");
-        Response.AddHeader("Pragma", "cache");
-        Response.AddHeader("Cache - Control", "private");
-        Response.AddHeader("Accept-Ranges", "bytes");
-
-        Response.ContentType = Files.resume.getFileType();
-        Response.BinaryWrite(Files.resume.getData());
-        Response.Flush();
-        try { Response.End(); }
-        catch { }
-    }
-
-    protected void btnViewTranscript_Click(object sender, EventArgs e)
-    {
-        Response.Clear();
-        Response.Buffer = true;
-
-        Response.AddHeader("Content-Length", Files.transcript.getData().Length.ToString());
-        Response.AddHeader("Content-Disposition", "inline; filename=" + Files.transcript.getFileName());
-        Response.AddHeader("Expires", "0");
-        Response.AddHeader("Pragma", "cache");
-        Response.AddHeader("Cache - Control", "private");
-        Response.AddHeader("Accept-Ranges", "bytes");
-
-        Response.ContentType = Files.transcript.getFileType();
-        Response.BinaryWrite(Files.transcript.getData());
-        Response.Flush();
-        try { Response.End(); }
-        catch { }
-    }
-
-    protected void btnDownloadResume_Click(object sender, EventArgs e)
-    {
-        Response.Clear();
-        Response.Buffer = true;
+        Response.ContentType = "application/ms-excel";
+        Response.AddHeader("content-disposition", string.Format("attachment;filename={0}.xls", "Book1"));
         Response.Charset = "";
-        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        Response.ContentType = Files.resume.getFileType();
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.resume.getFileName());
-        Response.BinaryWrite(Files.resume.getData());
-        Response.Flush();
+
+        StringWriter stringwriter = new StringWriter();
+        HtmlTextWriter htmlwriter = new HtmlTextWriter(stringwriter);
+        grdApplicants.RenderControl(htmlwriter);
+        Response.Write(stringwriter.ToString());
         Response.End();
     }
 
-    protected void btnDownloadTranscript_Click(object sender, EventArgs e)
+    public override void VerifyRenderingInServerForm(Control control)
     {
-        Response.Clear();
-        Response.Buffer = true;
-        Response.Charset = "";
-        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        Response.ContentType = Files.transcript.getFileType();
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.transcript.getFileName());
-        Response.BinaryWrite(Files.transcript.getData());
-        Response.Flush();
-        Response.End();
+
     }
 }
