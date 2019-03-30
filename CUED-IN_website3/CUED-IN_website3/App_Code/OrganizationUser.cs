@@ -12,7 +12,7 @@ public class OrganizationUser
     String password;
     String email;
     int organizationID;
-   
+
     DateTime lastUpdated;
     String lastUpdatedBy;
 
@@ -21,17 +21,13 @@ public class OrganizationUser
         setUserName(userName);
         setEmail(email);
         setPassword(password);
-       
         setLastUpdatedBy();
         setLastUpdated();
-        
+
     }
-    public OrganizationUser(String userName, String password, String email, int organizationID)
+    public OrganizationUser(String userName, int organizationID)
     {
         setUserName(userName);
-        setEmail(email);
-        setPassword(password);
-
         setLastUpdatedBy();
         setLastUpdated();
         this.organizationID = organizationID;
@@ -40,7 +36,7 @@ public class OrganizationUser
     {
         this.userName = userName;
     }
-   
+
     public void setPassword(String password)
     {
         this.password = password;
@@ -49,7 +45,7 @@ public class OrganizationUser
     {
         this.email = email;
     }
-   
+
     public void setLastUpdated()
     {
         this.lastUpdated = DateTime.Today;
@@ -58,7 +54,7 @@ public class OrganizationUser
     {
         this.lastUpdatedBy = "Blueberry";
     }
-   
+
     public String getEmail()
     {
         return email;
