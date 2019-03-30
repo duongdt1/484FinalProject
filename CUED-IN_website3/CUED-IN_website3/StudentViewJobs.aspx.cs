@@ -48,6 +48,8 @@ public partial class StudentViewJobs : System.Web.UI.Page
         GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
         int index = gvRow.RowIndex;
         int jobID = Int32.Parse(grdJobList.Rows[index].Cells[1].Text);
+        string jobTitle = "";
+        string emailAddress = "";
         using (SqlConnection connection = connect())
         {
             int studentID = 0;
@@ -68,27 +70,44 @@ public partial class StudentViewJobs : System.Web.UI.Page
             insert.Parameters.AddWithValue("@JobID", jobID);
             insert.Parameters.AddWithValue("@Status", "Pending");
             insert.ExecuteNonQuery();
+            cursor.Close();
+
+            SqlCommand getJobName = new SqlCommand();
+            getJobName.Connection = connection;
+            getJobName.CommandText = "SELECT Job.JobTitle, Organization.ContactEmail FROM Job INNER JOIN Organization ON Job.OrganizationID = Organization.OrganizationID WHERE JobID = @JobID";
+            getJobName.Parameters.AddWithValue("@JobID", jobID);
+            cursor = getJobName.ExecuteReader();
+            while (cursor.Read())
+            {
+                jobTitle = cursor[0].ToString();
+                emailAddress = cursor[1].ToString();
+            }
+            sendMail(jobTitle, emailAddress);
         }
 
     }
-    protected void sendMail()
+    protected void sendMail(string jobName, string emailAddress)
     {
-        SmtpClient smtpClient = new SmtpClient();
-        smtpClient.UseDefaultCredentials = false;
-        smtpClient.Credentials = new NetworkCredential("cuedInDev.acmeGroup@gmail.com", "acme_group7254");
-        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        smtpClient.EnableSsl = true;
-        smtpClient.Port = 587;
-        smtpClient.Host = "smtp.gmail.com";
-        MailMessage mail = new MailMessage();
+        try
+        {
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential("cuedInDev.acmeGroup@gmail.com", "acme_group7254");
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = true;
+            smtpClient.Port = 587;
+            smtpClient.Host = "smtp.gmail.com";
+            MailMessage mail = new MailMessage();
 
-        mail.From = new MailAddress("cuedInDev.acmeGroup@gmail.com", "ACME GROUP DEV TEAM");
-        mail.Subject = "New Application for ";
-        mail.SubjectEncoding = System.Text.Encoding.UTF8;
-        mail.To.Add(new MailAddress("kangcs@dukes.jmu.edu"));
-        mail.Body = "";
-        mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.From = new MailAddress("cuedInDev.acmeGroup@gmail.com", "ACME GROUP DEV TEAM");
+            mail.Subject = "New Application for " + jobName;
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.To.Add(new MailAddress(emailAddress));
+            mail.Body = "You have a new applicant! Sign in to view";
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
 
-        smtpClient.Send(mail);
+            smtpClient.Send(mail);
+        }
+        catch { }
     }
 }
