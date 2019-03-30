@@ -27,8 +27,8 @@
     <!--Form starts here-->
      <form runat ="server">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Email address" Width="313px" MaxLength="50"></asp:TextBox>
+            <label for="exampleInputUsername1">Username</label>
+            <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Username" Width="313px" MaxLength="50"></asp:TextBox>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         
