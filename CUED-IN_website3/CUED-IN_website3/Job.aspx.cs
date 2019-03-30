@@ -9,8 +9,11 @@ using System.Web.Configuration;
 
 public partial class Job : System.Web.UI.Page
 {
+    OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        signedInUser = (OrganizationUser)Session["organizationUser"];
         using (SqlConnection connection = connect())
         {
             int orgID = 0;
@@ -18,7 +21,7 @@ public partial class Job : System.Web.UI.Page
             SqlCommand findID = new SqlCommand();
             findID.Connection = connection;
             findID.CommandText = "Select OrganizationID FROM Organization WHERE OrganizationName = @organizationName ";
-            findID.Parameters.AddWithValue("@organizationName", "Acme Group"); //needs to be changed when cookie information is done
+            findID.Parameters.AddWithValue("@organizationName", signedInUser.getUserName()); //needs to be changed when cookie information is done
             SqlDataReader read = findID.ExecuteReader();
             while (read.Read())
             {
@@ -42,7 +45,8 @@ public partial class Job : System.Web.UI.Page
     }
     protected void grdJobs_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
-
+        Session["sAppID"] = Int32.Parse(grdJobs.Rows[e.NewSelectedIndex].Cells[1].Text); ;
+        Response.Redirect("~/Applications.aspx");
     }
     public SqlConnection connect()
     {
