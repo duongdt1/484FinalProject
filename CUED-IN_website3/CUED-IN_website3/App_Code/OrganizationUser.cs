@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +11,7 @@ public class OrganizationUser
     String userName;
     String password;
     String email;
+    int organizationID;
    
     DateTime lastUpdated;
     String lastUpdatedBy;
@@ -24,6 +25,16 @@ public class OrganizationUser
         setLastUpdatedBy();
         setLastUpdated();
         
+    }
+    public OrganizationUser(String userName, String password, String email, int organizationID)
+    {
+        setUserName(userName);
+        setEmail(email);
+        setPassword(password);
+
+        setLastUpdatedBy();
+        setLastUpdated();
+        this.organizationID = organizationID;
     }
     public void setUserName(String userName)
     {
@@ -68,5 +79,8 @@ public class OrganizationUser
     {
         return password;
     }
-    
+    public int getOrgID()
+    {
+        return this.organizationID;
+    }
 }
