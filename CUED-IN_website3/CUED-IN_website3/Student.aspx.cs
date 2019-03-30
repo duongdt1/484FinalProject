@@ -156,7 +156,8 @@ public partial class Student : System.Web.UI.Page
                 }
             }
         }
-        Response.Redirect(Request.Url.AbsoluteUri);
+        Response.Redirect("~/StudentViewJobs.aspx");
+        
     }
     public string getDate()
     {
