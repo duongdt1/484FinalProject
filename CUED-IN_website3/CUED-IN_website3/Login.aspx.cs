@@ -22,7 +22,7 @@ public partial class Login : System.Web.UI.Page
             findPass.Connection = sc;
 
             // Find password for username entered
-            findPass.CommandText = "select password from organizationuser where username = @username";
+            findPass.CommandText = "select password, organizationID from organizationuser where username = @username";
             findPass.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
 
             SqlDataReader reader = findPass.ExecuteReader(); //Create reader to find password
@@ -37,16 +37,16 @@ public partial class Login : System.Web.UI.Page
                     {
 
 
-                        Session["User"] = txtUsername.Text;
+                        Session["User"] = new OrganizationUser(txtUsername.Text, reader.GetInt32(1));
                        // Session.Timeout = 20;
 
                         HttpCookie userCookie = new HttpCookie("loginCookie");
                         userCookie.Value = txtUsername.Text;
                         Response.Cookies.Add(userCookie);
-                        userCookie.Expires = DateTime.Now.AddSeconds(30);
+                        userCookie.Expires = DateTime.Now.AddDays(30);
 
 
-                        Response.Redirect("~/Dashboard.aspx");
+                        Response.Redirect("~/Welcome.aspx");
                     }
                     else
                     {
