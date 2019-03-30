@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Data;
+using OfficeOpenXml;
+using System.IO;
 
 public partial class Applications : System.Web.UI.Page
 {
@@ -302,4 +304,38 @@ public partial class Applications : System.Web.UI.Page
         Response.Flush();
         Response.End();
     }
+
+    protected void linkTest_Click(object sender, EventArgs e)
+    {
+        ExcelPackage excel = new ExcelPackage();
+        var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+        var totalCols = grdApplicants.Rows[0].Cells.Count;
+        var totalRows = grdApplicants.Rows.Count;
+        var headerRow = grdApplicants.HeaderRow;
+        for (var i = 2; i <= totalCols; i++)
+        {
+            workSheet.Cells[1, i].Value = headerRow.Cells[i - 1].Text;
+        }
+
+        for (var j = 1; j <= totalRows; j++)
+        {
+            for (var i = 1; i <= totalCols; i++)
+            {
+                String value = grdApplicants.Rows[j - 1].Cells[i - 1].Text;
+                workSheet.Cells[j + 1, i].Value = value;
+            }
+        }
+
+        using (var memoryStream = new MemoryStream())
+        {
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment;  filename=export.xlsx");
+            excel.SaveAs(memoryStream);
+            memoryStream.WriteTo(Response.OutputStream);
+            Response.Flush();
+            Response.End();
+        }
+    }
+
 }
+

@@ -17,6 +17,8 @@
                 <asp:GridView ID="grdApplicants" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanging="grdApplicants_SelectedIndexChanged" AllowSorting="True">
                     
                 </asp:GridView>
+                                <br />
+                <asp:LinkButton ID="linkTest" runat="server" OnClick="linkTest_Click">Export to Excel</asp:LinkButton>
             </asp:Panel>
         </div>
         <asp:Literal ID="ltEmbed" runat="server" />
