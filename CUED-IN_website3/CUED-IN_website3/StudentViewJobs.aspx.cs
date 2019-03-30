@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Net;
+using System.Net.Mail;
 
 public partial class StudentViewJobs : System.Web.UI.Page
 {
@@ -68,5 +70,25 @@ public partial class StudentViewJobs : System.Web.UI.Page
             insert.ExecuteNonQuery();
         }
 
+    }
+    protected void sendMail()
+    {
+        SmtpClient smtpClient = new SmtpClient();
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new NetworkCredential("cuedInDev.acmeGroup@gmail.com", "acme_group7254");
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        smtpClient.EnableSsl = true;
+        smtpClient.Port = 587;
+        smtpClient.Host = "smtp.gmail.com";
+        MailMessage mail = new MailMessage();
+
+        mail.From = new MailAddress("cuedInDev.acmeGroup@gmail.com", "ACME GROUP DEV TEAM");
+        mail.Subject = "New Application for ";
+        mail.SubjectEncoding = System.Text.Encoding.UTF8;
+        mail.To.Add(new MailAddress("kangcs@dukes.jmu.edu"));
+        mail.Body = "";
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        smtpClient.Send(mail);
     }
 }
