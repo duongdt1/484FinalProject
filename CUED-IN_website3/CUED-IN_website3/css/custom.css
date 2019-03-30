@@ -9,37 +9,37 @@
 
 
 /* basic elements */
-header {
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fec282;
 }
 
-nav {
-	color: white;
-text-align: center;
+li {
+  float: left;
 }
 
-nav ul{
-	color: white;
-  list-style: none;
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
-nav li {
-	color: white;
-   display: inline-block;
+li a:hover {
+  color: #545454;
 }
 
-nav a {
-  font-weight: normal;
-    font-size: 1em; }
-
-button {
-	color: white;
+img {
+	align-content: center;
+	text-align: center;
 }
 
 body{ 
-	background-color: #fec282;
-	background-image: url("graduates.jpg");
-	background-size: 1920px 940px;
-	background-repeat: no-repeat;
+	background-color: white;
  align-content: center;
 	font-family: 'Josefin Sans', sans-serif;
 	}
@@ -57,19 +57,39 @@ h2 {
     margin-top: 1em;
     text-align: center;
     font-size: 3em; 
-    color: white;
+    color: #fec282;
 	padding-left: 200px;
 	padding-right: 200px;
     
 }
 
+h3 {
+	color: #545454;
+	text-align: center;
+}
+
 p { 
-	color: white;
 	text-align: justify;
+	color: #fec282;
 	}
 
 form {
+	align-content: center;
 	padding-left: 80px;
 	padding-right: 600px;
-	color: white;
+	padding-top: 50px;
+	color: #fec282;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.userbutton {
+	align-content: center;
+	text-align: center;
+	font-size: 4em;
 }
