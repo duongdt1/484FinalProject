@@ -87,7 +87,7 @@ public partial class Student : System.Web.UI.Page
             selectLastStudent.Connection = connection;
             selectLastStudent.CommandText = "SELECT MAX(StudentID) FROM Student";
             connection.Open();
-            SqlDataReader cursor2 = select.ExecuteReader();
+            SqlDataReader cursor2 = selectLastStudent.ExecuteReader();
             while (cursor2.Read())
             {
                 currentStudent = Int32.Parse(cursor2[0].ToString());
