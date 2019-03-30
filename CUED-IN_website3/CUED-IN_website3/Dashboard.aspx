@@ -253,20 +253,12 @@
                     </li>
                     
                     <li>
-                        <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                    <li>
-                        <a href="form.html"><i class="fa fa-edit"></i> Forms </a>
-                    </li>
-
-
-                    <li>
                         <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
-                            <li>
-                                <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
-                            </li>
+                    <li>
+                        <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
+                    </li>
                         </ul>
                     </li>
                     

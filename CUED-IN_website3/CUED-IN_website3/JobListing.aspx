@@ -1,36 +1,11 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="JobListing.aspx.cs" Inherits="JobListing" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
-    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('[id*=lstCareerCluster]').multiselect
-            ({
-                includeSelectAllOption: true,
-                nonSelectedText: 'Select Clusters' // Here you can change with your desired text as per your requirement.
-            });
-        });
-        $(function () {
-            $('[id*=lstStudentFields]').multiselect
-            ({
-                includeSelectAllOption: true,
-                nonSelectedText: 'Select Information' // Here you can change with your desired text as per your requirement.
-            });
-        });
-    </script>
-    
-    <meta charset="utf-8" />
+      <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <title>Bootstrap Admin Theme : Master</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -39,41 +14,11 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
-    <style type="text/css">
-        h1, .h1 {
-        font-size: 2.5rem;
-        }
-
-        h1, h2, h3, h4, h5, h6,
-        .h1, .h2, .h3, .h4, .h5, .h6 {
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        line-height: 1.2;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        }
-
-        *,
-        *::before,
-        *::after {
-        text-shadow: none !important;
-        box-shadow: none !important;
-        }
-  
-        *,
-        *::before,
-        *::after {
-        box-sizing: border-box;
-        }
-    </style>
 </head>
+
 <body>
+    <!-- NAV top begin -->
     <div id="wrapper">
-        <!-- NAV top begin -->
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -82,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="JobsListing.aspx"><i class="fa fa-gear"></i> <strong>CUED-IN</strong></a>
+                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-gear"></i> <strong>CUED-IN</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -295,7 +240,7 @@
             </ul>
         </nav>
         <!-- NAV top end -->
-
+        
         <!-- NAV side begin -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
@@ -306,20 +251,12 @@
                     </li>
                     
                     <li>
-                        <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                    <li>
-                        <a href="form.html"><i class="fa fa-edit"></i> Forms </a>
-                    </li>
-
-
-                    <li>
                         <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
-                            <li>
-                                <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
-                            </li>
+                    <li>
+                        <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
+                    </li>
                         </ul>
                     </li>
                 </ul>
@@ -327,8 +264,8 @@
             </div>
 
         </nav>
-
         <!-- NAV side end -->
+
         <div id="page-wrapper" >
             <div id="page-inner">
 			 <div class="row">
@@ -348,6 +285,9 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
+                                        <div class="form-group">
+         
+       <!-- Form with ASP tags start here -->
             <form id="form1" runat="server">
                 <asp:Panel ID="Panel1" runat="server">
             <p>
@@ -433,7 +373,10 @@
         <p>
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
         </p>
-                </form>
+        </form>
+        <!-- Form with ASP tags end here -->
+
+                                    </div>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                             </div>
@@ -449,11 +392,11 @@
 			</div>
              <!-- /. PAGE INNER  -->
             </div>
-         <!-- /. PAGE WRAPPER  --> 
-    
-     
-    </div>
-
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
@@ -461,5 +404,7 @@
     <script src="assets/js/jquery.metisMenu.js"></script>
       <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
+    
+   
 </body>
 </html>
