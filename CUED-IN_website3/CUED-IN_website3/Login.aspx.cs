@@ -36,7 +36,7 @@ public partial class Login : System.Web.UI.Page
 
                     if (PasswordHash.ValidatePassword(txtPassword.Text, storedHash)) // If the password is correct for the username
                     {
-                        Response.Redirect("~/Landing.aspx");
+                        Response.Redirect("~/Dashboard.aspx");
                     }
                     else
                     {
