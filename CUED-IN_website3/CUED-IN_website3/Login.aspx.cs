@@ -46,7 +46,7 @@ public partial class Login : System.Web.UI.Page
                         userCookie.Expires = DateTime.Now.AddDays(30);
 
 
-                        Response.Redirect("~/Welcome.aspx");
+                        Response.Redirect("~/Dashboard.aspx");
                     }
                     else
                     {
