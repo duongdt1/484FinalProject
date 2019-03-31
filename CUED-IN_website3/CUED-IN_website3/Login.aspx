@@ -42,12 +42,13 @@
      <form runat ="server">
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
-    <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
+    <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Username" Width="313px" MaxLength="50"></asp:TextBox>
+    &nbsp;&nbsp;&nbsp;
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <asp:TextBox runat="server" class="form-control" id="txtPassword" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+    <asp:TextBox runat="server" class="form-control" id="txtPassword" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password" MaxLength="256"></asp:TextBox>
   </div>
 	
         <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click1" Text="Sign In" />
@@ -59,6 +60,23 @@
         
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" PostBackUrl="~/CreateUser.aspx" Text="Create Account" />
+        
+       
+        
+        
+        
+        
+         <br />
+        
+       
+        
+        
+        
+        
+         <br />
+         <asp:LinkButton ID="LinkButton1" runat="server">Forgot Password? Click Here!</asp:LinkButton>
+         <br />
+         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
         
        
         
