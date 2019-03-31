@@ -11,6 +11,7 @@
         <div>
             <br />
             <asp:Label ID="Label1" runat="server" Text="Current Job Postings"></asp:Label>
+            <asp:Button ID="btnNewListing" runat="server" OnClick="btnNewListing_Click" Text="Add a New Listing" />
             <asp:Button ID="btnEditJobPosting" runat="server" Text="Edit a Job Posting" />
             <br />
             <br />

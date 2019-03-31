@@ -13,21 +13,12 @@ public partial class Job : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        signedInUser = (OrganizationUser)Session["organizationUser"];
+        signedInUser = (OrganizationUser)Session["User"];
         using (SqlConnection connection = connect())
         {
-            int orgID = 0;
+            int orgID = signedInUser.getOrgID();
             connection.Open();
-            SqlCommand findID = new SqlCommand();
-            findID.Connection = connection;
-            findID.CommandText = "Select OrganizationID FROM Organization WHERE OrganizationName = @organizationName ";
-            findID.Parameters.AddWithValue("@organizationName", signedInUser.getUserName()); //needs to be changed when cookie information is done
-            SqlDataReader read = findID.ExecuteReader();
-            while (read.Read())
-            {
-                orgID = Int32.Parse(read[0].ToString());
-            }
-            read.Close();
+            
 
             SqlCommand select = new SqlCommand();
             select.Connection = connection;
@@ -53,5 +44,10 @@ public partial class Job : System.Web.UI.Page
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
+    }
+
+    protected void btnNewListing_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/JobListing.aspx");
     }
 }

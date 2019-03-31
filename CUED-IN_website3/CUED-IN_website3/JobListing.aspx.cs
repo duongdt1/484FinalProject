@@ -9,8 +9,10 @@ using System.Web.Configuration;
 
 public partial class JobListing : System.Web.UI.Page
 {
+    OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
+        signedInUser = (OrganizationUser)Session["User"];
         List<String> careerClusterList = new List<string>();
         List<String> studentAttributeList = new List<string>();
 
@@ -130,7 +132,7 @@ public partial class JobListing : System.Web.UI.Page
             SqlCommand insert = new SqlCommand();
             insert.CommandText = "INSERT INTO Job VALUES(@OrganizationID, @JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @ApplicationType, @LastUpdated, @LastUpdatedBy, @CareerCluster)";
             insert.Connection = connection;
-            insert.Parameters.AddWithValue("@OrganizationID", 0);//Set to 0 by default until login works
+            insert.Parameters.AddWithValue("@OrganizationID", signedInUser.getOrgID());//Set to 0 by default until login works
             insert.Parameters.AddWithValue("@JobTitle", txtJobTitle.Text);
             if (chkUnpaid.Checked)
                 insert.Parameters.AddWithValue("@Pay", 0);
@@ -149,7 +151,7 @@ public partial class JobListing : System.Web.UI.Page
                 insert.Parameters.AddWithValue("@Deadline", DBNull.Value);
             insert.Parameters.AddWithValue("@ApplicationType", appType);
             insert.Parameters.AddWithValue("@LastUpdated", getDate());
-            insert.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
+            insert.Parameters.AddWithValue("@LastUpdatedBy", signedInUser.getUserName());
             insert.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.SelectedValue);
             insert.ExecuteNonQuery();
 
@@ -158,7 +160,7 @@ public partial class JobListing : System.Web.UI.Page
             SqlCommand select = new SqlCommand();
             select.Connection = connection;
             select.CommandText = "SELECT MAX(JobID) FROM Job WHERE OrganizationID = @OrgID";
-            select.Parameters.AddWithValue("@OrgID", 0); //need to change the 0 to whoever is signed in
+            select.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID()); //need to change the 0 to whoever is signed in
             SqlDataReader cursor = select.ExecuteReader();
             while (cursor.Read())
             {
