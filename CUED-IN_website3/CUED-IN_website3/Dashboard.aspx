@@ -249,9 +249,13 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i>Dashboard</a>
                     </li>
                     
+                    <li>
+                        <a href="Events.aspx"><i class="fa fa-edit"></i>Events</a>
+                    </li>
+
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -259,7 +263,19 @@
                     <li>
                         <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
                     </li>
+
+                    <li>
+                        <a href="Applications.aspx">Applications<span class="fa arrow"></span></a>
+                    </li>
                         </ul>
+                    </li>
+
+                    <li>
+                        <a href="Scholarships.aspx"><i class="fa fa-edit"></i>Scholarships</a>
+                    </li>
+
+                    <li>
+                        <a href="Notifications.aspx"><i class="fa fa-edit"></i>Notifications</a>
                     </li>
                     
                 </ul>

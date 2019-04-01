@@ -1,7 +1,6 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Applications.aspx.cs" Inherits="Applications" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Events.aspx.cs" Inherits="Events" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
       <meta charset="utf-8" />
@@ -289,7 +288,7 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Applications <small></small>
+                            Events <small></small>
                         </h1>
                     </div>
                 </div> 
@@ -306,47 +305,36 @@
                                         <div class="form-group">
          
        <!-- Form with ASP tags start here -->
-        <form id="form1" runat="server">
+            <form id="form1" runat="server">
         <div>
-            <asp:Panel ID="pnlGridView" runat="server">
-                <asp:Label ID="Label1" runat="server" Text="Current Applications"></asp:Label>
-                <br />
-                <br />
-                <br />
-                <asp:GridView ID="grdApplicants" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanging="grdApplicants_SelectedIndexChanged">
-                </asp:GridView>
-                <br />
-                <asp:LinkButton ID="linkTest" runat="server" OnClick="linkTest_Click">Export to Excel</asp:LinkButton>
-            </asp:Panel>
-        </div>
-        <asp:Literal ID="ltEmbed" runat="server" />
-        <asp:Panel ID="pnlResults" runat="server" Visible="False">
-            <asp:Label ID="Label2" runat="server" Text="Application"></asp:Label>
-            <br />
-            <asp:Table ID="tblInfo" runat="server" Width="124px">
-            </asp:Table>
-            <br />
-            <asp:Label ID="Label4" runat="server" Text="Relevant Files:"></asp:Label>
-            <br />
-            <asp:GridView ID="grdFiles" runat="server" OnSelectedIndexChanging="btnView_Click" OnRowEditing="btnDownload_Click">
-                <Columns>
-                    <asp:CommandField ShowSelectButton="True" SelectText="View"/>
-                    <asp:CommandField ShowEditButton="True" EditText="Download"/>
-                </Columns>
-            </asp:GridView>
+            New Event
+
             <br />
             <br />
-            <asp:Label ID="Label3" runat="server" Text="Please set the Application Status"></asp:Label>
+            Date<asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+
+
             <br />
-            <asp:DropDownList ID="ddlStatus" runat="server">
-                <asp:ListItem>Reviewed</asp:ListItem>
-                <asp:ListItem>Declined</asp:ListItem>
-                <asp:ListItem>Approved</asp:ListItem>
+            Event Type&nbsp;
+            <asp:DropDownList ID="DropDownList1" runat="server">
             </asp:DropDownList>
             <br />
-            <asp:Button ID="btnReturn" runat="server" OnClick="btnReturn_Click" Text="Return" />
-        </asp:Panel>
-        </form>
+            <br />
+            Associated School&nbsp;
+            <asp:DropDownList ID="DropDownList2" runat="server">
+            </asp:DropDownList>
+
+
+            <br />
+            <br />
+            <asp:Button ID="Button1" runat="server" Text="Save" />
+
+
+            &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" />
+
+
+        </div>
+    </form>
         <!-- Form with ASP tags end here -->
 
                                     </div>
@@ -381,4 +369,3 @@
    
 </body>
 </html>
-
