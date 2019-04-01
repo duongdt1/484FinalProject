@@ -14,6 +14,7 @@
             <asp:Button ID="btnNewListing" runat="server" OnClick="btnNewListing_Click" Text="Add a New Listing" />
             <asp:Button ID="btnEditJobPosting" runat="server" Text="Edit a Job Posting" />
             <br />
+            <asp:Button ID="btnViewApplicants" runat="server" OnClick="btnViewApplicants_Click" Text="View All Applicants" />
             <br />
             <asp:GridView ID="grdJobs" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanging="grdJobs_SelectedIndexChanged">
             </asp:GridView>

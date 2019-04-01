@@ -12,7 +12,7 @@ public partial class Job : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Session["sJobID"] = -1;
         signedInUser = (OrganizationUser)Session["User"];
         using (SqlConnection connection = connect())
         {
@@ -36,7 +36,7 @@ public partial class Job : System.Web.UI.Page
     }
     protected void grdJobs_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
-        Session["sAppID"] = Int32.Parse(grdJobs.Rows[e.NewSelectedIndex].Cells[1].Text); ;
+        Session["sJobID"] = Int32.Parse(grdJobs.Rows[e.NewSelectedIndex].Cells[1].Text); ;
         Response.Redirect("~/Applications.aspx");
     }
     public SqlConnection connect()
@@ -49,5 +49,11 @@ public partial class Job : System.Web.UI.Page
     protected void btnNewListing_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/JobListing.aspx");
+    }
+
+    protected void btnViewApplicants_Click(object sender, EventArgs e)
+    {
+        Session["sJobID"] = -1;
+        Response.Redirect("~/Applications.aspx");
     }
 }

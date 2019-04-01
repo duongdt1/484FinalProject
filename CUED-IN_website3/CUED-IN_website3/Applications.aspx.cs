@@ -12,14 +12,38 @@ using System.IO;
 
 public partial class Applications : System.Web.UI.Page
 {
+    int selectedJobID;
     OrganizationUser signedInUser;
     public static int appID;
     static bool isResume = false; // boolean to trip when 
     static bool isTranscript = false;
     protected void Page_Load(object sender, EventArgs e)
     {
-        signedInUser = (OrganizationUser)Session["organizationUser"];
+        signedInUser = (OrganizationUser)Session["User"];
         populateGrdApplication();
+
+        selectedJobID = (int)Session["sJobID"];
+        if (selectedJobID != -1)
+        {
+            populateGrdApplication(selectedJobID);
+            string jobTitle = "";
+            using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
+            {
+                SqlCommand select = new SqlCommand();
+                select.Connection = connection;
+                connection.Open();
+                select.CommandText = "SELECT JobTitle from Job WHERE JobID = @JobID";
+                select.Parameters.AddWithValue("@JobID", selectedJobID);
+                SqlDataReader cursor = select.ExecuteReader();
+                while (cursor.Read())
+                {
+                    jobTitle = cursor[0].ToString();
+                }
+            }
+        }
+        
+       
+        
     }
     protected void grdApplicants_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
@@ -27,17 +51,18 @@ public partial class Applications : System.Web.UI.Page
         Files.transcript = new Files();
         pnlGridView.Visible = false;
         pnlResults.Visible = true;
+        selectedJobID = Int32.Parse(grdApplicants.Rows[e.NewSelectedIndex].Cells[2].Text);
 
-        List<string> attributes = new List<string>();
+            List<string> attributes = new List<string>();
 
         using (SqlConnection connection = connect())
         {
             connection.Open();
             SqlCommand select = new SqlCommand();
             select.Connection = connection;
-            select.CommandText = "SELECT StudentAttribute from QuickApplyJobAttributes WHERE JobID = (Select JobID from Application Where ApplicationID = @ApplicationID)";
+            select.CommandText = "SELECT StudentAttribute from QuickApplyJobAttributes WHERE JobID = @jobID";
             appID = Int32.Parse(grdApplicants.Rows[e.NewSelectedIndex].Cells[1].Text);
-            select.Parameters.AddWithValue("@ApplicationID", appID);
+            select.Parameters.AddWithValue("@jobID", selectedJobID);
             SqlDataReader cursor = select.ExecuteReader();
             while (cursor.Read())
             {
@@ -89,17 +114,28 @@ public partial class Applications : System.Web.UI.Page
                 lblRelevantFiles.Text = "No Files Available at this time";
             }
             cursor.Close();
+
+            //Select the correct dropdown option from the list based on the current database value, if the applicant has been approved or denied you cant change the value
             SqlCommand selectStatus = new SqlCommand();
-            select.Connection = connection;
-            select.CommandText = "SELECT Status From Application WHERE ApplicationID = @ApplicationID";
+            selectStatus.Connection = connection;
+            selectStatus.CommandText = "SELECT Status From Application WHERE ApplicationID = @ApplicationID";
             selectStatus.Parameters.AddWithValue("@ApplicationID", appID);
-            SqlDataReader cursor2 = select.ExecuteReader();
+            SqlDataReader cursor2 = selectStatus.ExecuteReader();
             while (cursor2.Read())
             {
                 if (cursor2[0].ToString() != "Pending")
+                {
                     ddlStatus.SelectedValue = cursor2[0].ToString();
+                    if (cursor2[0].ToString() == "Approved" || cursor2[0].ToString() == "Declined")
+                    {
+                        ddlStatus.Enabled = false;
+                    }
+                }
                 else
+                {
                     ddlStatus.SelectedValue = "Reviewed";
+                    ddlStatus.Enabled = true;
+                }
             }
         }
     }
@@ -206,40 +242,41 @@ public partial class Applications : System.Web.UI.Page
 
             update.ExecuteNonQuery();
             populateGrdApplication();
+            Page.Response.Redirect(Page.Request.Url.ToString(), true);
         }
     }
-    public void populateGrdApplication()
+    public void populateGrdApplication()//populates grdApplication
     {
         using (SqlConnection connection = connect())
         {
-            int orgID = 0;
+            int orgID = signedInUser.getOrgID();
             connection.Open();
-            SqlCommand findID = new SqlCommand();
-            findID.Connection = connection;
-            findID.CommandText = "Select OrganizationID FROM Organization WHERE OrganizationName = @organizationName ";
-            findID.Parameters.AddWithValue("@organizationName", signedInUser.getOrgID()); //needs to be changed when cookie information is done
-            SqlDataReader read = findID.ExecuteReader();
-            while (read.Read())
-            {
-                orgID = Int32.Parse(read[0].ToString());
-            }
-            read.Close();
 
             SqlCommand select = new SqlCommand();
             select.Connection = connection;
-            select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
+            select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobID as 'Job Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
                 "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID";
-
             SqlDataReader cursor = select.ExecuteReader();
-
-
             grdApplicants.DataSource = cursor;
             grdApplicants.DataBind();
-
+        }
+    }
+    public void populateGrdApplication(int jobID)//populates grdApplication
+    {
+        using (SqlConnection connection = connect())
+        {
+            connection.Open();
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobID as 'Job Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
+                "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID WHERE Job.JobID = @JobID";
+            select.Parameters.AddWithValue("@JobID", jobID);
+            SqlDataReader cursor = select.ExecuteReader();
+            grdApplicants.DataSource = cursor;
+            grdApplicants.DataBind();
         }
     }
 
-    
 
     protected void btnViewResume_Click(object sender, EventArgs e)
     {
@@ -337,5 +374,12 @@ public partial class Applications : System.Web.UI.Page
         }
     }
 
+
+
+
+    protected void btnReturnToJob_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Job.aspx");
+    }
 }
 
