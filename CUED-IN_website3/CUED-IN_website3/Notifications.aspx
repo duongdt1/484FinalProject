@@ -306,7 +306,10 @@
          
        <!-- Form with ASP tags start here -->
             <form id="form1" runat="server">
-                
+                <div>
+            		<asp:GridView ID="grdNotifications" runat="server">
+            		</asp:GridView>
+        	</div>
             </form>
         <!-- Form with ASP tags end here -->
 
