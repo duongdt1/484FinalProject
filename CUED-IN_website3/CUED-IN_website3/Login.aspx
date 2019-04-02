@@ -44,7 +44,7 @@
     <label for="exampleInputEmail1">Username</label>
     <asp:TextBox runat="server" class="form-control" id="txtUsername" aria-describedby="emailHelp" placeholder="Username" Width="313px" MaxLength="50"></asp:TextBox>
     &nbsp;&nbsp;&nbsp;
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<small id="emailHelp" class="form-text text-muted"></small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>

@@ -34,8 +34,8 @@
             <div class="form-group">  
                 <label for="exampleInputType">Business/Organization Type</label>
                 <asp:RadioButtonList ID="radOrgType" runat="server">
-                    <asp:ListItem class="form-check-label">Profit</asp:ListItem>
-                    <asp:ListItem class="form-check-label">Non-Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">&nbsp;Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">&nbsp;Non-Profit</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
 
@@ -55,13 +55,6 @@
         <asp:ListItem>Non-Profit</asp:ListItem>
     </asp:DropDownList>
     </div>-->
-          
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-
             <div class="form-group">
                 <label>Phone Number</label>
                 <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px"></asp:TextBox>
