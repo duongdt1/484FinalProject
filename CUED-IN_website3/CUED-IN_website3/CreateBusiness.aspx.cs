@@ -73,18 +73,7 @@ public partial class CreateBusiness : System.Web.UI.Page
             createUser.ExecuteNonQuery();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
+        Response.Redirect("~/Login.aspx");
         //Insert password
         //System.Data.SqlClient.SqlCommand setPass = new System.Data.SqlClient.SqlCommand();
         //setPass.Connection = sc;

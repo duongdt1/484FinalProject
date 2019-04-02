@@ -312,10 +312,10 @@
                 <asp:Label ID="Label3" runat="server" Text="What sort of job are you posting?"></asp:Label>
             </p>
             <asp:RadioButtonList ID="radJobType" runat="server">
-                <asp:ListItem>Full-Time</asp:ListItem>
-                <asp:ListItem>Part-Time</asp:ListItem>
-                <asp:ListItem>Internship</asp:ListItem>
-                <asp:ListItem>Volunteer</asp:ListItem>
+                <asp:ListItem>&nbsp;Full-Time</asp:ListItem>
+                <asp:ListItem>&nbsp;Part-Time</asp:ListItem>
+                <asp:ListItem>&nbsp;Internship</asp:ListItem>
+                <asp:ListItem>&nbsp;Volunteer</asp:ListItem>
             </asp:RadioButtonList>
         </asp:Panel>
         <asp:Panel ID="Panel5" runat="server">
@@ -357,8 +357,8 @@
             <asp:Label ID="Label10" runat="server" Text="External URL: Have applicants apply on your website"></asp:Label>
             <br />
             <asp:RadioButtonList ID="RadioButtonList1" runat="server" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" AutoPostBack ="True">
-                <asp:ListItem>Quick Apply</asp:ListItem>
-                <asp:ListItem>External URL</asp:ListItem>
+                <asp:ListItem>&nbsp;Quick Apply</asp:ListItem>
+                <asp:ListItem>&nbsp;External URL</asp:ListItem>
             </asp:RadioButtonList>
             <br />
             <asp:Label ID="Label11" runat="server" Text="What information do you need from each applicant?" Visible="False"></asp:Label>

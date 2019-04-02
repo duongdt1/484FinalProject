@@ -53,25 +53,10 @@
 	
         <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click1" Text="Sign In" />
         
-       
-        
-        
-        
-        
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" PostBackUrl="~/CreateUser.aspx" Text="Create Account" />
         
-       
-        
-        
-        
-        
          <br />
-        
-       
-        
-        
-        
         
          <br />
          <asp:LinkButton ID="LinkButton1" runat="server">Forgot Password? Click Here!</asp:LinkButton>
