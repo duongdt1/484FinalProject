@@ -21,6 +21,7 @@
 </head>
 
 <body>
+     <form runat= "server">
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -234,7 +235,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton>             
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -582,6 +583,8 @@
         </div>
         <!-- /. PAGE WRAPPER  -->
     </div>
+
+         </form>
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
