@@ -15,7 +15,7 @@ public partial class _Default : Page
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         Session.Remove("User");
-        Response.Redirect("Login.aspx");
+        Response.Redirect("../Login.aspx");
 
 
     }
