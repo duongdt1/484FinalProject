@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Scholarships.aspx.cs" Inherits="Scholarships" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Job.aspx.cs" Inherits="Job" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -247,35 +247,18 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i>Dashboard</a>
+                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     
                     <li>
-                        <a href="Events.aspx"><i class="fa fa-edit"></i>Events</a>
-                    </li>
-
-                    <li>
-                        <a href="Job.aspx"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
                     <li>
                         <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
                     </li>
-
-                    <li>
-                        <a href="Applications.aspx">Applications<span class="fa arrow"></span></a>
-                    </li>
                         </ul>
                     </li>
-
-                    <li>
-                        <a href="Scholarships.aspx"><i class="fa fa-edit"></i>Scholarships</a>
-                    </li>
-
-                    <li>
-                        <a href="Notifications.aspx"><i class="fa fa-edit"></i>Notifications</a>
-                    </li>
-
                 </ul>
 
             </div>
@@ -288,7 +271,7 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Scholarships <small></small>
+                            Job Listings <small></small>
                         </h1>
                     </div>
                 </div> 
@@ -305,9 +288,21 @@
                                         <div class="form-group">
          
        <!-- Form with ASP tags start here -->
-            <form id="form1" runat="server">
-                
-            </form>
+        
+                <form id="form1" runat="server">
+                    <div>
+                    <br />
+                    <asp:Label ID="Label1" runat="server" Text="Current Job Postings"></asp:Label>
+                    <asp:Button ID="btnNewListing" runat="server" OnClick="btnNewListing_Click" Text="Add a New Listing" />
+                    <asp:Button ID="btnEditJobPosting" runat="server" Text="Edit a Job Posting" />
+                    <br />
+                    <asp:Button ID="btnViewApplicants" runat="server" OnClick="btnViewApplicants_Click" Text="View All Applicants" />
+                    <br />
+                    <asp:GridView class="table table-striped table-bordered table-hover" ID="grdJobs" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanging="grdJobs_SelectedIndexChanged">
+                    </asp:GridView>
+                    </div>
+                </form>
+            
         <!-- Form with ASP tags end here -->
 
                                     </div>

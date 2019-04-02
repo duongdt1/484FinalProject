@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="JobListing.aspx.cs" Inherits="JobListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Events.aspx.cs" Inherits="Events" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -247,18 +247,35 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="active-menu" href="Dashboard.aspx"><i class="fa fa-dashboard"></i>Dashboard</a>
                     </li>
                     
                     <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
+                        <a href="Events.aspx"><i class="fa fa-edit"></i>Events</a>
+                    </li>
+
+                    <li>
+                        <a href="Job.aspx"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
                     <li>
                         <a href="JobListing.aspx">Job Listings<span class="fa arrow"></span></a>
                     </li>
+
+                    <li>
+                        <a href="Applications.aspx">Applications<span class="fa arrow"></span></a>
+                    </li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="Scholarships.aspx"><i class="fa fa-edit"></i>Scholarships</a>
+                    </li>
+
+                    <li>
+                        <a href="Notifications.aspx"><i class="fa fa-edit"></i>Notifications</a>
+                    </li>
+
                 </ul>
 
             </div>
@@ -271,7 +288,7 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Job Listings <small></small>
+                            Events <small></small>
                         </h1>
                     </div>
                 </div> 
@@ -289,91 +306,35 @@
          
        <!-- Form with ASP tags start here -->
             <form id="form1" runat="server">
-                <asp:Panel ID="Panel1" runat="server">
-            <p>
-                <asp:Label ID="Label1" runat="server" Text="What is the title of your job?"></asp:Label>
-            </p>
-            <p>
-                <asp:TextBox ID="txtJobTitle" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="vldTitle" runat="server" ErrorMessage="* Required Field" ControlToValidate="txtJobTitle"></asp:RequiredFieldValidator>
-            </p>
-        </asp:Panel>
-        <asp:Panel ID="Panel2" runat="server">
-            <p>
-                <asp:Label ID="Label2" runat="server" Text="Write a short description for your job"></asp:Label>
-            </p>
-            <p>
-                <asp:TextBox ID="txtDescription" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="vldDesc" runat="server" ErrorMessage="* Required Field" ControlToValidate="txtDescription"></asp:RequiredFieldValidator>
-            </p>
-        </asp:Panel>
-        <asp:Panel ID="Panel3" runat="server">
-            <p>
-                <asp:Label ID="Label3" runat="server" Text="What sort of job are you posting?"></asp:Label>
-            </p>
-            <asp:RadioButtonList ID="radJobType" runat="server">
-                <asp:ListItem>&nbsp;Full-Time</asp:ListItem>
-                <asp:ListItem>&nbsp;Part-Time</asp:ListItem>
-                <asp:ListItem>&nbsp;Internship</asp:ListItem>
-                <asp:ListItem>&nbsp;Volunteer</asp:ListItem>
-            </asp:RadioButtonList>
-        </asp:Panel>
-        <asp:Panel ID="Panel5" runat="server">
-            <asp:Panel ID="Panel9" runat="server">
-                <asp:Label ID="Label13" runat="server" Text="Would you like to specify a minimum age for your applicants?"></asp:Label>
-                <br />
-                <asp:CheckBox ID="chkAge" runat="server" OnCheckedChanged="chkAge_CheckedChanged" AutoPostBack ="true"/>
-                <br />
-                <asp:TextBox ID="txtMinimumAge" runat="server" Visible="False"></asp:TextBox>
-            </asp:Panel>
-            <asp:Label ID="Label4" runat="server" Text="Does your job have a deadline?"></asp:Label>
+        <div>
+            New Event
+
             <br />
-            <asp:CheckBox ID="chkDeadline" runat="server" OnCheckedChanged="chkDeadline_CheckedChanged" AutoPostBack ="true"/>
             <br />
-            <asp:Label ID="Label5" runat="server" Text="When will you stop accepting applications?" Visible="False"></asp:Label>
+            Date<asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+
+
             <br />
-            <asp:Calendar ID="cldrDueDate" runat="server" Visible="False"></asp:Calendar>
-        </asp:Panel>
-        <asp:Panel ID="Panel6" runat="server">
-            <asp:Label ID="Label6" runat="server" Text="How much will this position pay?"></asp:Label>
-            <br />
-            <asp:TextBox ID="txtPay" runat="server"></asp:TextBox>
-            <asp:DropDownList ID="ddlPayType" runat="server">
-                <asp:ListItem>Per Hour</asp:ListItem>
-                <asp:ListItem>Annually</asp:ListItem>
+            Event Type&nbsp;
+            <asp:DropDownList ID="DropDownList1" runat="server">
             </asp:DropDownList>
             <br />
-            <asp:CheckBox ID="chkUnpaid" runat="server" OnCheckedChanged="chkUnpaid_CheckedChanged" Text="Is this an unpaid position?" AutoPostBack ="true"/>
-        </asp:Panel>
-        <asp:Panel ID="Panel7" runat="server">
-            <asp:Label ID="Label7" runat="server" Text="Add a career cluster to target the students you're interested in"></asp:Label>
             <br />
-            <asp:ListBox ID="lstCareerCluster" runat="server"></asp:ListBox>
+            Associated School&nbsp;
+            <asp:DropDownList ID="DropDownList2" runat="server">
+            </asp:DropDownList>
+
+
             <br />
-        </asp:Panel>
-        <asp:Panel ID="Panel8" runat="server">
-            <asp:Label ID="Label9" runat="server" Text="Quick Apply: allow your applicants to apply with one click"></asp:Label>
             <br />
-            <asp:Label ID="Label10" runat="server" Text="External URL: Have applicants apply on your website"></asp:Label>
-            <br />
-            <asp:RadioButtonList ID="RadioButtonList1" runat="server" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" AutoPostBack ="True">
-                <asp:ListItem>&nbsp;Quick Apply</asp:ListItem>
-                <asp:ListItem>&nbsp;External URL</asp:ListItem>
-            </asp:RadioButtonList>
-            <br />
-            <asp:Label ID="Label11" runat="server" Text="What information do you need from each applicant?" Visible="False"></asp:Label>
-            <br />
-            <asp:ListBox ID="lstStudentFields" runat="server" SelectionMode="Multiple" Visible="False">
-            </asp:ListBox>
-            <br />
-            <asp:Label ID="Label12" runat="server" Text="Enter the URL:" Visible="False"></asp:Label>
-            <br />
-            <asp:TextBox ID="txtURL" runat="server" Visible="False"></asp:TextBox>
-        </asp:Panel>
-        <p>
-            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
-        </p>
-        </form>
+            <asp:Button ID="Button1" runat="server" Text="Save" />
+
+
+            &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" />
+
+
+        </div>
+    </form>
         <!-- Form with ASP tags end here -->
 
                                     </div>
