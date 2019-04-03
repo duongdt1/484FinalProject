@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-gear"></i> <strong>CUED-IN</strong></a>
+                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-puzzle-piece"></i> <strong>CUED-IN</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -251,11 +251,11 @@
                     </li>
                     
                     <li>
-                        <a href="Events.aspx"><i class="fa fa-edit"></i>Events</a>
+                        <a href="Events.aspx"><i class="fa fa-calendar"></i>Events</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-briefcase"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
                     <li>
@@ -269,11 +269,11 @@
                     </li>
 
                     <li>
-                        <a href="Scholarships.aspx"><i class="fa fa-edit"></i>Scholarships</a>
+                        <a href="Scholarships.aspx"><i class="fa fa-book"></i>Scholarships</a>
                     </li>
 
                     <li>
-                        <a href="Notifications.aspx"><i class="fa fa-edit"></i>Notifications</a>
+                        <a href="Notifications.aspx"><i class="fa fa-bell-o"></i>Notifications</a>
                     </li>
 
                 </ul>
