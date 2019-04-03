@@ -22,7 +22,7 @@
 	   
         <!--Nav starts here-->
         <ul>
-            <li><a class="active" href="Index.aspx">Home</a></li>
+            <li><a class="active" href="Index.aspx">About</a></li>
             <li><a class="active" href="Login.aspx">Login</a></li>
         </ul>
         <!--Nav ends here-->
