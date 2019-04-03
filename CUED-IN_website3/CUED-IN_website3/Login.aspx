@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css">
 	  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
-    <title>Login | CUED-In</title>
+    <title>CUED-In</title>
   </head>
   <body>
 	  <ul>
