@@ -58,7 +58,6 @@
             <asp:RadioButton ID="rbExisting" runat="server" GroupName="choose" Text="Choose Existing Organization" AutoPostBack="True" OnCheckedChanged="rbExisting_CheckedChanged" />
 
 
-       </div>
 
         <div class="form-group">
 
@@ -75,7 +74,9 @@
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <asp:TextBox runat="server" class="form-control" id="txtPassword" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPassword" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ForeColor="Red" runat="server" ControlToValidate="txtPassword" ValidationExpression="(?=.{8,})[a-zA-Z]+[^a-zA-Z]+|[^a-zA-Z]+[a-zA-Z]+" Display="Dynamic" ErrorMessage="Password must be 8 characters and have both letters and numbers." />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+            
         </div>
 		  
         <div class="form-group">
@@ -83,6 +84,7 @@
             <asp:TextBox runat="server" class="form-control" id="txtReenter" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
             <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtReenter" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+            
             <br />
         </div>
 
