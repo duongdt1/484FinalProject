@@ -54,7 +54,7 @@ public partial class Job : System.Web.UI.Page
 
     protected void btnNewListing_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/JobListing.aspx");
+        Response.Redirect("~/dashboard/JobListing.aspx");
     }
 
     protected void btnViewApplicants_Click(object sender, EventArgs e)
