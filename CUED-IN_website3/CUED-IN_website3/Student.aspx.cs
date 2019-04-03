@@ -15,6 +15,7 @@ public partial class Student : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        populatelstCareerCluster();
         List<string> schoolList = new List<string>();
         if (!IsPostBack)
         {
@@ -44,6 +45,7 @@ public partial class Student : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        
         using (SqlConnection connection = connect())
         {
             int selectedSchool = 0;
@@ -155,7 +157,23 @@ public partial class Student : System.Web.UI.Page
                     }
                 }
             }
+            connection.Open();
+            for (int i = 0; i < lstCareerCluster.Items.Count; i++)
+            {
+                if (lstCareerCluster.Items[i].Selected)
+                {
+                    
+                    SqlCommand insert = new SqlCommand();
+                    insert.CommandText = "INSERT INTO CareerInterests VALUES(@CareerCluster, @StudentID, GETDATE(), 'Acme Group')";
+                    insert.Connection = connection;
+                    insert.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.Items[i].Text);
+                    insert.Parameters.AddWithValue("@StudentID", currentStudent);
+                    insert.ExecuteNonQuery();
+                }
+            }
         }
+
+
         Response.Redirect("~/StudentViewJobs.aspx");
         
     }
@@ -166,26 +184,22 @@ public partial class Student : System.Web.UI.Page
         return returnString;
     }
 
-    //One-Time password option
-    protected void radOTP_SelectedIndexChanged(object sender, EventArgs e)
+    public void populatelstCareerCluster()
     {
-        if (radOTP.SelectedIndex == 0)
+        using (SqlConnection connection = connect())
         {
-            lblParentFirstName.Visible = true;
-            txtParentFirstName.Visible = true;
-            lblParentLastName.Visible = true;
-            txtParentLastName.Visible = true;
-            lblParentEmail.Visible = true;
-            txtParentEmail.Visible = true;
-        }
-        else
-        {
-            lblParentFirstName.Visible = false;
-            txtParentFirstName.Visible = false;
-            lblParentLastName.Visible = false;
-            txtParentLastName.Visible = false;
-            lblParentEmail.Visible = false;
-            txtParentEmail.Visible = false;
+            connection.Open();
+            SqlCommand select = new SqlCommand();
+            select.CommandText = "Select * FROM CareerCluster";
+            select.Connection = connection;
+            SqlDataReader cursor = select.ExecuteReader();
+            while (cursor.Read())
+            {
+                lstCareerCluster.Items.Add(cursor[0].ToString());
+
+            }
+
         }
     }
+    
 }

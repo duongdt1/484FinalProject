@@ -307,6 +307,7 @@
        <!-- Form with ASP tags start here -->
             <form id="form1" runat="server">
                 <div>
+                    <asp:CheckBox ID="chkShowOpened" runat="server" Text="Show Viewed Notifications" Checked="True" OnCheckedChanged="chkShowOpened_CheckedChanged" AutoPostBack="true"/>
             		<asp:GridView ID="grdNotifications" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanging="grdNotifications_SelectedIndexChanged">
             		</asp:GridView>
         	</div>

@@ -21,7 +21,10 @@ public partial class Notifications : System.Web.UI.Page
         using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
         {
             SqlCommand select = new SqlCommand();
-            select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username";
+            if (chkShowOpened.Checked)
+                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username";
+            else
+                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username AND IsReceived = 'N'";
             select.Connection = connection;
             select.Parameters.AddWithValue("@Username", signedInUser.getUserName());
             connection.Open();
@@ -72,5 +75,10 @@ public partial class Notifications : System.Web.UI.Page
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
+    }
+
+    protected void chkShowOpened_CheckedChanged(object sender, EventArgs e)
+    {
+        populateGrdNotification();
     }
 }

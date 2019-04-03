@@ -11,6 +11,7 @@ using System.Net.Mail;
 
 public partial class StudentViewJobs : System.Web.UI.Page
 {
+    List<string> recipients = new List<string>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -74,15 +75,25 @@ public partial class StudentViewJobs : System.Web.UI.Page
 
             SqlCommand getJobName = new SqlCommand();
             getJobName.Connection = connection;
-            getJobName.CommandText = "SELECT Job.JobTitle, Organization.ContactEmail FROM Job INNER JOIN Organization ON Job.OrganizationID = Organization.OrganizationID WHERE JobID = @JobID";
+            getJobName.CommandText = "SELECT Job.JobTitle FROM Job INNER JOIN Organization ON Job.OrganizationID = Organization.OrganizationID WHERE JobID = @JobID";
             getJobName.Parameters.AddWithValue("@JobID", jobID);
             cursor = getJobName.ExecuteReader();
             while (cursor.Read())
             {
                 jobTitle = cursor[0].ToString();
-                emailAddress = cursor[1].ToString();
             }
-            sendMail(jobTitle, emailAddress);
+            cursor.Close();
+            SqlCommand getRecipients = new SqlCommand();
+            getRecipients.Connection = connection;
+            getRecipients.CommandText = "SELECT EmailAddress FROM OrganizationUser WHERE OrganizationID = (SELECT OrganizationID FROM Job WHERE JobID = @JobID)";
+            getRecipients.Parameters.AddWithValue("@JobID", jobID);
+            cursor = getRecipients.ExecuteReader();
+            while (cursor.Read())
+            {
+                recipients.Add(cursor[0].ToString());
+            }
+            for (int i = 0; i < recipients.Count(); i++)
+                sendMail(jobTitle, recipients[i]);
         }
 
     }

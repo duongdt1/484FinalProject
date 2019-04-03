@@ -88,45 +88,12 @@
                 <asp:ListItem>No</asp:ListItem>
             </asp:RadioButtonList>
             <br />
+            <asp:ListBox ID="lstCareerCluster" runat="server" SelectionMode="Multiple"></asp:ListBox>
+            <br />
+            <br />
         </div>
         
         <%--Info below are hidden until this button is clicked --%>
-        <asp:Button ID="btnNext" runat="server" Text="Next" />
-            
-        <br />
-        <br />
-        
-        <div>
-            <asp:Label ID="lblOTP" runat="server" Text="Would you like to generate a one time password?"></asp:Label>
-            <asp:RadioButtonList ID="radOTP" runat="server">
-            <asp:ListItem>Yes</asp:ListItem>
-            <asp:ListItem>No</asp:ListItem>
-            </asp:RadioButtonList>
-            <br />
-
-            <%--Parent part only shows when student selects Yes --%>
-            <asp:Label ID="lblParentFirstName" runat="server" Text="Parent First Name"></asp:Label>
-            <asp:TextBox ID="txtParentFirstName" runat="server" class="form-control"></asp:TextBox>
-            <br />
-            <asp:Label ID="lblParentLastName" runat="server" Text="Parent Last Name"></asp:Label>
-            <asp:TextBox ID="txtParentLastName" runat="server" class="form-control"></asp:TextBox>
-            <br />
-            <asp:Label ID="lblParentEmail" runat="server" Text="Parent Email"></asp:Label>
-            <asp:TextBox ID="txtParentEmail" runat="server" class="form-control"></asp:TextBox>
-        </div>
-        <br />
-        <br />
-        
-        <%--Shows when student selects No for OTP --%>
-        <div>
-            <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
-            <asp:TextBox ID="txtUsername" runat="server" class="form-control"></asp:TextBox>
-            <br />
-            <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
-            <asp:TextBox ID="txtPassword" runat="server" class="form-control"></asp:TextBox>
-            <br />
-            <br />
-        </div>
         
         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
     </form>
