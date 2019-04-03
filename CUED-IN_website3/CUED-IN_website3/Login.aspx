@@ -36,7 +36,7 @@
 	
             <asp:Button class="btn btn-light" ID="btnLogin" runat="server" OnClick="btnLogin_Click1" Text="Sign In" />
 
-            <asp:Button class="btn btn-dark" ID="Button1" runat="server" PostBackUrl="~/CreateUser.aspx" Text="Create An Account" />
+            <asp:Button class="btn btn-dark" ID="Button1" runat="server" PostBackUrl="~/StudentOrOrg.aspx" Text="Create An Account" />
         
             <br />
         
