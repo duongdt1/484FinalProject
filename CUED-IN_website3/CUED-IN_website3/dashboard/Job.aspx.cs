@@ -12,6 +12,10 @@ public partial class Job : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
+          if(Session["User"]== null)
+        {
+            Response.Redirect("../Login.aspx");
+        }
         Session["sJobID"] = -1;
         signedInUser = (OrganizationUser)Session["User"];
         using (SqlConnection connection = connect())
