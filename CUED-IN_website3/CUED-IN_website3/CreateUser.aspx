@@ -74,7 +74,7 @@
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <asp:TextBox runat="server" class="form-control" id="txtPassword" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
-            <asp:RegularExpressionValidator ForeColor="Red" runat="server" ControlToValidate="txtPassword" ValidationExpression="(?=.{8,})[a-zA-Z]+[^a-zA-Z]+|[^a-zA-Z]+[a-zA-Z]+" Display="Dynamic" ErrorMessage="Password must be 8 characters and have both letters and numbers." />
+            <asp:RegularExpressionValidator ForeColor="Red" runat="server" ControlToValidate="txtPassword" ValidationExpression="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$" Display="Dynamic" ErrorMessage="Password must between 8 and 15 characters, have both letters, numbers, and a special character." />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
             
         </div>
