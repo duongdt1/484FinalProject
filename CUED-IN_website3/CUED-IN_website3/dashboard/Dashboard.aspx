@@ -293,13 +293,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Dashboard <small>CUED-In Summary</small>
+                            Welcome <small><asp:Label ID="companyName" runat="server" Text="test"></asp:Label></small> <!-- company name? -->
                         </h1>
-						<ol class="breadcrumb">
+						<!--
+                        <ol class="breadcrumb">
   <li><a href="#">Home</a></li>
   <li><a href="#">Library</a></li>
   <li class="active">Data</li>
 </ol>
+                        -->
                     </div>
                 </div>
 				
@@ -310,24 +312,24 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder bg-color-green green">
                             <div class="panel-left pull-left green">
-                                <i class="fa fa-eye fa-5x"></i>
+                                <i class="fa fa-briefcase fa-5x"></i>
                                 
                             </div>
                             <div class="panel-right">
-								<h3>8,457</h3>
-                               <strong> Daily Visits</strong>
+								<h3><asp:Label ID="jobPostingCount" runat="server" Text="99"></asp:Label></h3>
+                               <strong> Posted Jobs</strong>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder bg-color-blue">
                               <div class="panel-left pull-left blue">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                <i class="fa fa-file-text fa-5x"></i>
 								</div>
                                 
                             <div class="panel-right">
-							<h3>52,160 </h3>
-                               <strong> Sales</strong>
+							<h3><asp:Label ID="applicationReceivedCount" runat="server" Text="99"></asp:Label></h3>
+                               <strong> Applications Received</strong>
 
                             </div>
                         </div>
@@ -335,12 +337,12 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder bg-color-red">
                             <div class="panel-left pull-left red">
-                                <i class="fa fa fa-comments fa-5x"></i>
+                                <i class="fa fa fa-users fa-5x"></i>
                                
                             </div>
                             <div class="panel-right">
-							 <h3>15,823 </h3>
-                               <strong> Comments </strong>
+							 <h3><asp:Label ID="studentClusterCount" runat="server" Text="99"></asp:Label></h3>
+                               <strong> Students Interested in Career Cluster </strong>
 
                             </div>
                         </div>
