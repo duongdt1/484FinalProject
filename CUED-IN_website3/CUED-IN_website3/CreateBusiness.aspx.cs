@@ -12,6 +12,8 @@ public partial class CreateBusiness : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+        Response.Cache.SetNoStore();
         List<String> careerClusterList = new List<string>();
 
         if (!IsPostBack)

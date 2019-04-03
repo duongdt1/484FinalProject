@@ -4,6 +4,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
+      <meta http-equiv="PRAGMA" content="NO-CACHE"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,13 +15,7 @@
 	  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     <title>CUED-In</title>
-      <style type="text/css">
-          .auto-style1 {
-              width: 914px;
-              margin-bottom: 1rem;
-          }
-      </style>
-  </head>
+      </head>
   
     <body>  
 	   <!--Nav starts here-->
@@ -37,23 +32,57 @@
             <label for="exampleInputBusOrgName1">Username</label>
             <br />
             <asp:TextBox class="form-control" ID="txtUserName" runat="server" placeholder="Username" Width="313px"></asp:TextBox>
-            <asp:Label ID="txtDuplicate" runat="server" ForeColor="Red"></asp:Label>
+            <asp:Label ID="lblDuplicate" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtUserName" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
         </div>
 
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
+            <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px" TextMode="Email"></asp:TextBox>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
+        
+
+
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+        <br />
+
+        
+
+
+            <asp:Label ID="Label1" runat="server" Text="Organization"></asp:Label>
+            <br />
+            <asp:RadioButton ID="rbNew" runat="server" GroupName="choose" Text="Create New Organization" AutoPostBack="True" OnCheckedChanged="rbNew_CheckedChanged" />
+            <br />
+            <asp:RadioButton ID="rbExisting" runat="server" GroupName="choose" Text="Choose Existing Organization" AutoPostBack="True" OnCheckedChanged="rbExisting_CheckedChanged" />
+
+
+       </div>
+
+        <div class="form-group">
+
+            <asp:DropDownList ID="ddlOrg" runat="server" DataSourceID="SqlDataSource1" DataTextField="OrganizationName" DataValueField="OrganizationID" Visible="False">
+                <asp:ListItem Value="-1">Select Organization</asp:ListItem>
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:connection %>" SelectCommand="SELECT [OrganizationID], [OrganizationName] FROM [Organization]"></asp:SqlDataSource>
+
+            <asp:Label ID="Label2" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+
+            </div>
+
 
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <asp:TextBox runat="server" class="form-control" id="txtPassword" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPassword" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
         </div>
 		  
         <div class="form-group">
             <label for="exampleInputReenterPassword1">Re-enter Your Password</label>
             <asp:TextBox runat="server" class="form-control" id="txtReenter" placeholder="Password" Width="313px" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+            <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtReenter" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
             <br />
         </div>
 

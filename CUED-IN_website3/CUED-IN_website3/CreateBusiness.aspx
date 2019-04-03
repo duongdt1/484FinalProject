@@ -4,6 +4,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
+      <meta http-equiv="PRAGMA" content="NO-CACHE"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -57,7 +58,7 @@
     </div>-->
             <div class="form-group">
                 <label>Phone Number</label>
-                <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px"></asp:TextBox>
+                <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px" TextMode="Phone"></asp:TextBox>
             </div>
 
           
