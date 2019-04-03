@@ -259,7 +259,8 @@ public partial class Applications : System.Web.UI.Page
             SqlCommand select = new SqlCommand();
             select.Connection = connection;
             select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobID as 'Job Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
-                "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID";
+                "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID WHERE Job.OrganizationID = @OrgID";
+            select.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
             SqlDataReader cursor = select.ExecuteReader();
             grdApplicants.DataSource = cursor;
             grdApplicants.DataBind();
@@ -284,6 +285,7 @@ public partial class Applications : System.Web.UI.Page
 
     protected void btnViewResume_Click(object sender, EventArgs e)
     {
+        try { 
         Response.Clear();
         Response.Buffer = true;
 
@@ -297,12 +299,16 @@ public partial class Applications : System.Web.UI.Page
         Response.ContentType = Files.resume.getFileType();
         Response.BinaryWrite(Files.resume.getData());
         Response.Flush();
-        try { Response.End(); }
-        catch { }
+        Response.End();
+        }
+        catch {
+            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
+        }
     }
 
     protected void btnViewTranscript_Click(object sender, EventArgs e)
     {
+        try { 
         Response.Clear();
         Response.Buffer = true;
 
@@ -316,8 +322,11 @@ public partial class Applications : System.Web.UI.Page
         Response.ContentType = Files.transcript.getFileType();
         Response.BinaryWrite(Files.transcript.getData());
         Response.Flush();
-        try { Response.End(); }
-        catch { }
+        Response.End();
+        }
+        catch {
+            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
+        }
     }
 
     protected void btnDownloadResume_Click(object sender, EventArgs e)
