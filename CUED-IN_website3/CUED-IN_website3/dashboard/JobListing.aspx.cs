@@ -12,6 +12,10 @@ public partial class JobListing : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
+      if(Session["User"]== null)
+        {
+            Response.Redirect("../Login.aspx");
+        }
         signedInUser = (OrganizationUser)Session["User"];
         List<String> careerClusterList = new List<string>();
         List<String> studentAttributeList = new List<string>();
