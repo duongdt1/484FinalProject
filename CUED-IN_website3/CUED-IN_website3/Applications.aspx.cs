@@ -25,21 +25,25 @@ public partial class Applications : System.Web.UI.Page
         selectedJobID = (int)Session["sJobID"];
         if (selectedJobID != -1)
         {
-            populateGrdApplication(selectedJobID);
-            string jobTitle = "";
-            using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
+            try
             {
-                SqlCommand select = new SqlCommand();
-                select.Connection = connection;
-                connection.Open();
-                select.CommandText = "SELECT JobTitle from Job WHERE JobID = @JobID";
-                select.Parameters.AddWithValue("@JobID", selectedJobID);
-                SqlDataReader cursor = select.ExecuteReader();
-                while (cursor.Read())
+                populateGrdApplication(selectedJobID);
+                string jobTitle = "";
+                using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
                 {
-                    jobTitle = cursor[0].ToString();
+                    SqlCommand select = new SqlCommand();
+                    select.Connection = connection;
+                    connection.Open();
+                    select.CommandText = "SELECT JobTitle from Job WHERE JobID = @JobID";
+                    select.Parameters.AddWithValue("@JobID", selectedJobID);
+                    SqlDataReader cursor = select.ExecuteReader();
+                    while (cursor.Read())
+                    {
+                        jobTitle = cursor[0].ToString();
+                    }
                 }
             }
+            catch { }
         }
         
        
