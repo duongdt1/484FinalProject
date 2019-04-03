@@ -12,7 +12,9 @@ public partial class Notifications : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
-      if(Session["User"]== null)
+        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+        Response.Cache.SetNoStore();
+        if (Session["User"]== null)
         {
             Response.Redirect("../Login.aspx");
         }
@@ -42,5 +44,12 @@ public partial class Notifications : System.Web.UI.Page
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Remove("User");
+        Response.Redirect("../Login.aspx");
+
+
     }
 }
