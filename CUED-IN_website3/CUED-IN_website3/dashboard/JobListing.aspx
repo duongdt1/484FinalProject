@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-gear"></i> <strong>CUED-IN</strong></a>
+                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-puzzle-piece"></i> <strong>CUED-IN</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -253,7 +253,7 @@
                     </li>
                     
                     <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-briefcase"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
                     <li>
