@@ -305,35 +305,53 @@
                                         <div class="form-group">
          
        <!-- Form with ASP tags start here -->
-            <form id="form1" runat="server">
-        <div>
+
+    <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Enter Scholarship Information Below
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+    
+     <form id="form1" runat="server">
+        <div class="form-group">
             <asp:Label ID="Label1" runat="server" Text="Scholarship Title"></asp:Label>
-            <asp:TextBox ID="txtTitle" runat="server"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtTitle" runat="server"></asp:TextBox>
             <br />
             <br />
             <asp:Label ID="Label2" runat="server" Text="Organization Sponsor"></asp:Label>
-            <asp:TextBox ID="txtSponsor" runat="server"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtSponsor" runat="server"></asp:TextBox>
             <br />
             <br />
             <asp:Label ID="Label3" runat="server" Text="Contact Email"></asp:Label>
-            <asp:TextBox ID="txtEmail" runat="server" TextMode="Email"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtEmail" runat="server" TextMode="Email"></asp:TextBox>
             <br />
             <br />
             <asp:Label ID="Label4" runat="server" Text="Description"></asp:Label>
-            <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
             <br />
             <br />
             <asp:Label ID="Label5" runat="server" Text="Deadline"></asp:Label>
-            <asp:TextBox ID="txtDeadline" runat="server" TextMode="Date"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtDeadline" runat="server" TextMode="Date"></asp:TextBox>
             <br />
             <br />
             <asp:Label ID="Label6" runat="server" Text="Award Amount"></asp:Label>
-            <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtAmount" runat="server"></asp:TextBox>
             <br />
             <br />
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
         </div>
     </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
         <!-- Form with ASP tags end here -->
 
                                     </div>
