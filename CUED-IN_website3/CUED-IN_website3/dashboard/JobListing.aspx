@@ -343,7 +343,7 @@
                 <asp:ListItem>Annually</asp:ListItem>
             </asp:DropDownList>
             <br />
-            <asp:CheckBox ID="chkUnpaid" runat="server" OnCheckedChanged="chkUnpaid_CheckedChanged" Text="Is this an unpaid position?" AutoPostBack ="true"/>
+            <asp:CheckBox ID="chkUnpaid" runat="server" OnCheckedChanged="chkUnpaid_CheckedChanged" Text=" Is this an unpaid position?" AutoPostBack ="true"/>
         </asp:Panel>
         <asp:Panel ID="Panel7" runat="server">
             <asp:Label ID="Label7" runat="server" Text="Add a career cluster to target the students you're interested in:"></asp:Label>
@@ -388,7 +388,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-			<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+			<footer><p></a></p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
             </div>
