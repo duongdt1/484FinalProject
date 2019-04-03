@@ -10,18 +10,9 @@ using System.Web.Configuration;
 public partial class Scholarships : System.Web.UI.Page
 {
 
-
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
-        if (Session["User"] == null)
-        {
-            Response.Redirect("../Login.aspx");
-            
 
-
-        }
 
     }
 
@@ -44,7 +35,7 @@ public partial class Scholarships : System.Web.UI.Page
             createUser.Parameters.AddWithValue("@Title", txtTitle.Text);
             createUser.Parameters.AddWithValue("@Sponsor", txtSponsor.Text);
             createUser.Parameters.AddWithValue("@Email", txtEmail.Text);
-            createUser.Parameters.AddWithValue("@Description",txtDescription.Text);
+            createUser.Parameters.AddWithValue("@Description", txtEmail.Text);
             createUser.Parameters.AddWithValue("@Deadline", txtDeadline.Text);
             connection.Open();
             createUser.ExecuteNonQuery();
@@ -56,12 +47,5 @@ public partial class Scholarships : System.Web.UI.Page
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
-    }
-    protected void LinkButton1_Click(object sender, EventArgs e)
-    {
-        Session.Remove("User");
-        Response.Redirect("../Login.aspx");
-
-
     }
 }

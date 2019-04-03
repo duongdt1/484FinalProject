@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="PRAGMA" content="NO-CACHE"/>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap Admin Theme : Master</title>
+    <title>New Job | CUED-In</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -18,7 +17,6 @@
 </head>
 
 <body>
-    <form runat= "server">
     <!-- NAV top begin -->
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -29,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-gear"></i> <strong>CUED-IN</strong></a>
+                <a class="navbar-brand" href="Dashboard.aspx"><i class="fa fa-puzzle-piece"></i> <strong>CUED-IN</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -233,7 +231,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton> 
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -253,7 +251,7 @@
                     </li>
                     
                     <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Jobs<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-briefcase"></i>Jobs<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             
                     <li>
@@ -290,7 +288,7 @@
                                         <div class="form-group">
          
        <!-- Form with ASP tags start here -->
-            <form id="form1">
+            <form id="form1" runat="server">
                 <asp:Panel ID="Panel1" runat="server">
             <p>
                 <asp:Label ID="Label1" runat="server" Text="What is the title of your job?"></asp:Label>
@@ -390,13 +388,12 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-			<footer><p></a></p></footer>
+			<footer><p></p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
-        </form>
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
