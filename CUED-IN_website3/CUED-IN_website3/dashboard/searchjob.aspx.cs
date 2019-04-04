@@ -10,20 +10,24 @@ using System.Data;
 
 public partial class searchjob : System.Web.UI.Page
 {
+    OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
       if(Session["User"]== null)
         {
-            Response.Redirect("../Login.aspx");
+            Response.Redirect("~/Login.aspx");
         }
+        signedInUser = (OrganizationUser)Session["User"];
 
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster] FROM [Job] where jobtitle Like '%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'";
+        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]"+
+        "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
+        query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
         sc.Open();
         query.ExecuteNonQuery();
         SqlDataAdapter adp = new SqlDataAdapter();
@@ -37,8 +41,10 @@ public partial class searchjob : System.Web.UI.Page
     {
         GridViewSearch.EditIndex = e.NewEditIndex;
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [careercluster] FROM [Job] where jobtitle Like '%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'";
+        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
+        "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
+        query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
         sc.Open();
         query.ExecuteNonQuery();
         SqlDataAdapter apt = new SqlDataAdapter();
