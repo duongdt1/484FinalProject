@@ -265,7 +265,7 @@
                     </li>
 
                     <li>
-                        <a href="Applications.aspx">Applications<span class="fa arrow"></span></a>
+                        <a href="../Applications.aspx">Applications<span class="fa arrow"></span></a>
                     </li>
                         </ul>
                     </li>
