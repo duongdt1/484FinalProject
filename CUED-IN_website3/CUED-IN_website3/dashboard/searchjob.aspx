@@ -232,8 +232,6 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                         <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton> 
-                        </li>
                         
                     </ul>
                     <!-- /.dropdown-user -->
@@ -322,7 +320,11 @@
             <asp:TextBox class="form-group" Width="313px" ID="txtSearch" runat="server"></asp:TextBox>
             <asp:Button ID="Button1" class="btn btn-dark" runat="server" OnClick="Button1_Click" Text="Search" />
             <br />
-            <asp:GridView class="table table-striped table-bordered table-hover" ID="GridViewSearch" runat="server" AutoGenerateColumns="False" OnRowEditing="searchEdit" OnRowCancelingEdit="cancelEdit" OnRowUpdating ="searchUpdate" OnRowDeleting ="deleteRow"  DataKeyNames="JobID" Width="898px">
+
+                                            <div style="overflow-x:auto;width:1500px">
+
+            <asp:GridView class="table table-striped table-bordered table-hover"  ID="GridViewSearch" runat="server" AutoGenerateColumns="False" OnRowEditing="searchEdit" OnRowCancelingEdit="cancelEdit" OnRowUpdating ="searchUpdate" OnRowDeleting ="deleteRow"  DataKeyNames="JobID" Width="898px">
+
                 <Columns>
                     <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
                     <asp:TemplateField HeaderText="Job ID" InsertVisible="False" SortExpression="JobID">
@@ -417,7 +419,10 @@
                 <SortedAscendingHeaderStyle BackColor="#848384" />
                 <SortedDescendingCellStyle BackColor="#EAEAD3" />
                 <SortedDescendingHeaderStyle BackColor="#575357" />
+                            
             </asp:GridView>
+            </div>
+
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CuedInDBConnectionString %>" DeleteCommand="DELETE FROM [Job] WHERE [JobID] = @JobID" InsertCommand="INSERT INTO [Job] ([JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster]) VALUES (@JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @careercluster)" SelectCommand="SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]" UpdateCommand="UPDATE [Job] SET [JobTitle] = @JobTitle, [Pay] = @Pay, [PayType] = @PayType, [MinimumAge] = @MinimumAge, [JobType] = @JobType, [JobDescription] = @JobDescription, [Deadline] = @Deadline, [careercluster] = @careercluster WHERE [JobID] = @JobID">
                 <DeleteParameters>
                     <asp:Parameter Name="JobID" Type="Int32" />
