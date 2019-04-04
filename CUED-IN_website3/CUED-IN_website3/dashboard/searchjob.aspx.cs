@@ -13,7 +13,10 @@ public partial class searchjob : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
-      if(Session["User"]== null)
+        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+        Response.Cache.SetNoStore();
+
+        if (Session["User"]== null)
         {
             Response.Redirect("~/Login.aspx");
         }
@@ -161,5 +164,10 @@ public partial class searchjob : System.Web.UI.Page
             textpay.ReadOnly = false;
             textpay.BackColor = System.Drawing.Color.Transparent;
         }
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Remove("User");
+        Response.Redirect("../Login.aspx");
     }
 }

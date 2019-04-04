@@ -232,6 +232,8 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
+                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton>             
+                        </li>
                         
                     </ul>
                     <!-- /.dropdown-user -->

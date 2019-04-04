@@ -19,8 +19,11 @@ public partial class Applications : System.Web.UI.Page
     static bool isTranscript = false;
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+        Response.Cache.SetNoStore();
         signedInUser = (OrganizationUser)Session["User"];
         populateGrdApplication();
+
 
         selectedJobID = (int)Session["sJobID"];
         if (selectedJobID != -1)
@@ -393,6 +396,11 @@ public partial class Applications : System.Web.UI.Page
     protected void btnReturnToJob_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/dashboard/Job.aspx");
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Remove("User");
+        Response.Redirect("../Login.aspx");
     }
 }
 
