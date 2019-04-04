@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchjob.aspx.cs" Inherits="searchjob" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchjob.aspx.cs" Inherits="searchjob" MaintainScrollPositionOnPostback="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">

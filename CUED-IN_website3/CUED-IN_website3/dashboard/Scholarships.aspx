@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Scholarships.aspx.cs" Inherits="Scholarships" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Scholarships.aspx.cs" Inherits="Scholarships" MaintainScrollPositionOnPostback="true" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

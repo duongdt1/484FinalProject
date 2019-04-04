@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CreateBusiness.aspx.cs" Inherits="CreateBusiness" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CreateBusiness.aspx.cs" Inherits="CreateBusiness" MaintainScrollPositionOnPostback="true" %>
 
 <!doctype html>
 <html lang="en">
