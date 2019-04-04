@@ -4,7 +4,7 @@
 <head runat="server">
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap Admin Theme : Master</title>
+    <title>Search Jobs | CUED-In</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -455,7 +455,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-			<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+			<footer><p></p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
             </div>
