@@ -6,7 +6,7 @@
     <meta http-equiv="PRAGMA" content="NO-CACHE"/>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap Admin Theme : Master</title>
+    <title>New Job Listing | CUED-In</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -290,7 +290,7 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Job Listings <small></small>
+                            New Job Listing <small></small>
                         </h1>
                     </div>
                 </div> 
