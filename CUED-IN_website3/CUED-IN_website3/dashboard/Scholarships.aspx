@@ -344,7 +344,7 @@
             <asp:TextBox class="form-control" ID="txtAmount" runat="server"></asp:TextBox>
             <br />
             <br />
-            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
+            <asp:Button class="btn btn-dark" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
         </div>
     </form>
                                     </div>

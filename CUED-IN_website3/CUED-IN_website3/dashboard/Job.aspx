@@ -299,9 +299,8 @@
                 <div class="col-lg-12">
                     <%--<div class="panel panel-default">--%>
                         <div class="panel-heading">
-<<<<<<< HEAD
                           <h2>Current Job Listings</h2>
-=======
+
                             
                         </div>
                         <div class="panel-body">
@@ -314,8 +313,7 @@
                 <div class="col-lg-12">
                    <!-- <div class="panel panel-default"> -->
                         <div class="panel-heading">
-                           Current Job Listings
->>>>>>> 0b1f6a19065470f6dbea2e8a2fc322e60ccda7f9
+                           
                         </div>
                         <div class="panel-body">
                             <div class="row">
