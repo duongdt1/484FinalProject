@@ -60,7 +60,7 @@ public partial class Job : System.Web.UI.Page
     protected void btnViewApplicants_Click(object sender, EventArgs e)
     {
         Session["sJobID"] = -1;
-        Response.Redirect("~/Applications.aspx");
+        Response.Redirect("~/dashboard/Applications.aspx");
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
