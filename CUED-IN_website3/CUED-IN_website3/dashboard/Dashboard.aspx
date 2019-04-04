@@ -328,21 +328,8 @@
 								</div>
                                 
                             <div class="panel-right">
-							<h3><asp:Label ID="applicationReceivedCount" runat="server" Text="99"></asp:Label></h3>
+							<h3><asp:Label ID="applicationReceivedCount" runat="server" Text=""></asp:Label></h3>
                                <strong> Applications Received</strong>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red">
-                            <div class="panel-left pull-left red">
-                                <i class="fa fa fa-users fa-5x"></i>
-                               
-                            </div>
-                            <div class="panel-right">
-							 <h3><asp:Label ID="studentClusterCount" runat="server" Text="99"></asp:Label></h3>
-                               <strong> Students Interested in Career Cluster </strong>
 
                             </div>
                         </div>
@@ -350,12 +337,25 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder bg-color-brown">
                             <div class="panel-left pull-left brown">
-                                <i class="fa fa-users fa-5x"></i>
+                                <i class="fa fa fa-users fa-5x"></i>
+                               
+                            </div>
+                            <div class="panel-right">
+							 <h3><asp:Label ID="studentClusterCount" runat="server" Text=""></asp:Label></h3>
+                               <strong> Students Interested in Career Cluster </strong>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-red">
+                            <div class="panel-left pull-left red">
+                                <i class="fa fa-exclamation fa-5x"></i>
                                 
                             </div>
                             <div class="panel-right">
-							<h3>36,752 </h3>
-                             <strong>No. of Visits</strong>
+							<h3><asp:Label ID="unreadNotifs" runat="server" Text=""></asp:Label></h3>
+                             <strong>Unread Notifications</strong>
 
                             </div>
                         </div>
