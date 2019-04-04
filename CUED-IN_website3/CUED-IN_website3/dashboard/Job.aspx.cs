@@ -43,7 +43,7 @@ public partial class Job : System.Web.UI.Page
     protected void grdJobs_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
         Session["sJobID"] = Int32.Parse(grdJobs.Rows[e.NewSelectedIndex].Cells[1].Text); ;
-        Response.Redirect("~/Applications.aspx");
+        Response.Redirect("~/dashboard/Applications.aspx");
     }
     public SqlConnection connect()
     {
