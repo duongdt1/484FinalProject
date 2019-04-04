@@ -342,7 +342,7 @@
                             </div>
                             <div class="panel-right">
 							 <h3><asp:Label ID="studentClusterCount" runat="server" Text=""></asp:Label></h3>
-                               <strong> Students Interested in Cluster </strong>
+                               <strong> Students In Your Cluster </strong>
 
                             </div>
                         </div>
