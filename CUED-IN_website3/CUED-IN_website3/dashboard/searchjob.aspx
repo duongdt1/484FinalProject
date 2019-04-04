@@ -232,8 +232,6 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton>             
-                        </li>
                         
                     </ul>
                     <!-- /.dropdown-user -->
@@ -408,6 +406,15 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+		    <FooterStyle BackColor="#CCCC99" />
+                <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                <RowStyle BackColor="#F7F7DE" />
+                <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                <SortedAscendingHeaderStyle BackColor="#848384" />
+                <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                <SortedDescendingHeaderStyle BackColor="#575357" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CuedInDBConnectionString %>" DeleteCommand="DELETE FROM [Job] WHERE [JobID] = @JobID" InsertCommand="INSERT INTO [Job] ([JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster]) VALUES (@JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @careercluster)" SelectCommand="SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]" UpdateCommand="UPDATE [Job] SET [JobTitle] = @JobTitle, [Pay] = @Pay, [PayType] = @PayType, [MinimumAge] = @MinimumAge, [JobType] = @JobType, [JobDescription] = @JobDescription, [Deadline] = @Deadline, [careercluster] = @careercluster WHERE [JobID] = @JobID">
                 <DeleteParameters>
