@@ -323,7 +323,7 @@
             <asp:Button ID="Button1" class="btn btn-dark" runat="server" OnClick="Button1_Click" Text="Search" />
             <br />
 
-                                            <div style="overflow-x:auto;width:1500px">
+                                            <div style="overflow-x:auto;width:1300px">
 
             <asp:GridView class="table table-striped table-bordered table-hover"  ID="GridViewSearch" runat="server" AutoGenerateColumns="False" OnRowEditing="searchEdit" OnRowCancelingEdit="cancelEdit" OnRowUpdating ="searchUpdate" OnRowDeleting ="deleteRow"  DataKeyNames="JobID" Width="898px">
 

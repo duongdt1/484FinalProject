@@ -334,10 +334,10 @@
                 <asp:Label ID="Label3" runat="server" Text="What sort of job are you posting?"></asp:Label>
               <br />
                 <asp:RadioButtonList ID="radJobType" runat="server">
-                <asp:ListItem>&nbsp;Full-Time</asp:ListItem>
-                <asp:ListItem>&nbsp;Part-Time</asp:ListItem>
-                <asp:ListItem>&nbsp;Internship</asp:ListItem>
-                <asp:ListItem>&nbsp;Volunteer</asp:ListItem>
+                <asp:ListItem>Full-Time</asp:ListItem>
+                <asp:ListItem>Part-Time</asp:ListItem>
+                <asp:ListItem>Internship</asp:ListItem>
+                <asp:ListItem>Volunteer</asp:ListItem>
                 </asp:RadioButtonList>
             </p>
                 
