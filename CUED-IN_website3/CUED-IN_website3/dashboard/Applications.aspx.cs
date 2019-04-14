@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,17 +19,15 @@ public partial class Applications : System.Web.UI.Page
     static bool isTranscript = false;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
         signedInUser = (OrganizationUser)Session["User"];
         populateGrdApplication();
 
-
-        selectedJobID = (int)Session["sJobID"];
-        if (selectedJobID != -1)
+        try
         {
-            try
+            selectedJobID = (int)Session["sJobID"];
+            if (selectedJobID != -1)
             {
+
                 populateGrdApplication(selectedJobID);
                 string jobTitle = "";
                 using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
@@ -45,12 +43,17 @@ public partial class Applications : System.Web.UI.Page
                         jobTitle = cursor[0].ToString();
                     }
                 }
+
+
             }
-            catch { }
         }
-        
-       
-        
+        catch(Exception)
+        {
+
+        }
+
+
+
     }
     protected void grdApplicants_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
@@ -60,7 +63,7 @@ public partial class Applications : System.Web.UI.Page
         pnlResults.Visible = true;
         selectedJobID = Int32.Parse(grdApplicants.Rows[e.NewSelectedIndex].Cells[2].Text);
 
-            List<string> attributes = new List<string>();
+        List<string> attributes = new List<string>();
 
         using (SqlConnection connection = connect())
         {
@@ -155,7 +158,7 @@ public partial class Applications : System.Web.UI.Page
         select.CommandText = "SELECT * FROM Student WHERE StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
         select.Parameters.Clear();
         select.Parameters.AddWithValue("@ApplicationID", applicationID);
-        
+
         switch (attribute)
         {
             case "Age":
@@ -183,19 +186,19 @@ public partial class Applications : System.Web.UI.Page
                 select.CommandText = "SELECT AbleToWork FROM Student WHERE StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
                 break;
         }
-        
-            using (SqlConnection connection = connect())
+
+        using (SqlConnection connection = connect())
+        {
+            select.Connection = connection;
+            connection.Open();
+            SqlDataReader cursor = select.ExecuteReader();
+            while (cursor.Read())
             {
-                select.Connection = connection;
-                connection.Open();
-                SqlDataReader cursor = select.ExecuteReader();
-                while (cursor.Read())
-                {
-                    returnString = cursor[0].ToString();
-                }
+                returnString = cursor[0].ToString();
             }
-            returnCell.Text = returnString;
-        
+        }
+        returnCell.Text = returnString;
+
         if (isResume)//create a resume object 
         {
             using (SqlConnection connection = connect())
@@ -203,7 +206,7 @@ public partial class Applications : System.Web.UI.Page
                 select.Connection = connection;
                 connection.Open();
                 select.CommandText = "SELECT FileID, FileName, FileType, UploadType, Data FROM Files WHERE UploadType = 'Resume' AND StudentID = (SELECT StudentID FROM Application WHERE ApplicationID = @ApplicationID)";
-                
+
                 SqlDataReader cursor = select.ExecuteReader();
                 while (cursor.Read())
                 {
@@ -227,7 +230,7 @@ public partial class Applications : System.Web.UI.Page
         }
         return returnCell;
     }
-    
+
     public SqlConnection connect()
     {
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
@@ -248,26 +251,35 @@ public partial class Applications : System.Web.UI.Page
             update.Parameters.AddWithValue("@appID", appID);
 
             update.ExecuteNonQuery();
+            
             populateGrdApplication();
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
         }
     }
     public void populateGrdApplication()//populates grdApplication
     {
-        using (SqlConnection connection = connect())
+        try
         {
-            int orgID = signedInUser.getOrgID();
-            connection.Open();
 
-            SqlCommand select = new SqlCommand();
-            select.Connection = connection;
-            select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobID as 'Job Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
-                "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID WHERE Job.OrganizationID = @OrgID";
-            select.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
-            SqlDataReader cursor = select.ExecuteReader();
-            grdApplicants.DataSource = cursor;
-            grdApplicants.DataBind();
+
+            using (SqlConnection connection = connect())
+            {
+                int orgID = signedInUser.getOrgID();
+                connection.Open();
+
+                SqlCommand select = new SqlCommand();
+                select.Connection = connection;
+                select.CommandText = "SELECT Application.ApplicationID AS 'Application Number', Job.JobID as 'Job Number', Job.JobTitle AS 'Job Title', Student.FirstName + ' ' + Student.LastName AS Name, " +
+                    "Application.Status AS 'Application Status' FROM Application INNER JOIN Student ON Application.StudentID = Student.StudentID INNER JOIN Job ON Application.JobID = Job.JobID WHERE Job.OrganizationID = @OrgID";
+                select.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
+                SqlDataReader cursor = select.ExecuteReader();
+                grdApplicants.DataSource = cursor;
+                grdApplicants.DataBind();
+            }
         }
+        catch(Exception)
+        { 
+}
     }
     public void populateGrdApplication(int jobID)//populates grdApplication
     {
@@ -288,46 +300,50 @@ public partial class Applications : System.Web.UI.Page
 
     protected void btnViewResume_Click(object sender, EventArgs e)
     {
-        try { 
-        Response.Clear();
-        Response.Buffer = true;
+        try
+        {
+            Response.Clear();
+            Response.Buffer = true;
 
-        Response.AddHeader("Content-Length", Files.resume.getData().Length.ToString());
-        Response.AddHeader("Content-Disposition", "inline; filename=" + Files.resume.getFileName());
-        Response.AddHeader("Expires", "0");
-        Response.AddHeader("Pragma", "cache");
-        Response.AddHeader("Cache - Control", "private");
-        Response.AddHeader("Accept-Ranges", "bytes");
+            Response.AddHeader("Content-Length", Files.resume.getData().Length.ToString());
+            Response.AddHeader("Content-Disposition", "inline; filename=" + Files.resume.getFileName());
+            Response.AddHeader("Expires", "0");
+            Response.AddHeader("Pragma", "cache");
+            Response.AddHeader("Cache - Control", "private");
+            Response.AddHeader("Accept-Ranges", "bytes");
 
-        Response.ContentType = Files.resume.getFileType();
-        Response.BinaryWrite(Files.resume.getData());
-        Response.Flush();
-        Response.End();
+            Response.ContentType = Files.resume.getFileType();
+            Response.BinaryWrite(Files.resume.getData());
+            Response.Flush();
+            Response.End();
         }
-        catch {
+        catch
+        {
             Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
         }
     }
 
     protected void btnViewTranscript_Click(object sender, EventArgs e)
     {
-        try { 
-        Response.Clear();
-        Response.Buffer = true;
+        try
+        {
+            Response.Clear();
+            Response.Buffer = true;
 
-        Response.AddHeader("Content-Length", Files.transcript.getData().Length.ToString());
-        Response.AddHeader("Content-Disposition", "inline; filename=" + Files.transcript.getFileName());
-        Response.AddHeader("Expires", "0");
-        Response.AddHeader("Pragma", "cache");
-        Response.AddHeader("Cache - Control", "private");
-        Response.AddHeader("Accept-Ranges", "bytes");
+            Response.AddHeader("Content-Length", Files.transcript.getData().Length.ToString());
+            Response.AddHeader("Content-Disposition", "inline; filename=" + Files.transcript.getFileName());
+            Response.AddHeader("Expires", "0");
+            Response.AddHeader("Pragma", "cache");
+            Response.AddHeader("Cache - Control", "private");
+            Response.AddHeader("Accept-Ranges", "bytes");
 
-        Response.ContentType = Files.transcript.getFileType();
-        Response.BinaryWrite(Files.transcript.getData());
-        Response.Flush();
-        Response.End();
+            Response.ContentType = Files.transcript.getFileType();
+            Response.BinaryWrite(Files.transcript.getData());
+            Response.Flush();
+            Response.End();
         }
-        catch {
+        catch
+        {
             Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
         }
     }
@@ -397,10 +413,6 @@ public partial class Applications : System.Web.UI.Page
     {
         Response.Redirect("~/dashboard/Job.aspx");
     }
-    protected void LinkButton1_Click(object sender, EventArgs e)
-    {
-        Session.Remove("User");
-        Response.Redirect("../Login.aspx");
-    }
+  
 }
 

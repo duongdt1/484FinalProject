@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,38 +7,42 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
-public partial class Job : System.Web.UI.Page
+public partial class Job: System.Web.UI.Page
 {
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
-        if (Session["User"]== null)
+        try
         {
-            Response.Redirect("../Login.aspx");
+
+
+
+            Session["sJobID"] = -1;
+            signedInUser = (OrganizationUser)Session["User"];
+            using (SqlConnection connection = connect())
+            {
+                int orgID = signedInUser.getOrgID();
+                connection.Open();
+
+
+                SqlCommand select = new SqlCommand();
+                select.Connection = connection;
+                select.CommandText = "SELECT JobID as 'Job Number', JobTitle as 'Title', Pay, PayType, MinimumAge as 'Minimum Age', " +
+                    "JobType as 'Job Type', JobDescription as 'Description', Deadline, careercluster as 'Career Cluster' FROM Job WHERE OrganizationID = @BusinessID";
+                select.Parameters.AddWithValue("@BusinessID", orgID);
+                SqlDataReader cursor = select.ExecuteReader();
+
+
+                grdJobs.DataSource = cursor;
+                grdJobs.DataBind();
+
+            }
         }
-        Session["sJobID"] = -1;
-        signedInUser = (OrganizationUser)Session["User"];
-        using (SqlConnection connection = connect())
+        catch(Exception)
         {
-            int orgID = signedInUser.getOrgID();
-            connection.Open();
-            
-
-            SqlCommand select = new SqlCommand();
-            select.Connection = connection;
-            select.CommandText = "SELECT JobID as 'Job Number', JobTitle as 'Title', Pay, PayType, MinimumAge as 'Minimum Age', " +
-                "JobType as 'Job Type', JobDescription as 'Description', Deadline, careercluster as 'Career Cluster' FROM Job WHERE OrganizationID = @BusinessID";
-            select.Parameters.AddWithValue("@BusinessID", orgID);
-            SqlDataReader cursor = select.ExecuteReader();
-            
-            
-            grdJobs.DataSource = cursor;
-            grdJobs.DataBind();
 
         }
-        
+
     }
     protected void grdJobs_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
@@ -62,11 +66,5 @@ public partial class Job : System.Web.UI.Page
         Session["sJobID"] = -1;
         Response.Redirect("~/dashboard/Applications.aspx");
     }
-    protected void LinkButton1_Click(object sender, EventArgs e)
-    {
-        Session.Remove("User");
-        Response.Redirect("../Login.aspx");
-
-
-    }
+   
 }

@@ -12,12 +12,7 @@ public partial class Notifications : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
-        if (Session["User"]== null)
-        {
-            Response.Redirect("../Login.aspx");
-        }
+   
         signedInUser = (OrganizationUser)Session["User"];
         populateGrdNotification();
     }
@@ -27,7 +22,7 @@ public partial class Notifications : System.Web.UI.Page
         using (SqlConnection connection = connect()) // finds the title for the selected job using jobID
         {
             SqlCommand select = new SqlCommand();
-              if (chkShowOpened.Checked)
+            if (chkShowOpened.Checked)
                 select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username";
             else
                 select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username AND IsReceived = 'N'";

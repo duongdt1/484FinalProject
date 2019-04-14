@@ -7,21 +7,13 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
-public partial class Scholarships : System.Web.UI.Page
+public partial class Scholarship : System.Web.UI.Page
 {
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
-        if (Session["User"] == null)
-        {
-            Response.Redirect("../Login.aspx");
-            
-
-
-        }
+     
 
     }
 
@@ -44,7 +36,7 @@ public partial class Scholarships : System.Web.UI.Page
             createUser.Parameters.AddWithValue("@Title", txtTitle.Text);
             createUser.Parameters.AddWithValue("@Sponsor", txtSponsor.Text);
             createUser.Parameters.AddWithValue("@Email", txtEmail.Text);
-            createUser.Parameters.AddWithValue("@Description",txtDescription.Text);
+            createUser.Parameters.AddWithValue("@Description", txtDescription.Text);
             createUser.Parameters.AddWithValue("@Deadline", txtDeadline.Text);
             connection.Open();
             createUser.ExecuteNonQuery();

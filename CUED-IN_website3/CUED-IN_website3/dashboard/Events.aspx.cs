@@ -9,20 +9,12 @@ public partial class Events : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        Response.Cache.SetNoStore();
-        if (Session["User"]== null)
-        {
-            Response.Redirect("../Login.aspx");
-
-
-          
-        }
+  
 
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-       
+
 
         Session.Remove("User");
         Response.Redirect("../Login.aspx");
