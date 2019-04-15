@@ -40,9 +40,9 @@
         
             <br />
         
-            <br />
+          <%--      <br />
             <asp:LinkButton ID="LinkButton1" runat="server">Forgot Password? Click Here!</asp:LinkButton>
-            <br />
+            <br />--%>
             <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
         </form>
 	    
