@@ -239,7 +239,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black">Logout</asp:LinkButton>             
+                        <li>  <asp:LinkButton ID="LinkButton1" class="fa fa-sign-out fa-fw" runat="server" OnClick="LinkButton1_Click" ForeColor="Black" CausesValidation="False">Logout</asp:LinkButton>             
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -258,7 +258,17 @@
                     </li>
                     
                     <li>
-                        <a href="Events.aspx"><i class="fa fa-calendar"></i>Events</a>
+                        <a href="#"><i class="fa fa-briefcase"></i>Events<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            
+                    <li>
+                        <a href="Events.aspx">Post a New Event<span class="fa arrow"></span></a>
+                    </li>
+
+                    <li>
+                        <a href="EditEvents.aspx">Current Events<span class="fa arrow"></span></a>
+                    </li>
+                        </ul>
                     </li>
 
                     <li>
@@ -275,9 +285,22 @@
                         </ul>
                     </li>
 
+
+
                     <li>
-                        <a href="Scholarship.aspx"><i class="fa fa-book"></i>Scholarships</a>
+                        <a href="#"><i class="fa fa-briefcase"></i>Scholarships<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            
+                    <li>
+                        <a href="Scholarship.aspx">Post a New Scholarship<span class="fa arrow"></span></a>
                     </li>
+
+                    <li>
+                        <a href="EditScholarships.aspx">Current Scholarships<span class="fa arrow"></span></a>
+                    </li>
+                        </ul>
+                    </li>
+
 
                     <li>
                         <a href="Notifications.aspx"><i class="fa fa-bell-o"></i>Notifications</a>

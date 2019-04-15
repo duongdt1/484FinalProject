@@ -41,26 +41,32 @@
         <div class="form-group">
             <asp:Label ID="Label1" runat="server" Text="Scholarship Title"></asp:Label>
             <asp:TextBox class="form-control" ID="txtTitle" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Field Required" ControlToValidate="txtTitle" BackColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label2" runat="server" Text="Organization Sponsor"></asp:Label>
             <asp:TextBox class="form-control" ID="txtSponsor" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Field Required" ControlToValidate="txtSponsor" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label3" runat="server" Text="Contact Email"></asp:Label>
             <asp:TextBox class="form-control" ID="txtEmail" runat="server" TextMode="Email"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Field Required" ControlToValidate="txtEmail" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label4" runat="server" Text="Description"></asp:Label>
             <asp:TextBox class="form-control" ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Field Required" ControlToValidate="txtDescription" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label5" runat="server" Text="Deadline"></asp:Label>
             <asp:TextBox class="form-control" ID="txtDeadline" runat="server" TextMode="Date"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Field Required" ControlToValidate="txtDeadline" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label6" runat="server" Text="Award Amount"></asp:Label>
             <asp:TextBox class="form-control" ID="txtAmount" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Field Required" ControlToValidate="txtAmount" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Button class="btn btn-dark" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />

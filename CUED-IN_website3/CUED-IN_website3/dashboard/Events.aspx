@@ -25,36 +25,41 @@
                                         <div class="form-group">
          
        <!-- Form with ASP tags start here -->
-            <form id="form1">
+            
         <div>
             New Event
 
             <br />
             <br />
             Date<asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+            <asp:CustomValidator ID="cvCaltest" runat="server" ErrorMessage="* A Date Is Required"  
+            ValidationGroup="vgCaltest" ></asp:CustomValidator>
 
 
             <br />
             Event Type&nbsp;
-            <asp:DropDownList ID="DropDownList1" runat="server">
+            <asp:DropDownList ID="ddlType" runat="server">
+                <asp:ListItem>Interview</asp:ListItem>
+                <asp:ListItem>Career Fair</asp:ListItem>
+                <asp:ListItem>Presentation</asp:ListItem>
             </asp:DropDownList>
             <br />
             <br />
             Associated School&nbsp;
-            <asp:DropDownList ID="DropDownList2" runat="server">
+            <asp:DropDownList ID="ddlSchool" runat="server" DataSourceID="SqlDataSource1" DataTextField="SchoolName" DataValueField="SchoolID">
             </asp:DropDownList>
 
 
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:connection %>" SelectCommand="SELECT [SchoolID], [SchoolName] FROM [School]"></asp:SqlDataSource>
+
+
             <br />
             <br />
-            <asp:Button ID="Button1" runat="server" Text="Save" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
 
 
-            &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" />
-
-
-        </div>
-    </form>
+            &nbsp;</div>
+    
         <!-- Form with ASP tags end here -->
 
                                     </div>
