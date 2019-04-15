@@ -35,8 +35,8 @@
             <div class="form-group">  
                 <label for="exampleInputType">Business/Organization Type</label>
                 <asp:RadioButtonList ID="radOrgType" runat="server">
-                    <asp:ListItem class="form-check-label">&nbsp;Profit</asp:ListItem>
-                    <asp:ListItem class="form-check-label">&nbsp;Non-Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">Non-Profit</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
 
