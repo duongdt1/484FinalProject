@@ -30,14 +30,16 @@
             <div class="form-group">
                 <label for="exampleInputBusOrgName1">Business/Organization Name</label>
                 <asp:TextBox runat="server" class="form-control" id="txtOrgName" placeholder="Business/Organization Name" Width="313px" AutoCompleteType="Company"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtOrgName" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
           
             <div class="form-group">  
                 <label for="exampleInputType">Business/Organization Type</label>
                 <asp:RadioButtonList ID="radOrgType" runat="server">
-                    <asp:ListItem class="form-check-label">Profit</asp:ListItem>
-                    <asp:ListItem class="form-check-label">Non-Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">&nbsp;Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label">&nbsp;Non-Profit</asp:ListItem>
                 </asp:RadioButtonList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radOrgType" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group">
@@ -59,6 +61,7 @@
             <div class="form-group">
                 <label>Phone Number</label>
                 <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px" TextMode="Phone"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
 
           
