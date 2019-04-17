@@ -142,6 +142,8 @@
                 <SortedDescendingHeaderStyle BackColor="#575357" />
                             
             </asp:GridView>
+                                                <br />
+                                                <asp:Label ID="lblError" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="Red" Visible="False"></asp:Label>
             </div>
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CuedInDBConnectionString %>" DeleteCommand="DELETE FROM [Job] WHERE [JobID] = @JobID" InsertCommand="INSERT INTO [Job] ([JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster]) VALUES (@JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @careercluster)" SelectCommand="SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]" UpdateCommand="UPDATE [Job] SET [JobTitle] = @JobTitle, [Pay] = @Pay, [PayType] = @PayType, [MinimumAge] = @MinimumAge, [JobType] = @JobType, [JobDescription] = @JobDescription, [Deadline] = @Deadline, [careercluster] = @careercluster WHERE [JobID] = @JobID">

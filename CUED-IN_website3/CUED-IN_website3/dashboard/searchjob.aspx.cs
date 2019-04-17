@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Data;
 
-public partial class searchjob : System.Web.UI.Page
+public partial class searchJob : System.Web.UI.Page
 {
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
@@ -20,8 +20,9 @@ public partial class searchjob : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        lblError.Visible = false;
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
+        String search = "SELECT[JobID], [JobTitle], format(pay,'C') as 'Pay', [PayType], [MinimumAge], [JobType], [JobDescription],format(Deadline,'d') as 'Deadline', [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
         "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
         query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
@@ -38,7 +39,7 @@ public partial class searchjob : System.Web.UI.Page
     {
         GridViewSearch.EditIndex = e.NewEditIndex;
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
+        String search = "SELECT[JobID], [JobTitle],format(pay,'C') as 'Pay', [PayType], [MinimumAge], [JobType], [JobDescription],format(Deadline,'d') as 'Deadline', [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
         "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
         query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
@@ -55,43 +56,54 @@ public partial class searchjob : System.Web.UI.Page
     }
     protected void cancelEdit(object sender, GridViewCancelEditEventArgs e)
     {
+        lblError.Visible = false;
         GridViewSearch.EditIndex = -1;
         GridViewSearch.DataBind();
         txtSearch.Text = String.Empty;
     }
     protected void searchUpdate(object sender, GridViewUpdateEventArgs e)
     {
-        //SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]   
-        SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        int id = Convert.ToInt32(GridViewSearch.DataKeys[e.RowIndex].Value.ToString());
-        GridViewRow rw = (GridViewRow)GridViewSearch.Rows[e.RowIndex];
-        String jobID = GridViewSearch.DataKeys[e.RowIndex].Values["JobID"].ToString();
-        TextBox txtjobtitle = ((TextBox)rw.Cells[1].FindControl("txtjobtitle"));
-        String jt = txtjobtitle.Text + "";
-        TextBox txtpay = ((TextBox)rw.Cells[2].FindControl("txtpay"));
-        double pay = Double.Parse(txtpay.Text);
-        DropDownList ddpaytype = ((DropDownList)rw.Cells[3].FindControl("DropDownList" + 1));
-        String pt = ddpaytype.SelectedValue.ToString();
-        TextBox txtage = ((TextBox)rw.Cells[4].FindControl("txtage"));
-        int age = Int32.Parse(txtage.Text);
-        DropDownList ddjobtype = ((DropDownList)rw.Cells[5].FindControl("DropDownList2"));
-        String jtpe = ddjobtype.SelectedValue.ToString();
-        TextBox txtjobdesc = ((TextBox)rw.Cells[6].FindControl("txtdesc"));
-        String jd = txtjobdesc.Text + "";
-        TextBox deadline = ((TextBox)rw.Cells[7].FindControl("dead"));
-        String dead = deadline.Text + "";
-        DropDownList carclus = ((DropDownList)rw.Cells[8].FindControl("DropDownList3"));
-        String cc = carclus.SelectedValue.ToString();
-        GridViewSearch.EditIndex = -1;
-        sc.Open(); //update the date and lastupdatedby!
-        SqlCommand query = new SqlCommand("UPDATE job set jobtitle = '" + HttpUtility.HtmlEncode(jt) + "' , pay ='"
-         + HttpUtility.HtmlEncode(pay) + "', paytype ='" + HttpUtility.HtmlEncode(pt) + "', minimumage = '" + HttpUtility.HtmlEncode(age) +
-                 "', jobtype = '" + HttpUtility.HtmlEncode(jtpe) + "', jobdescription = '" + HttpUtility.HtmlEncode(jd) + "', deadline = '" + HttpUtility.HtmlEncode(dead)
-                  + "', careercluster = '" + HttpUtility.HtmlEncode(cc) + "' where jobID= '" + jobID + "'", sc);
-        query.ExecuteNonQuery();
-        GridViewSearch.DataBind();
-        sc.Close();
-        txtSearch.Text = String.Empty;
+        try
+        {
+            lblError.Visible = false;
+
+            //SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]   
+            SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
+            int id = Convert.ToInt32(GridViewSearch.DataKeys[e.RowIndex].Value.ToString());
+            GridViewRow rw = (GridViewRow)GridViewSearch.Rows[e.RowIndex];
+            String jobID = GridViewSearch.DataKeys[e.RowIndex].Values["JobID"].ToString();
+            TextBox txtjobtitle = ((TextBox)rw.Cells[1].FindControl("txtjobtitle"));
+            String jt = txtjobtitle.Text + "";
+            TextBox txtpay = ((TextBox)rw.Cells[2].FindControl("txtpay"));
+            double pay = Double.Parse(txtpay.Text);
+            DropDownList ddpaytype = ((DropDownList)rw.Cells[3].FindControl("DropDownList" + 1));
+            String pt = ddpaytype.SelectedValue.ToString();
+            TextBox txtage = ((TextBox)rw.Cells[4].FindControl("txtage"));
+            int age = Int32.Parse(txtage.Text);
+            DropDownList ddjobtype = ((DropDownList)rw.Cells[5].FindControl("DropDownList2"));
+            String jtpe = ddjobtype.SelectedValue.ToString();
+            TextBox txtjobdesc = ((TextBox)rw.Cells[6].FindControl("txtdesc"));
+            String jd = txtjobdesc.Text + "";
+            TextBox deadline = ((TextBox)rw.Cells[7].FindControl("dead"));
+            String dead = deadline.Text + "";
+            DropDownList carclus = ((DropDownList)rw.Cells[8].FindControl("DropDownList3"));
+            String cc = carclus.SelectedValue.ToString();
+            GridViewSearch.EditIndex = -1;
+            sc.Open(); //update the date and lastupdatedby!
+            SqlCommand query = new SqlCommand("UPDATE job set jobtitle = '" + HttpUtility.HtmlEncode(jt) + "' , pay ='"
+             + HttpUtility.HtmlEncode(pay) + "', paytype ='" + HttpUtility.HtmlEncode(pt) + "', minimumage = '" + HttpUtility.HtmlEncode(age) +
+                     "', jobtype = '" + HttpUtility.HtmlEncode(jtpe) + "', jobdescription = '" + HttpUtility.HtmlEncode(jd) + "', deadline = '" + HttpUtility.HtmlEncode(dead)
+                      + "', careercluster = '" + HttpUtility.HtmlEncode(cc) + "' where jobID= '" + jobID + "'", sc);
+            query.ExecuteNonQuery();
+            GridViewSearch.DataBind();
+            sc.Close();
+            txtSearch.Text = String.Empty;
+        }
+        catch
+        {
+            lblError.Visible = true;
+            lblError.Text = "Input Error";
+        }
 
     }
     protected void deleteRow(object sender, GridViewDeleteEventArgs e)
