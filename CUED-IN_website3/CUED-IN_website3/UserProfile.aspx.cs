@@ -13,7 +13,12 @@ public partial class UserProfile : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         signedInUser = (OrganizationUser)Session["User"];
-        setOrgValues();
+        populateLstCareerCluster();
+        if (!IsPostBack)
+        {
+            setOrgValues();
+            
+        }
     }
 
     public SqlConnection connect()
@@ -34,6 +39,21 @@ public partial class UserProfile : System.Web.UI.Page
         {
             btnEditOrg.Text = "Edit";
             editMode(false);
+            //if the save button is pressed, update the database
+            using (SqlConnection connection = connect())
+            {
+                connection.Open();
+                SqlCommand update = new SqlCommand();
+                update.Connection = connection;
+                update.CommandText = "UPDATE Organization SET OrganizationName = @OrgName, OrganizationType = @OrgType, CareerCluster = @CareerCluster, PhoneNumber = @PhoneNumber, LastUpdated = GETDATE() WHERE OrganizationID = @OrgID";
+                update.Parameters.AddWithValue("@OrgName", txtOrgName.Text);
+                update.Parameters.AddWithValue("@OrgType", radOrgType.SelectedValue);
+                update.Parameters.AddWithValue("@CareerCluster", lstCareerCluster.SelectedValue);
+                update.Parameters.AddWithValue("@PhoneNumber", txtOrgPhone.Text);
+                update.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
+                update.ExecuteNonQuery();
+            }
+            setOrgValues();
         }
     }
 
@@ -41,41 +61,31 @@ public partial class UserProfile : System.Web.UI.Page
     {
 
     }
-    public void checkRadbuttons()
-    {
-        /*using (SqlConnection connection = connect())
-        {
-            SqlCommand select = new SqlCommand();
-            select.Connection = connection;
-            select.CommandText = "Select ";
-        }*/
-    }
+    
     public void editMode(bool edit)
     {
         if (edit)
         {
             lblOrgName.Visible = false;
-            lblOrgEmailAddress.Visible = false;
             lblCareerCluster.Visible = false;
             lblOrgType.Visible = false;
-            txtOrgEmailAddress.Visible = true;
             txtOrgName.Visible = true;
             radOrgType.Visible = true;
             lstCareerCluster.Visible = true;
+            txtOrgPhone.Visible = true;
         }
         else
         {
             lblOrgName.Visible = true;
-            lblOrgEmailAddress.Visible = true;
             lblCareerCluster.Visible = true;
             lblOrgType.Visible = true;
-            txtOrgEmailAddress.Visible = false;
             txtOrgName.Visible = false;
             radOrgType.Visible = false;
             lstCareerCluster.Visible = false;
+            txtOrgPhone.Visible = false;
         }
     }
-    public void setOrgValues()
+    public void setOrgValues()//sets the values of the controls in the form with values from the database
     {
         using (SqlConnection connection = connect())
         {
@@ -87,10 +97,44 @@ public partial class UserProfile : System.Web.UI.Page
             SqlDataReader cursor = select.ExecuteReader();
             while (cursor.Read())
             {
+                lblOrgType.Text = cursor[0].ToString();
                 radOrgType.SelectedValue = cursor[0].ToString();
                 lblOrgName.Text = cursor[1].ToString();
+                txtOrgName.Text = cursor[1].ToString();
                 lblCareerCluster.Text = cursor[2].ToString();
+                lstCareerCluster.SelectedValue = cursor[2].ToString();
                 lblOrgPhoneNumber.Text = cursor[3].ToString();
+                txtOrgPhone.Text = cursor[3].ToString();
+            }
+        }
+        using (SqlConnection connection = connect())
+        {
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            connection.Open();
+            select.CommandText = "SELECT Username, Notifications FROM OrganizationUser WHERE Username = @Username";
+            select.Parameters.AddWithValue("@Username", signedInUser.getUserName());
+            SqlDataReader cursor = select.ExecuteReader();
+            while (cursor.Read())
+            {
+                lblUsername.Text = cursor[0].ToString();
+                radNotifications.SelectedValue = cursor[1].ToString();
+            }
+        }
+    }
+    public void populateLstCareerCluster()
+    {
+        //populates the list box of career cluster items
+        using (SqlConnection connection = connect())
+        {
+            connection.Open();
+            SqlCommand select = new SqlCommand();
+            select.Connection = connection;
+            select.CommandText = "SELECT * FROM CareerCluster";
+            SqlDataReader cursor = select.ExecuteReader();
+            while (cursor.Read())
+            {
+                lstCareerCluster.Items.Add(cursor[0].ToString());
             }
         }
     }
