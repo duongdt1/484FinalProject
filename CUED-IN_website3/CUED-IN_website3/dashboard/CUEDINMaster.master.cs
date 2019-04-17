@@ -11,7 +11,7 @@ public partial class CUEDINMaster : System.Web.UI.MasterPage
     {
         Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
         Response.Cache.SetNoStore();
-        if (Session["User"] == null)
+        if (Session["User"] == null || Request.Cookies["loginCookie"] == null)
         {
             Response.Redirect("../Login.aspx");
         }
@@ -21,5 +21,6 @@ public partial class CUEDINMaster : System.Web.UI.MasterPage
     {
         Session.Remove("User");
         Response.Redirect("../Login.aspx");
+        Request.Cookies["loginCookie"].Expires = DateTime.Now.AddDays(-32);
     }
 }
