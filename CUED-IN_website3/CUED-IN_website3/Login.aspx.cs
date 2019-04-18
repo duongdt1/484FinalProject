@@ -43,7 +43,7 @@ public partial class Login : System.Web.UI.Page
                         HttpCookie userCookie = new HttpCookie("loginCookie");
                         userCookie.Value = txtUsername.Text;
                         Response.Cookies.Add(userCookie);
-                        userCookie.Expires = DateTime.Now.AddDays(30);
+                        userCookie.Expires = DateTime.Now.AddSeconds(1);
 
 
                         Response.Redirect("~/dashboard/Dashboard.aspx");
