@@ -15,7 +15,7 @@ public partial class Events : System.Web.UI.Page
 
     }
  
-
+    //inserting and creating new events made by user
     protected void btnSave_Click(object sender, EventArgs e)
     {
         DateTime x;

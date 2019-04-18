@@ -62,7 +62,7 @@ public partial class JobListing : System.Web.UI.Page
     }
 
 
-
+    //check whether job is unpaid or paid
     protected void chkUnpaid_CheckedChanged(object sender, EventArgs e)
     {
         if (chkUnpaid.Checked == true)
@@ -76,7 +76,7 @@ public partial class JobListing : System.Web.UI.Page
             ddlPayType.Enabled = true;
         }
     }
-
+    
     protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (RadioButtonList1.SelectedIndex == 0)
@@ -95,6 +95,7 @@ public partial class JobListing : System.Web.UI.Page
         }
     }
 
+    //check if there's a deadline
     protected void chkDeadline_CheckedChanged(object sender, EventArgs e)
     {
         if (chkDeadline.Checked == true)
@@ -109,6 +110,7 @@ public partial class JobListing : System.Web.UI.Page
         }
     }
 
+    //check if there's age restriction
     protected void chkAge_CheckedChanged(object sender, EventArgs e)
     {
         if (chkAge.Checked)

@@ -12,11 +12,11 @@ using System.IO;
 
 public partial class Applications : System.Web.UI.Page
 {
-    int selectedJobID;
-    OrganizationUser signedInUser;
-    public static int appID;
-    static bool isResume = false; // boolean to trip when 
-    static bool isTranscript = false;
+    int selectedJobID; //keeps track of what job the user selects
+    OrganizationUser signedInUser; //a user object that stores information about the signed in user
+    public static int appID; //keeps track of what application is viewed
+    static bool isResume = false; // boolean to trip when a resume file is found
+    static bool isTranscript = false; // boolean to trip when a transcript file is foun
     protected void Page_Load(object sender, EventArgs e)
     {
         signedInUser = (OrganizationUser)Session["User"];
@@ -297,7 +297,7 @@ public partial class Applications : System.Web.UI.Page
         }
     }
 
-
+    //view resume
     protected void btnViewResume_Click(object sender, EventArgs e)
     {
         try
@@ -319,10 +319,10 @@ public partial class Applications : System.Web.UI.Page
         }
         catch
         {
-            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
+            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: File Not Found')</script>"));
         }
     }
-
+    //view transcript
     protected void btnViewTranscript_Click(object sender, EventArgs e)
     {
         try
@@ -344,36 +344,46 @@ public partial class Applications : System.Web.UI.Page
         }
         catch
         {
-            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: Unable to Download File')</script>"));
+            Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: File Not Found')</script>"));
         }
     }
-
+    //download resume
     protected void btnDownloadResume_Click(object sender, EventArgs e)
     {
-        Response.Clear();
-        Response.Buffer = true;
-        Response.Charset = "";
-        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        Response.ContentType = Files.resume.getFileType();
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.resume.getFileName());
-        Response.BinaryWrite(Files.resume.getData());
-        Response.Flush();
-        Response.End();
+        try
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = Files.resume.getFileType();
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.resume.getFileName());
+            Response.BinaryWrite(Files.resume.getData());
+            Response.Flush();
+            Response.End();
+        }
+        catch { Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: File Not Found')</script>")); }
     }
 
+    //download transcript
     protected void btnDownloadTranscript_Click(object sender, EventArgs e)
     {
-        Response.Clear();
-        Response.Buffer = true;
-        Response.Charset = "";
-        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        Response.ContentType = Files.transcript.getFileType();
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.transcript.getFileName());
-        Response.BinaryWrite(Files.transcript.getData());
-        Response.Flush();
-        Response.End();
+        try
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = Files.transcript.getFileType();
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Files.transcript.getFileName());
+            Response.BinaryWrite(Files.transcript.getData());
+            Response.Flush();
+            Response.End();
+        }
+        catch { Page.Controls.Add(new LiteralControl("<script language='javascript'> window.alert('Error: File Not Found')</script>")); }
     }
 
+    //get excel spreadsheet
     protected void linkTest_Click(object sender, EventArgs e)
     {
         ExcelPackage excel = new ExcelPackage();
@@ -395,6 +405,7 @@ public partial class Applications : System.Web.UI.Page
             }
         }
 
+        //something with excel
         using (var memoryStream = new MemoryStream())
         {
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";

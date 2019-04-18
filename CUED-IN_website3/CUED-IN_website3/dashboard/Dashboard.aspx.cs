@@ -15,8 +15,7 @@ public partial class Dashboard : Page
     {
         try
         {
-
-
+            //visuals up top of dashboard
             signedInUser = (OrganizationUser)Session["User"];
             string orgID = signedInUser.getOrgID() + "";
             string uname = signedInUser.getUserName();

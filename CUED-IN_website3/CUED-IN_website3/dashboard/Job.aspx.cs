@@ -14,8 +14,7 @@ public partial class Job: System.Web.UI.Page
     {
         try
         {
-
-
+            //populates job listings into gridview
 
             Session["sJobID"] = -1;
             signedInUser = (OrganizationUser)Session["User"];
@@ -44,10 +43,12 @@ public partial class Job: System.Web.UI.Page
         }
 
     }
+
+
     protected void grdJobs_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
         Session["sJobID"] = Int32.Parse(grdJobs.Rows[e.NewSelectedIndex].Cells[1].Text); ;
-        Response.Redirect("~/dashboard/Applications.aspx");
+        Response.Redirect("~/dashboard/Applications.aspx"); //redirect to Applications page in dashboard
     }
     public SqlConnection connect()
     {
@@ -58,13 +59,13 @@ public partial class Job: System.Web.UI.Page
 
     protected void btnNewListing_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/dashboard/JobListing.aspx");
+        Response.Redirect("~/dashboard/JobListing.aspx"); //redirects
     }
 
     protected void btnViewApplicants_Click(object sender, EventArgs e)
     {
         Session["sJobID"] = -1;
-        Response.Redirect("~/dashboard/Applications.aspx");
+        Response.Redirect("~/dashboard/Applications.aspx"); //redirects
     }
    
 }

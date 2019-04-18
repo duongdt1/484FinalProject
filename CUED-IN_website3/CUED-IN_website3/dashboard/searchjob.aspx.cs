@@ -18,6 +18,7 @@ public partial class searchjob : System.Web.UI.Page
 
     }
 
+    //search job listings
     protected void Button1_Click(object sender, EventArgs e)
     {
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
@@ -34,6 +35,7 @@ public partial class searchjob : System.Web.UI.Page
         GridViewSearch.DataSource = ds;
         GridViewSearch.DataBind();
     }
+    //allow user to edit
     protected void searchEdit(object sender, GridViewEditEventArgs e)
     {
         GridViewSearch.EditIndex = e.NewEditIndex;
@@ -53,14 +55,19 @@ public partial class searchjob : System.Web.UI.Page
         sc.Close();
 
     }
+
+    //cancel action
     protected void cancelEdit(object sender, GridViewCancelEditEventArgs e)
     {
         GridViewSearch.EditIndex = -1;
         GridViewSearch.DataBind();
         txtSearch.Text = String.Empty;
     }
+
+    //update whichever record chosen
     protected void searchUpdate(object sender, GridViewUpdateEventArgs e)
     {
+        DateTime lu = DateTime.Now;
         //SELECT [JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [careercluster] FROM [Job]   
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
         int id = Convert.ToInt32(GridViewSearch.DataKeys[e.RowIndex].Value.ToString());
@@ -87,13 +94,15 @@ public partial class searchjob : System.Web.UI.Page
         SqlCommand query = new SqlCommand("UPDATE job set jobtitle = '" + HttpUtility.HtmlEncode(jt) + "' , pay ='"
          + HttpUtility.HtmlEncode(pay) + "', paytype ='" + HttpUtility.HtmlEncode(pt) + "', minimumage = '" + HttpUtility.HtmlEncode(age) +
                  "', jobtype = '" + HttpUtility.HtmlEncode(jtpe) + "', jobdescription = '" + HttpUtility.HtmlEncode(jd) + "', deadline = '" + HttpUtility.HtmlEncode(dead)
-                  + "', careercluster = '" + HttpUtility.HtmlEncode(cc) + "' where jobID= '" + jobID + "'", sc);
+                  + "', careercluster = '" + HttpUtility.HtmlEncode(cc) +"', lasupdated = '"+ lu+"', lasupdatedby = '"+signedInUser.getUserName() +"' where jobID= '" + jobID + "'", sc);
         query.ExecuteNonQuery();
         GridViewSearch.DataBind();
         sc.Close();
         txtSearch.Text = String.Empty;
 
     }
+
+    //delete records
     protected void deleteRow(object sender, GridViewDeleteEventArgs e)
     {
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
@@ -104,35 +113,20 @@ public partial class searchjob : System.Web.UI.Page
         sc.Open();
         SqlCommand cmd = new SqlCommand("Delete From application where jobid = @id", sc);
         cmd.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
+        SqlCommand cmd3 = new SqlCommand("Delete From QuickApplyJobAttributes where jobid = @id", sc);
+        cmd3.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
         SqlCommand cmd2 = new SqlCommand("Delete From job where jobid = @id", sc);
         cmd2.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
+        
         cmd.ExecuteNonQuery();
+        cmd3.ExecuteNonQuery();
         cmd2.ExecuteNonQuery();
         GridViewSearch.DataBind();
         sc.Close();
     }
 
-    /*protected void DropDownList2(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow
-           && e.Row.RowIndex == GridViewSearch.EditIndex)
-        { 
-            DropDownList ddl = (DropDownList)e.Row.Cells[5].FindControl("DropDownList2");
-            ddl. = ddl
-            TextBox txtpay = ((TextBox)e.Row.FindControl("txtpay"));
-            if (jtpe == "Volunteer")
-            {
-                txtpay.ReadOnly = true;
-            }
-        } 
-        //TextBox txtpay = ((TextBox)e.Row.FindControl("txtpay"));
-       
-         //   {
-              //  txtpay.ReadOnly = true;
-           // }
-        
-    }*/
-
+    
+    //if jobtype if volunteer, makes pay read-only
     protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
     {
         DropDownList ddl2 = sender as DropDownList;
