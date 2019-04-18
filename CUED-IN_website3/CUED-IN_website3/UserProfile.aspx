@@ -23,10 +23,11 @@
                 <asp:Label ID="Label3" runat="server" Text="Organization Type"></asp:Label>
                 <br />
                 <asp:Label ID="lblOrgType" runat="server" Text="Label"></asp:Label>
-                <asp:RadioButtonList ID="radOrgType" runat="server">
-                    <asp:ListItem>For Profit</asp:ListItem>
-                    <asp:ListItem>Nonprofit</asp:ListItem>
+                <asp:RadioButtonList ID="radOrgType" runat="server" Visible="False">
+                    <asp:ListItem>Profit</asp:ListItem>
+                    <asp:ListItem>Non-Profit</asp:ListItem>
                 </asp:RadioButtonList>
+                <br />
                 <br />
                 <asp:Label ID="Label11" runat="server" Text="Primary Career Cluster"></asp:Label>
                 <br />
@@ -34,15 +35,11 @@
                 <asp:ListBox ID="lstCareerCluster" runat="server" Visible="False"></asp:ListBox>
                 <br />
                 <br />
-                <asp:Label ID="Label4" runat="server" Text="Email Address"></asp:Label>
-                <br />
-                <asp:Label ID="lblOrgEmailAddress" runat="server" Text="Label"></asp:Label>
-                <asp:TextBox ID="txtOrgEmailAddress" runat="server" Visible="False"></asp:TextBox>
-                <br />
-                <br />
                 <asp:Label ID="Label6" runat="server" Text="Phone Number"></asp:Label>
                 <br />
                 <asp:Label ID="lblOrgPhoneNumber" runat="server" Text="lblOrgPhoneNumber"></asp:Label>
+                <br />
+                <asp:TextBox ID="txtOrgPhone" runat="server" Visible="False"></asp:TextBox>
             </asp:Panel>
         </div>
         <asp:Panel ID="Panel2" runat="server">
@@ -68,7 +65,7 @@
             <br />
             <asp:Label ID="Label10" runat="server" Text="Notifications"></asp:Label>
             <br />
-            <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+            <asp:RadioButtonList ID="radNotifications" runat="server">
                 <asp:ListItem>Enabled</asp:ListItem>
                 <asp:ListItem>Disabled</asp:ListItem>
             </asp:RadioButtonList>
