@@ -41,20 +41,20 @@
             <p>
                 <asp:Label ID="Label1" runat="server" Text="What is the title of your job?"></asp:Label>
                 <asp:TextBox class="form-control" ID="txtJobTitle" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="vldTitle" runat="server" ErrorMessage="* Required Field" ControlToValidate="txtJobTitle"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="vldTitle" runat="server" ErrorMessage="Required Field" ControlToValidate="txtJobTitle"></asp:RequiredFieldValidator>
             </p>
 
             <p>
                 <asp:Label ID="Label2" runat="server" Text="Write a short description for your job"></asp:Label>
                 <asp:TextBox class="form-control" ID="txtDescription" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="vldDesc" runat="server" ErrorMessage="* Required Field" ControlToValidate="txtDescription"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="vldDesc" runat="server" ErrorMessage="Required Field" ControlToValidate="txtDescription"></asp:RequiredFieldValidator>
             </p>
                 
             <p>
                 <asp:Label ID="Label3" runat="server" Text="What sort of job are you posting?"></asp:Label>
               <br />
                 <asp:RadioButtonList ID="radJobType" runat="server">
-                <asp:ListItem>Full-Time</asp:ListItem>
+                <asp:ListItem Selected="True">Full-Time</asp:ListItem>
                 <asp:ListItem>Part-Time</asp:ListItem>
                 <asp:ListItem>Internship</asp:ListItem>
                 <asp:ListItem>Volunteer</asp:ListItem>
@@ -67,6 +67,7 @@
                 <asp:CheckBox text="Yes" ID="chkAge" runat="server" OnCheckedChanged="chkAge_CheckedChanged" AutoPostBack ="true"/>
                 <br />
                 <asp:TextBox class="form-control" ID="txtMinimumAge" runat="server" Visible="False"></asp:TextBox>
+                <asp:CompareValidator ID="InvalidAge" runat="server" ControlToValidate="txtMinimumAge" Type="Integer" Operator="DataTypeCheck" ErrorMessage="Invalid Age" ForeColor="Red"/>
             </p>
 
             <p>
@@ -83,6 +84,7 @@
                 <asp:Label ID="Label6" runat="server" Text="How much will this position pay?"></asp:Label>
                 <br />
                 <asp:TextBox class="form-control" ID="txtPay" runat="server"></asp:TextBox>
+                <asp:RegularExpressionValidator ID="regexAmount" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtPay" ErrorMessage="Invalid Amount" ForeColor="Red"></asp:RegularExpressionValidator>
                 <br />
                 <asp:DropDownList ID="ddlPayType" runat="server">
                 <asp:ListItem>Per Hour</asp:ListItem>
@@ -104,7 +106,7 @@
 
             <p>
                 <asp:RadioButtonList ID="RadioButtonList1" runat="server" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" AutoPostBack ="True">
-                    <asp:ListItem>&nbsp;Quick Apply</asp:ListItem>
+                    <asp:ListItem Selected="True">&nbsp;Quick Apply</asp:ListItem>
                     <asp:ListItem>&nbsp;External URL</asp:ListItem>
                 </asp:RadioButtonList>
             <asp:Label ID="Label8" runat="server" Text="Quick Apply: allow your applicants to apply with one click"></asp:Label>

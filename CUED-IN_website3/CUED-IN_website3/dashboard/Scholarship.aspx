@@ -50,8 +50,9 @@
             <br />
             <br />
             <asp:Label ID="Label3" runat="server" Text="Contact Email"></asp:Label>
-            <asp:TextBox class="form-control" ID="txtEmail" runat="server" TextMode="Email"></asp:TextBox>
+            <asp:TextBox class="form-control" ID="txtEmail" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Field Required" ControlToValidate="txtEmail" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regexScholarshipEmail" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtEmail" ErrorMessage="Invalid Email Format" ForeColor="Red"></asp:RegularExpressionValidator>
             <br />
             <br />
             <asp:Label ID="Label4" runat="server" Text="Description"></asp:Label>
@@ -61,12 +62,12 @@
             <br />
             <asp:Label ID="Label5" runat="server" Text="Deadline"></asp:Label>
             <asp:TextBox class="form-control" ID="txtDeadline" runat="server" TextMode="Date"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Field Required" ControlToValidate="txtDeadline" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
             <br />
             <br />
             <asp:Label ID="Label6" runat="server" Text="Award Amount"></asp:Label>
             <asp:TextBox class="form-control" ID="txtAmount" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Field Required" ControlToValidate="txtAmount" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regexAmount" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtAmount" ErrorMessage="Invalid Amount" ForeColor="Red"></asp:RegularExpressionValidator>
             <br />
             <br />
             <asp:Button class="btn btn-dark" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />

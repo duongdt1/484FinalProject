@@ -134,7 +134,7 @@ public partial class JobListing : System.Web.UI.Page
             insert.CommandText = "INSERT INTO Job VALUES(@OrganizationID, @JobTitle, @Pay, @PayType, @MinimumAge, @JobType, @JobDescription, @Deadline, @ApplicationType, @LastUpdated, @LastUpdatedBy, @CareerCluster)";
             insert.Connection = connection;
             insert.Parameters.AddWithValue("@OrganizationID", signedInUser.getOrgID());//Set to 0 by default until login works
-            insert.Parameters.AddWithValue("@JobTitle", txtJobTitle.Text);
+            insert.Parameters.AddWithValue("@JobTitle", HttpUtility.HtmlEncode(txtJobTitle.Text));
             if (chkUnpaid.Checked)
                 insert.Parameters.AddWithValue("@Pay", 0);
             else
@@ -145,7 +145,7 @@ public partial class JobListing : System.Web.UI.Page
             else
                 insert.Parameters.AddWithValue("@MinimumAge", 0);
             insert.Parameters.AddWithValue("@JobType", radJobType.SelectedValue);
-            insert.Parameters.AddWithValue("@JobDescription", txtDescription.Text);
+            insert.Parameters.AddWithValue("@JobDescription", HttpUtility.HtmlEncode(txtDescription.Text));
             if (chkDeadline.Checked)
                 insert.Parameters.AddWithValue("@Deadline", cldrDueDate.SelectedDate.Year + "-" + cldrDueDate.SelectedDate.Month + "-" + cldrDueDate.SelectedDate.Day);
             else
