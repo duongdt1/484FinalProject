@@ -26,7 +26,7 @@ public partial class Dashboard : Page
 
             applicationReceivedCount.Text = accessSQL("SELECT COUNT(Job.JobID) FROM Application INNER JOIN Job ON Application.JobID = Job.JobID WHERE Job.OrganizationID = @input", orgID);
 
-            studentClusterCount.Text = accessSQL("SELECT COUNT(CareerCluster.CareerCluster) FROM CareerCluster INNER JOIN Organization ON CareerCluster.CareerCluster = Organization.CareerCluster INNER JOIN OrganizationUser ON Organization.OrganizationID = OrganizationUser.OrganizationID WHERE CareerCluster.CareerCluster = (SELECT CareerCluster FROM Organization WHERE OrganizationID = @input)", orgID);
+            studentClusterCount.Text = accessSQL("SELECT count(CareerCluster.CareerCluster) FROM CareerCluster INNER JOIN CareerInterests ON CareerCluster.CareerCluster = CareerInterests.CareerCluster INNER JOIN Student ON CareerInterests.StudentID = Student.StudentID INNER JOIN Organization ON CareerCluster.CareerCluster = Organization.CareerCluster INNER JOIN OrganizationUser ON Organization.OrganizationID = OrganizationUser.OrganizationID where OrganizationUser.OrganizationID = @input", orgID);
             unreadNotifs.Text = accessSQL("SELECT COUNT(NotificationID) from Notification where (Username = @input AND IsReceived = 'N');", uname);
         }
         catch(Exception)
