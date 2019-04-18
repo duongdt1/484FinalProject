@@ -102,12 +102,15 @@ public partial class searchjob : System.Web.UI.Page
         String jobID = GridViewSearch.DataKeys[e.RowIndex].Values["JobID"].ToString();
         var label = ((Label)rw.Cells[0].FindControl("Label9"));
         sc.Open();
-        SqlCommand cmd = new SqlCommand("Delete From application where jobid = @id", sc);
+        qlCommand cmd = new SqlCommand("Delete From application where jobid = @id", sc);
         cmd.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
+        SqlCommand cmd3 = new SqlCommand("Delete From QuickApplyJobAttributes where jobid = @id", sc);
+        cmd3.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
         SqlCommand cmd2 = new SqlCommand("Delete From job where jobid = @id", sc);
-        cmd2.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
+        cmd2.Parameters.AddWithValue("@id", Int32.Parse(label.Text));        
         cmd.ExecuteNonQuery();
-        cmd2.ExecuteNonQuery();
+        cmd3.ExecuteNonQuery();
+        cmd2.ExecuteNonQuery();    
         GridViewSearch.DataBind();
         sc.Close();
     }
