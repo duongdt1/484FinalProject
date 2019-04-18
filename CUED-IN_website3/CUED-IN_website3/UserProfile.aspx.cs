@@ -9,6 +9,7 @@ using System.Web.Configuration;
 
 public partial class UserProfile : System.Web.UI.Page
 {
+    public static bool chgPass; //handles the controls for when a user is changing passwords
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,7 +18,7 @@ public partial class UserProfile : System.Web.UI.Page
         if (!IsPostBack)
         {
             setOrgValues();
-            
+            chgPass = true;
         }
     }
 
@@ -59,10 +60,10 @@ public partial class UserProfile : System.Web.UI.Page
 
     protected void btnEditPassword_Click(object sender, EventArgs e)
     {
-
+        editPassword(chgPass);
     }
-    
-    public void editMode(bool edit)
+
+    public void editMode(bool edit)//toggles the page controls for an organization based on the mode
     {
         if (edit)
         {
@@ -83,6 +84,34 @@ public partial class UserProfile : System.Web.UI.Page
             radOrgType.Visible = false;
             lstCareerCluster.Visible = false;
             txtOrgPhone.Visible = false;
+        }
+    }
+
+    public void editPassword(bool edit)
+    {
+        if (edit)
+        {
+            btnEditPassword.Visible = false;
+            lblPass.Visible = true;
+            lblPassConfirm.Visible = true;
+            txtPass.Visible = true;
+            txtPassConfirm.Visible = true;
+            btnCancel.Visible = true;
+            btnSave.Visible = true;
+            chgPass = false;
+        }
+        else
+        {
+            btnEditPassword.Visible = true;
+            lblPass.Visible = false;
+            lblPassConfirm.Visible = false;
+            txtPass.Visible = false;
+            txtPassConfirm.Visible = false;
+            btnCancel.Visible = false;
+            btnSave.Visible = false;
+            txtPassConfirm.Text = "";
+            txtPass.Text = "";
+            chgPass = true;
         }
     }
     public void setOrgValues()//sets the values of the controls in the form with values from the database
@@ -137,5 +166,39 @@ public partial class UserProfile : System.Web.UI.Page
                 lstCareerCluster.Items.Add(cursor[0].ToString());
             }
         }
+    }
+
+    protected void radNotifications_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        using (SqlConnection connection = connect())
+        {
+            SqlCommand update = new SqlCommand();
+            update.Connection = connection;
+            connection.Open();
+            update.CommandText = "UPDATE OrganizationUser SET Notifications = @Notifications WHERE Username = @Username";
+            update.Parameters.AddWithValue("@Notifications", radNotifications.SelectedValue);
+            update.Parameters.AddWithValue("@Username", signedInUser.getUserName());
+            update.ExecuteNonQuery();
+        }
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)//change the password
+    {
+        using (SqlConnection connection = connect())
+        {
+            SqlCommand update = new SqlCommand();
+            update.Connection = connection;
+            connection.Open();
+            update.CommandText = "UPDATE OrganizationUser SET Password = @Password WHERE Username = @Username";
+            update.Parameters.AddWithValue("@Password", PasswordHash.HashPassword(txtPass.Text));
+            update.Parameters.AddWithValue("@Username", signedInUser.getUserName());
+            update.ExecuteNonQuery();
+        }
+        editPassword(chgPass);
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        editPassword(chgPass);
     }
 }
