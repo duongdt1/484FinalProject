@@ -45,10 +45,10 @@ public partial class CreateBusiness : System.Web.UI.Page
             SqlCommand createUser = new SqlCommand();
             createUser.Connection = connection;
             createUser.CommandText = "insert into[dbo].[Organization] values(@OrganizationName, @OrgType, @Cluster, @Phone,@lastUpdated, @lastUpdatedBy)";
-            createUser.Parameters.Add(new SqlParameter("@OrganizationName", txtOrgName.Text));
+            createUser.Parameters.Add(new SqlParameter("@OrganizationName", HttpUtility.HtmlEncode(txtOrgName.Text)));
             createUser.Parameters.Add(new SqlParameter("@OrgType", radOrgType.SelectedItem.Text));
             createUser.Parameters.Add(new SqlParameter("@Cluster", lstCareerCluster.SelectedItem.Text));
-            createUser.Parameters.Add(new SqlParameter("@Phone", txtPhone.Text));
+            createUser.Parameters.Add(new SqlParameter("@Phone", HttpUtility.HtmlEncode(txtPhone.Text)));
             createUser.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Today));
             createUser.Parameters.Add(new SqlParameter("@lastUpdatedBy", "TestUser"));
             connection.Open();
@@ -63,15 +63,14 @@ public partial class CreateBusiness : System.Web.UI.Page
 
             OrganizationUser newUser = (OrganizationUser)Session["organizationUser"];
 
-            
-            createUser.CommandText = "INSERT INTO organizationuser VALUES(@username, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode, @notifications, (select max(organizationID) from organization))";
+            String test1 = newUser.getUserName();
+            createUser.CommandText = "INSERT INTO organizationuser VALUES(@username, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode, (select max(organizationID) from organization))";
             createUser.Parameters.AddWithValue("@username", newUser.getUserName());
             createUser.Parameters.AddWithValue("@password", newUser.getPassword());
             createUser.Parameters.AddWithValue("@emailaddress", newUser.getEmail());
             createUser.Parameters.AddWithValue("@lastUpdated", newUser.getLastUpdated());
             createUser.Parameters.AddWithValue("@lastUpdatedBy", newUser.getLastUpdatedBy());
             createUser.Parameters.AddWithValue("@passcode", 12345);
-            createUser.Parameters.AddWithValue("@notifications", "Enabled");
             connection2.Open();
             createUser.ExecuteNonQuery();
         }
@@ -95,7 +94,7 @@ public partial class CreateBusiness : System.Web.UI.Page
         //txtLastName.Enabled = false;
         //txtPassword.Enabled = false;
         //btnSubmit.Enabled = false;
-        ////lnkAnother.Visible = true;
+        //lnkAnother.Visible = true;
 
     }
     public SqlConnection connect()

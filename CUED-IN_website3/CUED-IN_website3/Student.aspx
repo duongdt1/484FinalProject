@@ -41,18 +41,24 @@
             <br />
             <asp:Label ID="lblCounselorEmail" runat="server" Text="Counselor Email"></asp:Label>
             <asp:TextBox ID="txtCounselorEmail" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="ReqCounselorEmail" runat="server" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red" ControlToValidate="txtCounselorEmail"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regexCounselor" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtCounselorEmail" ErrorMessage="Invalid Email Format" ForeColor="Red"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lblFirstName" runat="server" Text="First Name"></asp:Label>
             <asp:TextBox ID="txtFirstName" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="ReqFN" runat="server" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red" ControlToValidate="txtFirstName"></asp:RequiredFieldValidator>
             <br />
             <asp:Label ID="lblLastName" runat="server" Text="Last Name"></asp:Label>
             <asp:TextBox ID="txtLastName" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="ReqLN" runat="server" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red" ControlToValidate="txtLastName"></asp:RequiredFieldValidator>
             <br />
             <asp:Label ID="lblMiddleName" runat="server" Text="Middle Name"></asp:Label>
             <asp:TextBox ID="txtMiddleName" runat="server" class="form-control"></asp:TextBox>
             <br />
             <asp:Label ID="lblAge" runat="server" Text="Age"></asp:Label>
             <asp:TextBox ID="txtAge" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="ReqAge" runat="server" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red" ControlToValidate="txtAge"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="InvalidAge" runat="server" ControlToValidate="txtAge" Type="Integer" Operator="DataTypeCheck" ErrorMessage="Invalid Age" ForeColor="Red"/>
             <br />
             <asp:Label ID="lblGrade" runat="server" Text="Grade"></asp:Label>
             <br />
@@ -70,6 +76,8 @@
             <br />
             <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>
             <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="ReqEmail" runat="server" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red" ControlToValidate="txtEmail"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regexEmail" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtEmail" ErrorMessage="Invalid Email Format" ForeColor="Red"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lblResumeUpload" runat="server" Text="Resume"></asp:Label>
             <br />
@@ -84,7 +92,7 @@
             
             <asp:Label ID="lblEligibility" runat="server" Text="Are you legally authorized to work in the United States?"></asp:Label>
             <asp:RadioButtonList ID="radEligibility" runat="server">
-                <asp:ListItem>Yes</asp:ListItem>
+                <asp:ListItem Selected="True">Yes</asp:ListItem>
                 <asp:ListItem>No</asp:ListItem>
             </asp:RadioButtonList>
             <br />

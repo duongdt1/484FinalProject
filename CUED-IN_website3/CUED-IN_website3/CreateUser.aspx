@@ -38,25 +38,18 @@
 
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px" TextMode="Email"></asp:TextBox>
+            <asp:TextBox runat="server" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Enter email" Width="313px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regexCounselor" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtEmail" ErrorMessage="Invalid Email Format" ForeColor="Red"></asp:RegularExpressionValidator>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-
-        
-
-
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
         <br />
-
-        
-
 
             <asp:Label ID="Label1" runat="server" Text="Organization"></asp:Label>
             <br />
             <asp:RadioButton ID="rbNew" runat="server" GroupName="choose" Text="Create New Organization" AutoPostBack="True" OnCheckedChanged="rbNew_CheckedChanged" />
             <br />
             <asp:RadioButton ID="rbExisting" runat="server" GroupName="choose" Text="Choose Existing Organization" AutoPostBack="True" OnCheckedChanged="rbExisting_CheckedChanged" />
-
 
 
         <div class="form-group">

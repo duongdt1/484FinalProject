@@ -54,9 +54,9 @@ public partial class CreateUser : System.Web.UI.Page
                     {
                         reader.Close();
                         findPass.CommandText = "INSERT INTO organizationuser VALUES(@username2, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode, @organizationID)";
-                        findPass.Parameters.Add(new SqlParameter("@username2", txtUserName.Text));
+                        findPass.Parameters.Add(new SqlParameter("@username2", HttpUtility.HtmlEncode(txtUserName.Text)));
                         findPass.Parameters.Add(new SqlParameter("@password", PasswordHash.HashPassword(txtPassword.Text)));
-                        findPass.Parameters.Add(new SqlParameter("@emailaddress", txtEmail.Text));
+                        findPass.Parameters.Add(new SqlParameter("@emailaddress", HttpUtility.HtmlEncode(txtEmail.Text)));
                         findPass.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
                         findPass.Parameters.Add(new SqlParameter("@lastUpdatedBy", "ACME_GROUP"));
                         findPass.Parameters.Add(new SqlParameter("@passcode", 12345));
@@ -71,17 +71,10 @@ public partial class CreateUser : System.Web.UI.Page
                         Session["organizationUser"] = new OrganizationUser(txtUserName.Text, PasswordHash.HashPassword(txtPassword.Text), txtEmail.Text);
                         Response.Redirect("~/CreateBusiness.aspx");
                     }
-
-
-
+                    
 
                 }
-
-
-
-
-
-
+                
             }
 
         }

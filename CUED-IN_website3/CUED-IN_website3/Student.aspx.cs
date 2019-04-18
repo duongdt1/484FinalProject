@@ -70,15 +70,15 @@ public partial class Student : System.Web.UI.Page
             insertStudent.CommandText = "INSERT INTO Student VALUES(@SchoolID, @FirstName, @LastName, @MiddleName, @Age, " +
                 "@GradeLevel, @Email, @AbleToWork, @OneTimePass, @CounselorEmail, @LastUpdated, @LastUpdatedBy)";
             insertStudent.Parameters.AddWithValue("@SchoolID", selectedSchool);
-            insertStudent.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-            insertStudent.Parameters.AddWithValue("@LastName", txtLastName.Text);
-            insertStudent.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text);
-            insertStudent.Parameters.AddWithValue("@Age", txtAge.Text);
+            insertStudent.Parameters.AddWithValue("@FirstName", HttpUtility.HtmlEncode(txtFirstName.Text));
+            insertStudent.Parameters.AddWithValue("@LastName", HttpUtility.HtmlEncode(txtLastName.Text));
+            insertStudent.Parameters.AddWithValue("@MiddleName", HttpUtility.HtmlEncode(txtMiddleName.Text));
+            insertStudent.Parameters.AddWithValue("@Age", HttpUtility.HtmlEncode(txtAge.Text));
             insertStudent.Parameters.AddWithValue("@GradeLevel", ddlGradeLevel.SelectedValue);
-            insertStudent.Parameters.AddWithValue("@Email", txtEmail.Text);
+            insertStudent.Parameters.AddWithValue("@Email", HttpUtility.HtmlEncode(txtEmail.Text));
             insertStudent.Parameters.AddWithValue("@AbleToWork", radEligibility.SelectedValue);
             insertStudent.Parameters.AddWithValue("@OneTimePass", DBNull.Value);
-            insertStudent.Parameters.AddWithValue("@CounselorEmail", txtCounselorEmail.Text);
+            insertStudent.Parameters.AddWithValue("@CounselorEmail", HttpUtility.HtmlEncode(txtCounselorEmail.Text));
             insertStudent.Parameters.AddWithValue("@LastUpdated", getDate());
             insertStudent.Parameters.AddWithValue("@LastUpdatedBy", "ACME GROUP");
             connection.Open();

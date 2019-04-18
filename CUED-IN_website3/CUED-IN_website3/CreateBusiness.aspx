@@ -36,7 +36,7 @@
             <div class="form-group">  
                 <label for="exampleInputType">Business/Organization Type</label>
                 <asp:RadioButtonList ID="radOrgType" runat="server">
-                    <asp:ListItem class="form-check-label">&nbsp;Profit</asp:ListItem>
+                    <asp:ListItem class="form-check-label" Selected="True">&nbsp;Profit</asp:ListItem>
                     <asp:ListItem class="form-check-label">&nbsp;Non-Profit</asp:ListItem>
                 </asp:RadioButtonList>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radOrgType" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -50,18 +50,11 @@
                 <br />
             </div>
 
-          <!--<div class="form-group">
-    <label>Organization Type</label>
-    <br />
-    <asp:DropDownList ID="ddlOrgType" runat="server">
-        <asp:ListItem>Business</asp:ListItem>
-        <asp:ListItem>Non-Profit</asp:ListItem>
-    </asp:DropDownList>
-    </div>-->
             <div class="form-group">
                 <label>Phone Number</label>
                 <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px" TextMode="Phone"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="regexPhone" runat="server" ValidationExpression="^01[0-2][0-9]{8}$" ControlToValidate="txtPhone" ErrorMessage="Invalid Phone" ForeColor="Red"></asp:RegularExpressionValidator>
             </div>
 
           
