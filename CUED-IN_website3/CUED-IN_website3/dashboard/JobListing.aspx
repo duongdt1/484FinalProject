@@ -84,7 +84,7 @@
                 <asp:Label ID="Label6" runat="server" Text="How much will this position pay?"></asp:Label>
                 <br />
                 <asp:TextBox class="form-control" ID="txtPay" runat="server"></asp:TextBox>
-                <asp:RegularExpressionValidator ID="regexAmount" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtPay" ErrorMessage="Invalid Amount" ForeColor="Red"></asp:RegularExpressionValidator>
+                <asp:CompareValidator ID="CompareValidator1" ForeColor ="red" runat="server" ErrorMessage="Must enter a number" ControlToValidate="txtPay" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
                 <br />
                 <asp:DropDownList ID="ddlPayType" runat="server">
                 <asp:ListItem>Per Hour</asp:ListItem>

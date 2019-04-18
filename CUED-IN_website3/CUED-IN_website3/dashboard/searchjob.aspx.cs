@@ -21,7 +21,7 @@ public partial class searchjob : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
+        String search = "SELECT[JobID], [JobTitle], format(pay,'C') as 'Pay', [PayType], [MinimumAge], [JobType], [JobDescription],format(Deadline,'d') as 'Deadline', [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
         "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
         query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
@@ -38,7 +38,7 @@ public partial class searchjob : System.Web.UI.Page
     {
         GridViewSearch.EditIndex = e.NewEditIndex;
         SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
-        String search = "SELECT[JobID], [JobTitle], [Pay], [PayType], [MinimumAge], [JobType], [JobDescription], [Deadline], [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
+        String search = "SELECT[JobID], [JobTitle],  format(pay,'C') as 'Pay', [PayType], [MinimumAge], [JobType], [JobDescription],format(Deadline,'d') as 'Deadline', [ApplicationType], [LastUpdated], [LastUpdatedBy], [careercluster]" +
         "FROM[Job] where jobtitle like'%" + HttpUtility.HtmlEncode(txtSearch.Text) + "%'and[JobID] = (SELECT[JobID] FROM Organization WHERE OrganizationID = @OrgID) and Organizationid = (select organizationid FROM Organization WHERE OrganizationID = @OrgID)";
         SqlCommand query = new SqlCommand(search, sc);
         query.Parameters.AddWithValue("@OrgID", signedInUser.getOrgID());
@@ -102,15 +102,12 @@ public partial class searchjob : System.Web.UI.Page
         String jobID = GridViewSearch.DataKeys[e.RowIndex].Values["JobID"].ToString();
         var label = ((Label)rw.Cells[0].FindControl("Label9"));
         sc.Open();
-        qlCommand cmd = new SqlCommand("Delete From application where jobid = @id", sc);
+        SqlCommand cmd = new SqlCommand("Delete From application where jobid = @id", sc);
         cmd.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
-        SqlCommand cmd3 = new SqlCommand("Delete From QuickApplyJobAttributes where jobid = @id", sc);
-        cmd3.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
         SqlCommand cmd2 = new SqlCommand("Delete From job where jobid = @id", sc);
-        cmd2.Parameters.AddWithValue("@id", Int32.Parse(label.Text));        
+        cmd2.Parameters.AddWithValue("@id", Int32.Parse(label.Text));
         cmd.ExecuteNonQuery();
-        cmd3.ExecuteNonQuery();
-        cmd2.ExecuteNonQuery();    
+        cmd2.ExecuteNonQuery();
         GridViewSearch.DataBind();
         sc.Close();
     }

@@ -23,9 +23,9 @@ public partial class Notifications : System.Web.UI.Page
         {
             SqlCommand select = new SqlCommand();
             if (chkShowOpened.Checked)
-                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username";
+                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened,format(SendDate, 'd') FROM Notification WHERE UserName = @Username";
             else
-                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username AND IsReceived = 'N'";
+                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, format(SendDate, 'd') FROM Notification WHERE UserName = @Username AND IsReceived = 'N'";
             select.Connection = connection;
             select.Parameters.AddWithValue("@Username", signedInUser.getUserName());
             connection.Open();

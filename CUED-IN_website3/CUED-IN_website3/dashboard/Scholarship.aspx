@@ -67,7 +67,7 @@
             <asp:Label ID="Label6" runat="server" Text="Award Amount"></asp:Label>
             <asp:TextBox class="form-control" ID="txtAmount" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Field Required" ControlToValidate="txtAmount" Display="Dynamic" BackColor="Red"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="regexAmount" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtAmount" ErrorMessage="Invalid Amount" ForeColor="Red"></asp:RegularExpressionValidator>
+            <asp:CompareValidator ID="CompareValidator1" ForeColor ="red" runat="server" ErrorMessage="Must enter a number" ControlToValidate="txtAmount" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             <br />
             <br />
             <asp:Button class="btn btn-dark" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
