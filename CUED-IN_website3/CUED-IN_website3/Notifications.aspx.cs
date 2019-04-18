@@ -12,6 +12,7 @@ public partial class Notifications : System.Web.UI.Page
     OrganizationUser signedInUser;
     protected void Page_Load(object sender, EventArgs e)
     {
+   
         signedInUser = (OrganizationUser)Session["User"];
         populateGrdNotification();
     }
@@ -22,7 +23,7 @@ public partial class Notifications : System.Web.UI.Page
         {
             SqlCommand select = new SqlCommand();
             if (chkShowOpened.Checked)
-                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username";
+                select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, format(SendDate, 'd') as 'Date Sent' FROM Notification WHERE UserName = @Username";
             else
                 select.CommandText = "SELECT NotificationID as 'Number',Header, IsReceived as Opened, SendDate as 'Date Sent' FROM Notification WHERE UserName = @Username AND IsReceived = 'N'";
             select.Connection = connection;
@@ -36,6 +37,7 @@ public partial class Notifications : System.Web.UI.Page
         }
 
     }
+
     protected void grdNotifications_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
         string messageContent = "";
@@ -49,7 +51,7 @@ public partial class Notifications : System.Web.UI.Page
             connection.Open();
             update.ExecuteNonQuery();
 
-            
+
 
             SqlCommand select = new SqlCommand();
             select.CommandText = "SELECT Content From Notification WHERE Username = @Username";
@@ -57,7 +59,7 @@ public partial class Notifications : System.Web.UI.Page
             select.Parameters.AddWithValue("@Username", signedInUser.getUserName());
             select.ExecuteNonQuery();
             SqlDataReader cursor = select.ExecuteReader();
-            while(cursor.Read())
+            while (cursor.Read())
             {
                 messageContent = cursor[0].ToString();
             }
@@ -75,6 +77,13 @@ public partial class Notifications : System.Web.UI.Page
         SqlConnection dbConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["connection"].ConnectionString);
 
         return dbConnect;
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Remove("User");
+        Response.Redirect("../Login.aspx");
+
+
     }
 
     protected void chkShowOpened_CheckedChanged(object sender, EventArgs e)
