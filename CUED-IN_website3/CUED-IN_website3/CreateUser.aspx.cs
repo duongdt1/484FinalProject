@@ -53,7 +53,7 @@ public partial class CreateUser : System.Web.UI.Page
                     if (rbExisting.Checked)
                     {
                         reader.Close();
-                        findPass.CommandText = "INSERT INTO organizationuser VALUES(@username2, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode, @organizationID)";
+                        findPass.CommandText = "INSERT INTO organizationuser VALUES(@username2, @password, @emailaddress,@lastUpdated, @lastUpdatedBy, @passcode,@Notifications, @organizationID)";
                         findPass.Parameters.Add(new SqlParameter("@username2", HttpUtility.HtmlEncode(txtUserName.Text)));
                         findPass.Parameters.Add(new SqlParameter("@password", PasswordHash.HashPassword(txtPassword.Text)));
                         findPass.Parameters.Add(new SqlParameter("@emailaddress", HttpUtility.HtmlEncode(txtEmail.Text)));
@@ -61,6 +61,7 @@ public partial class CreateUser : System.Web.UI.Page
                         findPass.Parameters.Add(new SqlParameter("@lastUpdatedBy", "ACME_GROUP"));
                         findPass.Parameters.Add(new SqlParameter("@passcode", 12345));
                         findPass.Parameters.Add(new SqlParameter("@organizationID", ddlOrg.SelectedItem.Value));
+                        findPass.Parameters.Add(new SqlParameter("@Notifications", "Enabled"));
 
 
                         findPass.ExecuteNonQuery();
