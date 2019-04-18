@@ -27,8 +27,8 @@ public partial class Job: System.Web.UI.Page
 
                 SqlCommand select = new SqlCommand();
                 select.Connection = connection;
-                select.CommandText = "SELECT JobID as 'Job Number', JobTitle as 'Title', Pay, PayType, MinimumAge as 'Minimum Age', " +
-                    "JobType as 'Job Type', JobDescription as 'Description', Deadline, careercluster as 'Career Cluster' FROM Job WHERE OrganizationID = @BusinessID";
+                select.CommandText = "SELECT JobID as 'Job Number', JobTitle as 'Title',  format(pay,'C') as 'Pay', PayType, MinimumAge as 'Minimum Age', " +
+                    "JobType as 'Job Type', JobDescription as 'Description', format(Deadline,'d') as 'Deadline', careercluster as 'Career Cluster' FROM Job WHERE OrganizationID = @BusinessID";
                 select.Parameters.AddWithValue("@BusinessID", orgID);
                 SqlDataReader cursor = select.ExecuteReader();
 
