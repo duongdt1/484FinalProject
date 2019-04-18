@@ -40,6 +40,7 @@
                 <asp:Label ID="lblOrgPhoneNumber" runat="server" Text="lblOrgPhoneNumber"></asp:Label>
                 <br />
                 <asp:TextBox ID="txtOrgPhone" runat="server" Visible="False"></asp:TextBox>
+                <br />
             </asp:Panel>
         </div>
         <asp:Panel ID="Panel2" runat="server">
@@ -62,10 +63,15 @@
             <br />
             <asp:TextBox ID="txtPassConfirm" runat="server" Visible="False"></asp:TextBox>
             <br />
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="txtPass" ControlToValidate="txtPassConfirm" ErrorMessage="Passwords do not match"></asp:CompareValidator>
+            <br />
+            <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" Visible="False" />
+            <asp:Button ID="btnCancel" runat="server" OnClick="btnCancel_Click" Text="Cancel" Visible="False" />
+            <br />
             <br />
             <asp:Label ID="Label10" runat="server" Text="Notifications"></asp:Label>
             <br />
-            <asp:RadioButtonList ID="radNotifications" runat="server">
+            <asp:RadioButtonList ID="radNotifications" runat="server" OnSelectedIndexChanged="radNotifications_SelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem>Enabled</asp:ListItem>
                 <asp:ListItem>Disabled</asp:ListItem>
             </asp:RadioButtonList>
