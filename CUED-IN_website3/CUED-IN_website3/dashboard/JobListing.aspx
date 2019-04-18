@@ -106,14 +106,22 @@
 
             <p>
                 <asp:RadioButtonList ID="RadioButtonList1" runat="server" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" AutoPostBack ="True">
-                    <asp:ListItem Selected="True">&nbsp;Quick Apply</asp:ListItem>
+                    <asp:ListItem>&nbsp;Quick Apply</asp:ListItem>
                     <asp:ListItem>&nbsp;External URL</asp:ListItem>
                 </asp:RadioButtonList>
+            </p>
+                                    
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="RadioButtonList1" Display="Dynamic" ErrorMessage="Please make a selection" ForeColor="Red"></asp:RequiredFieldValidator>
+            <br />
+                                    
             <asp:Label ID="Label8" runat="server" Text="Quick Apply: allow your applicants to apply with one click"></asp:Label>
+            
+            
+                <br />                    
             
             <asp:Label ID="Label14" runat="server" Text="External URL: Have applicants apply on your website"></asp:Label>
             <br />
-            </p>
+            
 
             <asp:Label ID="Label11" runat="server" Text="What information do you need from each applicant?" Visible="False"></asp:Label>
             <br />
