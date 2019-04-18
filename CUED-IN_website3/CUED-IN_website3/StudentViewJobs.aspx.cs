@@ -85,7 +85,7 @@ public partial class StudentViewJobs : System.Web.UI.Page
             cursor.Close();
             SqlCommand getRecipients = new SqlCommand();
             getRecipients.Connection = connection;
-            getRecipients.CommandText = "SELECT EmailAddress FROM OrganizationUser WHERE OrganizationID = (SELECT OrganizationID FROM Job WHERE JobID = @JobID)";
+            getRecipients.CommandText = "SELECT EmailAddress FROM OrganizationUser WHERE Notifications = 'Enabled' AND OrganizationID = (SELECT OrganizationID FROM Job WHERE JobID = @JobID)";
             getRecipients.Parameters.AddWithValue("@JobID", jobID);
             cursor = getRecipients.ExecuteReader();
             while (cursor.Read())
