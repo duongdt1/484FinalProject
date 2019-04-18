@@ -4,14 +4,13 @@ exec('create database ' + @newdb)
 ALTER DATABASE [CuedInDB] SET AUTO_CLOSE OFF;
 GO
 
+USE [CuedInDB]
+GO
 CREATE PROCEDURE createDB
 
 AS
 DECLARE @triggerNewApplicationNotification varchar(MAX);
 DECLARE @triggerAhmeddeadline varchar(MAX);
-
-
-
 
 
 CREATE TABLE [CuedInDB].[dbo].[School](
@@ -312,9 +311,7 @@ INSERT INTO [CuedInDB].[dbo].[StudentAttributes] VALUES('Counselor Email');
 -- =============================================
 
 SET @triggerNewApplicationNotification =
-'USE [CuedInDB]
-GO
-CREATE TRIGGER newApplicationNotification
+'CREATE TRIGGER newApplicationNotification
    ON  [CuedInDB].[dbo].[Application] 
    AFTER INSERT
 AS 
@@ -357,9 +354,7 @@ END;
 END'
 
 SET @triggerAhmeddeadline =
-'USE [CuedInDB]
-GO
-CREATE TRIGGER [ahmeddeadline] ON [CuedInDB].[dbo].[Job]
+'CREATE TRIGGER [ahmeddeadline] ON [CuedInDB].[dbo].[Job]
 After UPDATE 
 AS
 IF
@@ -447,8 +442,4 @@ INSERT [CuedInDB].[dbo].[Notification] ([Header], [Content], [IsReceived], [Send
 GO
 
 --EXEC createDB
-
-
-
-
 
