@@ -54,7 +54,7 @@
                 <label>Phone Number</label>
                 <asp:TextBox runat="server" class="form-control" id="txtPhone" aria-describedby="emailHelp" placeholder="Phone Number" Width="313px" TextMode="Phone"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Field Required" ForeColor="Red"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="regexPhone" runat="server" ValidationExpression="^01[0-2][0-9]{8}$" ControlToValidate="txtPhone" ErrorMessage="Invalid Phone" ForeColor="Red"></asp:RegularExpressionValidator>
+                <asp:CompareValidator ID="Comp" Type="Integer" Operator="DataTypeCheck" runat="server" ControlToValidate="txtPhone" ErrorMessage="Invalid Number" ForeColor="Red"></asp:CompareValidator>
             </div>
 
           
