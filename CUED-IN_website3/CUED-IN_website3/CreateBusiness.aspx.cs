@@ -14,6 +14,15 @@ public partial class CreateBusiness : System.Web.UI.Page
     {
         Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
         Response.Cache.SetNoStore();
+        string strPreviousPage = "";
+        if (Request.UrlReferrer != null)
+        {
+            strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+        }
+        if (strPreviousPage == "")
+        {
+            Response.Redirect("../Login.aspx");
+        }
         List<String> careerClusterList = new List<string>();
 
         if (!IsPostBack)
